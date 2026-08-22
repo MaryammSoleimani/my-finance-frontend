@@ -1,0 +1,37 @@
+<div class="dashboard-wrapper">
+  <app-account-summary 
+    [netWorth]="netWorth" 
+    [totalAssets]="totalAssets" 
+    [totalLiabilities]="totalLiabilities">
+  </app-account-summary>
+
+  <div class="main-content">
+    <div class="side-panel">
+      <div class="side-header">
+        <h3 style="color: white; margin: 0; font-size: 18px;">Accounts</h3>
+        <button class="add-account-btn" (click)="showAddAccount = true">
+          + Add
+        </button>
+      </div>
+      <app-account-list [assets]="assets"
+       [liabilities]="liabilities"
+       (deleteAccount)="deleteAccount($event)"></app-account-list>
+    </div>
+
+    <div class="chart-panel">
+      <div class="chart-filters">
+        <button *ngFor="let p of periods" 
+                (click)="setPeriod(p.value)" 
+                [class.active]="currentPeriod === p.value">
+          {{ p.label }}
+        </button>
+      </div>
+
+      <app-account-chart 
+          *ngIf="chartData && chartData.series && chartData.series.length > 0" 
+          [data]="chartData">
+      </app-account-chart>
+    </div>
+    <app-add-account *ngIf="showAddAccount" (close)="showAddAccount = false" (refresh)="loadAccountData()"></app-add-account>
+  </div>
+</div>

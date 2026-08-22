@@ -1,0 +1,195 @@
+.account-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  width: 490px;
+  color: rgb(250, 250, 250);
+  font-family: Inter, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin-left: 55px;
+  
+}
+
+table{
+    border-radius: 8px;
+}
+
+.table-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  width: 100%;
+  
+}
+
+.section-header p {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0;
+  
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid rgb(39, 39, 42);
+  border-radius: 8px;
+  padding: 10px;
+  
+}
+
+.custom-table th {
+  color: rgb(161, 161, 170);
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 1px solid rgb(39, 39, 42);
+  background-color: #18181b;
+}
+
+.custom-table td {
+  padding: 12px 0;
+  font-size: 16px;
+  border-bottom: 1px solid rgb(39, 39, 42);
+  padding: 10px;
+}
+
+.col-name {
+  text-align: left;
+  width: 45%;
+}
+
+.col-type {
+  text-align: left;
+  width: 25%;
+}
+
+.col-balance {
+  text-align: left;
+  width: 30%;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badge.account {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: rgb(16, 185, 129);
+}
+
+.badge.card {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: rgb(239, 68, 68);
+}
+
+.badge.investment {
+  background-color: rgba(139, 92, 246, 0.1);
+  color: rgb(139, 92, 246);
+}
+
+
+.col-action {
+  width: 40px;
+  text-align: center;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #ff4d4d;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0; 
+  transition: all 0.2s;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #27272a; 
+}
+
+.custom-table tbody tr:hover .delete-btn {
+  opacity: 1; 
+}
+
+.delete-btn:hover {
+  background-color: rgba(255, 77, 77, 0.1);
+  transform: scale(1.1);
+}
+
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.confirm-box {
+  background: #1c1b22;
+  border: 1px solid #30363d;
+  padding: 25px;
+  border-radius: 12px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.confirm-box h3 {
+  color: #fff;
+  margin-top: 0;
+}
+
+.confirm-box p {
+  color: #a1a1aa;
+  margin-bottom: 25px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.cancel-btn, .confirm-delete-btn {
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.cancel-btn {
+  background: #27272a;
+  color: #fff;
+}
+
+.confirm-delete-btn {
+  background: #ef4444;
+  color: #fff;
+}
+
+.cancel-btn:hover, .confirm-delete-btn:hover {
+  opacity: 0.8;
+}

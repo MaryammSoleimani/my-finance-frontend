@@ -1,0 +1,77 @@
+<div class="table-container">
+  <div class="toolbar">
+    <div class="search-group">
+      <input type="text" placeholder="Search Transactions" class="search-input">
+      <button class="search-btn">Search</button>
+    </div>
+    <button class="add-transaction-btn" (click)="showAddModal = true" >
+      <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="M5 12h14m-7-7v14"></path></svg>
+      Add Transaction
+    </button>
+  </div>
+
+  <table class="main-table">
+    <thead>
+      <tr>
+        <th style="width: 50px;"></th>
+        <th>CATEGORY</th>
+        <th></th>
+        <th class="text-right">EXPENSE</th>
+        <th class="text-right">DEPOSIT</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let group of groups">
+      <tr class="group-row" (click)="toggleRow(group.category__name)">
+        <td class="text-center">
+  <svg 
+    class="chevron" 
+    [class.rotated]="expandedRows.has(group.category__name)" 
+    stroke="currentColor" 
+    fill="currentColor" 
+    stroke-width="0" 
+    viewBox="0 0 320 512" 
+    height="1em" 
+    width="1em">
+    <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+  </svg>
+</td>
+        <td class="cat-name">{{ group.category__name }}</td>
+        <td></td>
+        <td class="text-right">${{ (group.total_expense || 0) | number:'1.2-2' }}</td>
+        <td class="text-right">${{ (group.total_deposit || 0) | number:'1.2-2' }}</td>
+      </tr>
+
+      <tr *ngIf="expandedRows.has(group.category__name)" class="details-row">
+        <td colspan="5">
+          <table class="inner-table">
+            <thead>
+              <tr>
+                <th>DESC.</th>
+                <th>ACCOUNT</th>
+                <th>DATE</th>
+                <th>AMOUNT</th>
+                <th>KIND</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of group.items">
+                <td>{{ item.desc }}</td>
+                <td>{{ item.account }}</td>
+                <td>{{ item.date }}</td>
+                <td class="font-bold">${{ item.amount | number:'1.2-2' }}</td>
+                <td>{{ item.kind }}</td>
+                <td><button class="menu-btn">···</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-add-new-transaction 
+  *ngIf="showAddModal" 
+  (close)="showAddModal = false"
+  (saved)="onTransactionSaved()"> </app-add-new-transaction>

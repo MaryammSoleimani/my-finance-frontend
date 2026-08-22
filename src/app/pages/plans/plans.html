@@ -1,0 +1,33 @@
+<div class="plans-wrapper">
+  <header class="page-header">
+    <div class="breadcrumb">
+      <span>Current Plan</span>
+    </div>
+    <div class="title-row">
+      <h1><span id="username">{{username}}</span>'s Financial Plan</h1>
+      <div class="header-actions">
+        <button class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20">
+            <path d="M12 5v14M5 12h14"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="plans-grid">
+    <div class="grid-column">
+      <app-assets></app-assets>
+    </div>
+
+    <div class="grid-column">
+        <app-cash-flow></app-cash-flow>
+    </div>
+
+    <div class="grid-column">
+      <div class="placeholder-card">
+        <p>Events Section (Coming Soon)</p>
+      </div>
+    </div>
+  </main>
+</div>

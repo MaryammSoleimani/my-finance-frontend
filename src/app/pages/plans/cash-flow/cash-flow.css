@@ -1,0 +1,75 @@
+.assets-card {
+  background: #15141b;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  padding: 24px;
+  height: 100%;
+}
+
+.card-header { display: flex; align-items: center; margin-bottom: 24px; }
+.header-content { display: flex; align-items: center; }
+
+.icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+.text-group h3 { margin: 0; font-size: 1.1rem; color: white; }
+.text-group p { margin: 0; font-size: 0.8rem; color: #71717a; }
+
+.assets-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+
+.asset-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.asset-info .name { display: block; color: white; font-weight: 500; }
+.asset-info .type { font-size: 0.75rem; color: #71717a; }
+.amount-row { margin-top: 4px; }
+.price { font-weight: 600; }
+
+.delete-btn {
+  background: none; border: none; color: #52525b; cursor: pointer; padding: 4px;
+}
+.delete-btn:hover { color: #ef4444; }
+
+.add-button {
+  width: 100%; padding: 12px; background: transparent; border: 1px dashed #27272a;
+  color: #a1a1aa; border-radius: 8px; cursor: pointer;
+}
+.add-button:hover { background: rgba(255, 255, 255, 0.03); color: white; }
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7);
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+.modal-content {
+  background: #1c1b22; padding: 24px; border-radius: 12px; width: 100%; max-width: 400px;
+}
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; margin-bottom: 8px; color: #a1a1aa; }
+.form-group input, .form-group select {
+  width: 100%; padding: 10px; background: #15141b; border: 1px solid #27272a;
+  color: white; border-radius: 6px;
+}
+.modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+.btn-cancel { background: none; border: none; color: #a1a1aa; cursor: pointer; }
+.btn-save { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+
+
+.edit-btn {
+  background: none; border: none; color: #52525b; cursor: pointer; padding: 4px;
+}
+.edit-btn:hover { color: #3b82f6; }

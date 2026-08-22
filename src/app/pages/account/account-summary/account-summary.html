@@ -1,0 +1,18 @@
+<div class="summary-container">
+  
+  <dl class="stat-box">
+    <dt class="stat-label">Net Worth</dt>
+    <dd class="stat-value">${{ netWorth >= 1000 ? (netWorth/1000 | number:'1.0-1') + 'k' : (netWorth | number) }}</dd>
+  </dl>
+
+  <dl class="stat-box">
+    <dt class="stat-label">Assets</dt>
+    <dd class="stat-value">${{ totalAssets >= 1000 ? (totalAssets/1000 | number:'1.0-1') + 'k' : (totalAssets | number) }}</dd>
+  </dl>
+
+  <dl class="stat-box">
+    <dt class="stat-label">Liabilities</dt>
+    <dd class="stat-value">${{ totalLiabilities >= 1000 ? (totalLiabilities/1000 | number:'1.0-1') + 'k' : (totalLiabilities | number) }}</dd>
+  </dl>
+
+</div>

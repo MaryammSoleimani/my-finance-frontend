@@ -1,0 +1,78 @@
+.dashboard-wrapper {
+  background-color: #1c1b22;
+  min-height: 100vh;
+  padding: 30px;
+}
+
+.main-content {
+  display: flex; 
+  gap: 30px;    
+  margin-top: 30px;
+}
+
+.side-panel {
+  flex: 1;       
+  min-width: 350px;
+}
+
+.chart-panel {
+  flex: 2;      
+  background: #1c1b22;
+  border: 0px solid #30363d;
+  border-radius: 12px;
+  padding: 20px;
+  margin-left: 50px;
+}
+
+.chart-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+  justify-content: flex-end;
+}
+
+.chart-filters button {
+  background: #1c1b22;
+  border: 1px solid #27272a;
+  color: #a1a1aa;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chart-filters button:hover {
+  border-color: #52525b;
+  color: white;
+}
+
+.chart-filters button.active {
+  background: white;
+  color: black;
+  border-color: white;
+}
+
+
+.side-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-account-btn {
+  background: white;
+  color: black;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.add-account-btn:hover {
+  opacity: 0.9;
+}

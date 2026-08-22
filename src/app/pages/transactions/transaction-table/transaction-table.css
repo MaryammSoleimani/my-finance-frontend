@@ -1,0 +1,118 @@
+/* کانتینر اصلی - اضافه کردن بوردر دور کل باکس */
+.table-container {
+  background-color: #1c1b22;
+  color: #fafafa;
+  padding: 0px;
+  border-radius: 8px;
+  /* اضافه شدن بوردر دور کل کانتینر */
+  border: 1px solid rgb(39, 39, 42) !important;
+  margin: 20px;
+}
+
+/* نوار ابزار بالا */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0px;
+  padding: 12px;
+  background-color: #18181b;
+  border-radius: 0px;
+  /* بوردر دور نوار ابزار */
+  border-bottom: 1px solid rgb(39, 39, 42) !important;
+}
+
+/* گروه جستجو */
+.search-group {
+  display: flex;
+  background: #18181b;
+  border-radius: 4px;
+  /* بوردر دور اینپوت */
+  border: 1px solid rgb(39, 39, 42) !important;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  outline: none;
+}
+
+/* استایل جدول */
+.main-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* بوردر زیر هدرهای جدول */
+/* بوردر زیر هدرهای جدول و رنگ پس‌زمینه هدر (Category Line) */
+.main-table thead th {
+  text-align: left;
+  color: #a1a1aa;
+  padding: 12px 16px;
+  background-color: #18181b !important; /* رنگ درخواستی شما برای ردیف هدر */
+  border-bottom: 1px solid rgb(39, 39, 42) !important;
+}
+
+/* سطرهای اصلی */
+.group-row {
+  background-color: #1c1b22;
+  cursor: pointer;
+  /* بوردر زیر هر سطر */
+  border-bottom: 1px solid rgb(39, 39, 42) !important;
+  transition: background 0.2s;
+}
+
+/* بوردرهای عمودی اگر نیاز داری (اختیاری) */
+.group-row td {
+  padding: 16px;
+  /* اگر می‌خواهی بین ستون‌ها هم خط باشد، این را فعال کن: */
+  /* border-right: 1px solid rgb(39, 39, 42) !important; */
+}
+
+/* جدول داخلی (تراکنش‌ها) */
+.inner-table td {
+  padding: 12px 16px;
+  /* بوردر ظریف زیر تراکنش‌های داخلی */
+  border-bottom: 1px solid rgb(39, 39, 42) !important;
+  color: #e4e4e7;
+}
+
+/* حذف بوردر آخرین ردیف برای تمیزی */
+.inner-table tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* استایل دکمه افزودن تراکنش - دقیقا مطابق دمو */
+.add-transaction-btn {
+  background-color: #18181b !important; /* پس‌زمینه سفید */
+  color: white !important;            /* متن مشکی */
+  border: 1px solid rgb(39, 39, 42);
+  padding: 8px 16px !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: background-color 0.2s, opacity 0.2s !important;
+}
+
+/* حالت هاور دکمه */
+.add-transaction-btn:hover {
+  background-color: rgba(244, 244, 245, 0.108) !important; /* کمی خاکستری روشن در هاور */
+  opacity: 0.9 !important;
+}
+
+/* اگر دکمه‌ای داخل جدول (مثل دکمه‌های ویرایش) داری */
+button:not(.add-transaction-btn) {
+  background: transparent;
+  color: #fafafa;
+  border: 0px solid rgb(39, 39, 42);
+  border-left : 1px solid rgb(39, 39, 42);
+  padding: 4px 8px;
+  border-radius: 0px;
+  cursor: pointer;
+  font-weight: bold;
+}

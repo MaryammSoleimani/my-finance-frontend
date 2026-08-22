@@ -1,0 +1,42 @@
+<div class="modal-backdrop">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>New Account</h2>
+      <button (click)="close.emit()">×</button>
+    </div>
+
+    <div class="input-group">
+      <label>Account Name</label>
+      <input type="text" [(ngModel)]="name" placeholder="e.g. Wallet, Bank...">
+    </div>
+
+    <div class="input-group">
+      <label>Initial Balance</label>
+      <input type="number" [(ngModel)]="balance" placeholder="0.00">
+    </div>
+
+    <div class="input-group">
+      <label>Color</label>
+      <input type="color" [(ngModel)]="color" style="height: 45px; padding: 5px;">
+    </div>
+
+    <div class="input-group">
+      <label>Account Type</label>
+      <select [(ngModel)]="type" class="form-control">
+          <option *ngFor="let t of accountTypes" [value]="t.value">
+          {{ t.label }}
+          </option>
+      </select>
+    </div>
+
+    <div class="input-group checkbox-group">
+      <input type="checkbox" [(ngModel)]="is_debt" id="is_debt">
+      <label for="is_debt">This is a Debt/Liability</label>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="close.emit()">Cancel</button>
+      <button class="btn-save" (click)="save()">Create Account</button>
+    </div>
+  </div>
+</div>

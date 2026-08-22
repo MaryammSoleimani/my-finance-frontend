@@ -1,0 +1,76 @@
+<div class="modal-backdrop">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>New Transaction</h2>
+      <button (click)="close.emit()">×</button>
+    </div>
+
+    <div class="form-grid">
+      <div class="input-group">
+        <label>Transaction Date</label>
+        <div class="datepicker-wrapper">
+          <input 
+            type="date" 
+            [(ngModel)]="newData.date" 
+            (ngModelChange)="errorMessage = ''"
+            name="date"
+            class="custom-datepicker">
+          <svg class="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Amount</label>
+        <input type="number" [(ngModel)]="newData.amount" (ngModelChange)="errorMessage = ''" placeholder="0.00">
+      </div>
+
+      <div class="input-group full-width">
+        <label>Description</label>
+        <input type="text" [(ngModel)]="newData.desc" (ngModelChange)="errorMessage = ''" placeholder="Details...">
+      </div>
+
+      <div class="input-group">
+        <label>Account</label>
+        <select [(ngModel)]="newData.account" (change)="errorMessage = ''">
+          <option [ngValue]="null" disabled>Select Account</option>
+          <option *ngFor="let acc of accounts" [value]="acc.id">{{ acc.name }}</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Category</label>
+        <select [(ngModel)]="newData.category" (change)="errorMessage = ''">
+          <option [ngValue]="null" disabled>Select Category</option>
+          <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Kind</label>
+        <select [(ngModel)]="newData.kind" (change)="errorMessage = ''">
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
+        </select>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span>{{ errorMessage }}</span>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="close.emit()">Cancel</button>
+      <button class="btn-save" (click)="save()">Create</button>
+    </div>
+  </div>
+</div>

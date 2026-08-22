@@ -1,0 +1,37 @@
+<div class="home-container">
+  <header class="welcome-section">
+    <h1>Welcome back, <span>{{ username }}</span>!</h1>
+    <p>Everything looks good. Here’s what’s happening with your accounts today.</p>
+    <button routerLink="/accounts" class="btn-primary">Go to Accounts</button>
+  </header>
+
+  <main class="dashboard-grid">
+    <div class="card latest-transactions">
+      <div class="card-header">
+        <h2>Latest Transactions</h2>
+        <button class="btn-text">View All</button>
+      </div>
+
+      <div class="transaction-list">
+        <div *ngFor="let t of latestTransactions" class="tr-item">
+          <div class="tr-left">
+            <div class="tr-icon" [style.background-color]="t.kind === 'income' ? '#10b98122' : '#ef444422'">
+              {{ t.kind === 'income' ? '💰' : '🛒' }}
+            </div>
+            <div class="tr-details">
+              <p class="tr-title">{{ t.description || 'Transaction' }}</p>
+              <p class="tr-subtitle">{{ t.date | date:'MMM d' }} • {{ t.account_name }}</p>
+            </div>
+          </div>
+          <div class="tr-amount" [ngClass]="t.kind">
+            {{ t.kind === 'expense' ? '-' : '+' }}{{ t.amount | number:'1.2-2' }}$
+          </div>
+        </div>
+
+        <div *ngIf="latestTransactions.length === 0" class="empty-state">
+          No recent activity found.
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,80 @@
+.chakra-segment-group__root {
+  display: flex;
+  background-color: #17171a;
+  padding: 4px;
+  border-radius: 12px;
+  position: relative;
+  margin-bottom: 30px;
+  margin-left: 155px;
+}
+
+.chakra-segment-group__indicator {
+  position: absolute;
+  height: calc(100% - 8px);
+  top: 4px;
+  background-color: #27272a;
+  border-radius: 8px;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.segment-item {
+  position: relative;
+  cursor: pointer;
+  padding: 8px 16px;
+  z-index: 1;
+  transition: color 0.2s;
+}
+
+.chakra-stack {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #a0a0a0; /* رنگ متن در حالت غیرفعال */
+}
+
+.active-item .chakra-stack {
+  color: #ffffff; /* رنگ متن در حالت فعال */
+}
+
+.chakra-stack p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.logout-item{
+  background-color: #1c1b22;
+  border-color: #1c1b22;
+  /* position: absolute;
+  right: 20px; */
+  margin-left: 100px;
+  cursor: pointer;
+  margin-right: 0px;
+  border: 2px solid rgb(39, 39, 42);
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.logout-item:hover{
+  background-color: #d00000;
+  border: 2px solid #d00000;
+  
+}
+
+.logout-item p {
+  color: #ef4444 !important;
+  font-weight: 600;
+}
+.logout-item:hover p{
+  color: white !important;
+}
+
+.nav-relative-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}

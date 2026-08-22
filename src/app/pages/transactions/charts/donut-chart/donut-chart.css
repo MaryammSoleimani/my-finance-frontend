@@ -1,0 +1,8 @@
+:host { 
+    display: block !important; /* تبدیل تگ کاستوم به یک بلوک واقعی */
+    width: 100% !important;
+  }
+  .chart-card {
+    width: 100%;
+    overflow: hidden;
+  }

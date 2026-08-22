@@ -1,0 +1,40 @@
+<div class="transactions-layout flex h-screen bg-[#0b0e11] text-white">
+  <div class="sidebar-wrapper h-full shadow-xl">
+    <div class="sidebar-wrapper h-full shadow-xl">
+  <app-transaction-sidebar 
+  (filterChanged)="onFilterUpdate($event)"
+  (categoryChanged)="onCategoryFilter($event)"> 
+</app-transaction-sidebar>
+</div>
+  </div>
+
+  <main class="content-wrapper flex-1 h-full overflow-y-auto p-8 custom-scrollbar">
+    <div class="charts-main-container">
+      
+      <div class="donut-card" >
+        <h3 class="chart-header">Categories</h3>
+        <app-donut-chart [series]="chartData" [labels]="chartLabels" [colors]="chartColors"></app-donut-chart>
+      </div>
+
+      <div class="bar-card">
+        <h3 class="chart-header">Weekly Spending</h3>
+        <app-bar-chart 
+          [data]="barData" 
+          [categories]="barLabels" 
+          [colors]="chartColors">
+        </app-bar-chart>
+      </div>
+
+    </div>
+
+    <div class="table-section mt-4">
+      <app-transaction-table 
+        [groups]="groupedTransactions"
+        [grandTotalExpense]="totalExpense"
+        [grandTotalDeposit]="totalDeposit"
+        (refreshData)="onFilterUpdate(activeView)">
+      </app-transaction-table>
+    </div>
+
+  </main>
+</div>
