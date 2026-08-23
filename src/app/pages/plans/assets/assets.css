@@ -6,89 +6,111 @@
   color: white;
 }
 
-.header-content { display: flex; gap: 12px; margin-bottom: 24px; }
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+}
 
 .icon-wrapper {
-  width: 42px; height: 42px;
-  background: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
 }
 
-.icon-wrapper svg { width: 22px; height: 22px; }
-.text-group h3 { margin: 0; font-size: 1.1rem; font-weight: 600; }
-.text-group p { margin: 4px 0 0; color: #a1a1aa; font-size: 0.85rem; }
+.text-group h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.text-group p {
+  margin: 4px 0 0;
+  color: #a1a1aa;
+  font-size: 0.85rem;
+}
+
+.assets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
 
 .asset-row {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  padding: 16px 0;
-  border-bottom: 1px solid #27272a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.asset-info { display: flex; flex-direction: column; gap: 2px; }
-.name { font-weight: 500; font-size: 1rem; }
-.type { color: #71717a; font-size: 0.8rem; text-transform: capitalize; }
-.amount-row { display: flex; align-items: baseline; gap: 10px; margin-top: 4px; }
-.price { font-size: 1.15rem; font-weight: 700; }
-.growth { color: #10b981; font-size: 0.8rem; font-weight: 500; }
-
-.delete-btn {
-  background: transparent; border: none; color: #52525b;
-  cursor: pointer; padding: 4px; border-radius: 4px;
-}
-.delete-btn:hover { color: #ef4444; background: rgba(239, 68, 68, 0.05); }
-
-.add-button {
-  width: 100%; background: transparent;
-  border: 1px dashed #3f3f46; color: #a1a1aa;
-  padding: 12px; border-radius: 8px; margin-top: 16px;
-  cursor: pointer; font-size: 0.9rem; transition: 0.2s;
-}
-.add-button:hover { border-color: #71717a; color: white; background: rgba(255, 255, 255, 0.02); }
-
-/* Modal Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 1000;
+.asset-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.modal-content {
-  background: #1c1b22;
-  border: 1px solid #27272a;
-  border-radius: 12px;
-  padding: 24px;
-  width: 350px;
+.name {
+  font-weight: 500;
+  font-size: 1rem;
 }
 
-.modal-content h4 { margin: 0 0 20px 0; font-size: 1.2rem; }
-
-.form-group { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
-
-.form-group label { font-size: 0.85rem; color: #a1a1aa; }
-
-.form-group input, .form-group select {
-  background: #0b0e11;
-  border: 1px solid #27272a;
-  border-radius: 6px;
-  padding: 10px;
-  color: white;
-  outline: none;
+.type {
+  color: #71717a;
+  font-size: 0.8rem;
+  text-transform: capitalize;
 }
 
-.modal-actions { display: flex; gap: 10px; margin-top: 20px; }
-
-.btn-cancel {
-  flex: 1; background: transparent; border: 1px solid #27272a;
-  color: white; padding: 10px; border-radius: 6px; cursor: pointer;
+.amount-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 4px;
 }
 
-.btn-save {
-  flex: 1; background: #3b82f6; border: none;
-  color: white; padding: 10px; border-radius: 6px; cursor: pointer;
+.price {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.growth {
+  color: #10b981;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn, .delete-btn {
+  background: none;
+  border: none;
+  color: #52525b;
+  cursor: pointer;
+  padding: 4px;
+  transition: all 0.2s;
+}
+
+.edit-btn:hover {
+  color: #3b82f6;
+}
+
+.delete-btn:hover {
+  color: #ef4444;
 }
 
 .import-btn {
@@ -112,142 +134,305 @@
   border-color: #3f3f46;
 }
 
-/* pop up */
-
-.modal-overlay {
-    background: rgba(10, 10, 15, 0.8);
-    backdrop-filter: blur(8px);
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
+.add-button {
+  width: 100%;
+  background: transparent;
+  border: 1px dashed #3f3f46;
+  color: #a1a1aa;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 16px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.2s;
 }
 
+.add-button:hover {
+  border-color: #71717a;
+  color: white;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #1c1b22;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-content h4 {
+  color: white;
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  color: #a1a1aa;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  background: #0b0e11;
+  border: 1px solid #27272a;
+  border-radius: 6px;
+  padding: 10px;
+  color: white;
+  outline: none;
+  font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #3b82f6;
+}
+
+.form-group small {
+  color: #71717a;
+  font-size: 0.75rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-cancel {
+  flex: 1;
+  background: transparent;
+  border: 1px solid #27272a;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-cancel:hover {
+  background: #27272a;
+}
+
+.btn-save {
+  flex: 1;
+  background: #3b82f6;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-save:hover {
+  background: #2563eb;
+}
+
+/* Import Modal Styles */
 .import-card {
-    background: #1a1a26;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    width: 100%;
-    max-width: 420px;
-    padding: 24px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  background: #1a1a26;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
 .import-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
 }
 
-.title-section h4 { color: white; margin: 0; font-size: 1.4rem; }
-.title-section p { color: #7e7e8f; margin: 4px 0 0; font-size: 0.85rem; }
+.title-section h4 {
+  color: white;
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.title-section p {
+  color: #7e7e8f;
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+}
 
 .close-x {
-    background: none; border: none; color: #7e7e8f; font-size: 24px; cursor: pointer;
+  background: none;
+  border: none;
+  color: #7e7e8f;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.close-x:hover {
+  color: white;
 }
 
 .selection-area {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 24px;
-    max-height: 280px;
-    overflow-y: auto;
-    padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
-/* هر سطر حساب */
 .acc-row {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 14px 18px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 14px 18px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.acc-row:hover { background: rgba(255, 255, 255, 0.07); }
+.acc-row:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
 .acc-row.selected {
-    background: rgba(62, 151, 255, 0.1);
-    border-color: #3e97ff;
+  background: rgba(62, 151, 255, 0.1);
+  border-color: #3e97ff;
 }
 
-.acc-name { display: block; color: #efeff2; font-weight: 500; }
-.acc-type { font-size: 0.75rem; color: #7e7e8f; text-transform: uppercase; }
-.acc-amount { color: #00d084; font-weight: 600; display: flex; align-items: center; gap: 12px; }
+.acc-name {
+  display: block;
+  color: #efeff2;
+  font-weight: 500;
+}
 
-/* چک‌باکس دایره‌ای شیک */
+.acc-type {
+  font-size: 0.75rem;
+  color: #7e7e8f;
+  text-transform: uppercase;
+}
+
+.acc-amount {
+  color: #00d084;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .custom-checkbox {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #323248;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #323248;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.selected .custom-checkbox { border-color: #3e97ff; }
-.inner-dot { width: 10px; height: 10px; background: #3e97ff; border-radius: 50%; }
 
-/* فوتر و دکمه‌ها */
-.import-footer { display: flex; align-items: center; justify-content: flex-end; gap: 15px; }
-.btn-cancel-link { background: none; border: none; color: #7e7e8f; cursor: pointer; }
+.selected .custom-checkbox {
+  border-color: #3e97ff;
+}
+
+.inner-dot {
+  width: 10px;
+  height: 10px;
+  background: #3e97ff;
+  border-radius: 50%;
+}
+
+.import-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.btn-cancel-link {
+  background: none;
+  border: none;
+  color: #7e7e8f;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-cancel-link:hover {
+  color: white;
+}
 
 .btn-confirm-import {
-    background: #3e97ff;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-    /* box-shadow: 0 4px 15px rgba(62, 151, 255, 0.3); */
+  background: #3e97ff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-confirm-import:hover {
+  background: #2563eb;
 }
 
 .btn-confirm-import:disabled {
-    background: #2b2b40; opacity: 0.5; cursor: not-allowed; box-shadow: none;
+  background: #2b2b40;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-
-/*scroll*/
+/* Scrollbar for selection area */
 .selection-area::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .selection-area::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
 }
 
 .selection-area::-webkit-scrollbar-thumb {
-    background: #323248; /* هماهنگ با رنگ حاشیه‌ها */
-    border-radius: 10px;
-    transition: background 0.3s;
+  background: #323248;
+  border-radius: 10px;
+  transition: background 0.3s;
 }
 
 .selection-area::-webkit-scrollbar-thumb:hover {
-    background: #3e97ff; /* هماهنگ با رنگ اصلی برند شما */
+  background: #3e97ff;
 }
-
-
-.action-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.edit-btn, .delete-btn {
-  background: none;
-  border: none;
-  color: #52525b;
-  cursor: pointer;
-  padding: 4px;
-  transition: all 0.2s;
-}
-
-.edit-btn:hover { color: #3b82f6; }
-.delete-btn:hover { color: #ef4444; }
