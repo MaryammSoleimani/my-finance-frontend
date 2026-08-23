@@ -1,10 +1,13 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+// account.ts
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { AccountSummary } from './account-summary/account-summary';
 import { AccountList } from './account-list/account-list';
 import { AccountChart } from './account-chart/account-chart';
 import { AccountService } from '../../services/account.service';
 import { CommonModule } from '@angular/common';
 import { AddAccount } from './add-account/add-account';
+import { AccountData } from './account.models';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-account',
@@ -15,15 +18,31 @@ import { AddAccount } from './add-account/add-account';
   styleUrl: './account.css',
 })
 export class Account implements OnInit {
+  private accountService = inject(AccountService);
+
+  // Signals
+  private assetsSignal = signal<AccountData[]>([]);
+  private liabilitiesSignal = signal<AccountData[]>([]);
+  private netWorthSignal = signal<number>(0);
+  private totalAssetsSignal = signal<number>(0);
+  private totalLiabilitiesSignal = signal<number>(0);
+  private chartDataSignal = signal<any>({ series: [], dates: [], colors: [] });
+  private loadingSignal = signal<boolean>(false);
+  private errorSignal = signal<string | null>(null);
+  private currentPeriodSignal = signal<string>('1m');
+
+  // Computed signals
+  readonly assets = computed(() => this.assetsSignal());
+  readonly liabilities = computed(() => this.liabilitiesSignal());
+  readonly netWorth = computed(() => this.netWorthSignal());
+  readonly totalAssets = computed(() => this.totalAssetsSignal());
+  readonly totalLiabilities = computed(() => this.totalLiabilitiesSignal());
+  readonly chartData = computed(() => this.chartDataSignal());
+  readonly loading = computed(() => this.loadingSignal());
+  readonly error = computed(() => this.errorSignal());
+  readonly currentPeriod = computed(() => this.currentPeriodSignal());
+
   showAddAccount = false;
-  assets: any[] = [];
-  liabilities: any[] = [];
-  netWorth: number = 0;
-  totalAssets: number = 0;
-  totalLiabilities: number = 0;
-  chartData: any = { series: [], dates: [], colors: [] };
-  loading = false;
-  currentPeriod: string = '1m'; 
   periods = [
     { label: '2W', value: '2w' },
     { label: '1M', value: '1m' },
@@ -32,57 +51,47 @@ export class Account implements OnInit {
     { label: 'ALL', value: 'all' }
   ];
 
-  constructor(
-    private accountService: AccountService,
-    private cdr: ChangeDetectorRef
-  ) {}
-
   ngOnInit() {
     this.loadAccountData();
   }
 
-  setPeriod(p: string) {
-    this.currentPeriod = p;
+  setPeriod(period: string) {
+    this.currentPeriodSignal.set(period);
     this.loadAccountData();
   }
 
-  loadAccountData(period: string = this.currentPeriod) {
-    this.currentPeriod = period;
+  loadAccountData(period?: string) {
+    const selectedPeriod = period || this.currentPeriodSignal();
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
 
-    this.accountService.getAccountSummary(period).subscribe({
-      next: (data) => {
+    this.accountService.getAccountSummary(selectedPeriod).pipe(
+      finalize(() => this.loadingSignal.set(false))
+    ).subscribe({
+      next: (data: any) => {
         if (!data) return;
 
-        const mapAccount = (acc: any) => ({
-          id: acc.id,
-          name: acc.name,
-          balance: acc.balance,
-          type: acc.type || 'account', 
-          is_debt: acc.is_debt,
-          color: acc.color
-        });
-
-        this.assets = (data.assets || []).map(mapAccount);
-        this.liabilities = (data.liabilities || []).map(mapAccount);
-        this.netWorth = data.net_worth || 0;
-        this.totalAssets = data.total_assets || 0;
-        this.totalLiabilities = data.total_liabilities || 0;
-
-        this.chartData = data.chart_data || { series: [], dates: [], colors: [] };
-
-        this.cdr.detectChanges();
+        this.assetsSignal.set(data.assets || []);
+        this.liabilitiesSignal.set(data.liabilities || []);
+        this.netWorthSignal.set(data.net_worth || 0);
+        this.totalAssetsSignal.set(data.total_assets || 0);
+        this.totalLiabilitiesSignal.set(data.total_liabilities || 0);
+        this.chartDataSignal.set(data.chart_data || { series: [], dates: [], colors: [] });
       },
-      error: (err) => console.error('Error fetching account data:', err)
+      error: (err: any) => {
+        console.error('Error fetching account data:', err);
+        this.errorSignal.set('Failed to load account data. Please try again.');
+      }
     });
   }
 
   deleteAccount(id: number) {
     this.accountService.deleteAccount(id).subscribe({
-      next: () => {
-        this.loadAccountData();
-      },
-      error: (err) => console.error('Delete failed:', err)
+      next: () => this.loadAccountData(),
+      error: (err: any) => {
+        console.error('Delete failed:', err);
+        this.errorSignal.set('Failed to delete account.');
+      }
     });
   }
-
 }

@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AccountData } from '../account.models';
 
 @Component({
   selector: 'app-account-list',
@@ -9,32 +10,39 @@ import { CommonModule } from '@angular/common';
   styleUrl: './account-list.css'
 })
 export class AccountList {
-  @Input() assets: any[] = [];
-  @Input() liabilities: any[] = [];
+  @Input() set assets(value: AccountData[]) {
+    this.assetsSignal.set(value || []);
+  }
+  @Input() set liabilities(value: AccountData[]) {
+    this.liabilitiesSignal.set(value || []);
+  }
   @Output() deleteAccount = new EventEmitter<number>();
 
-  isModalOpen = false;
-  accountToDelete: any = null;
+  private assetsSignal = signal<AccountData[]>([]);
+  private liabilitiesSignal = signal<AccountData[]>([]);
+  private modalOpenSignal = signal<boolean>(false);
+  private accountToDeleteSignal = signal<AccountData | null>(null);
 
-  onDelete(id: number) {
-    if (confirm('Are you sure you want to delete this account?')) {
-      this.deleteAccount.emit(id);
-    }
-  }
+  // تغییر نام computed ها
+  readonly displayedAssets = computed(() => this.assetsSignal());
+  readonly displayedLiabilities = computed(() => this.liabilitiesSignal());
+  readonly isModalOpen = computed(() => this.modalOpenSignal());
+  readonly accountToDelete = computed(() => this.accountToDeleteSignal());
 
-  openConfirm(account: any) {
-    this.accountToDelete = account;
-    this.isModalOpen = true;
+  openConfirm(account: AccountData) {
+    this.accountToDeleteSignal.set(account);
+    this.modalOpenSignal.set(true);
   }
 
   closeModal() {
-    this.isModalOpen = false;
-    this.accountToDelete = null;
+    this.modalOpenSignal.set(false);
+    this.accountToDeleteSignal.set(null);
   }
 
   confirmDeletion() {
-    if (this.accountToDelete) {
-      this.deleteAccount.emit(this.accountToDelete.id);
+    const account = this.accountToDeleteSignal();
+    if (account) {
+      this.deleteAccount.emit(account.id);
       this.closeModal();
     }
   }

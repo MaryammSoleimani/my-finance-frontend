@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+// add-account.ts
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-add-account',
-  standalone: true, 
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './add-account.html',
   styleUrl: './add-account.css',
@@ -26,7 +27,7 @@ export class AddAccount {
   @Output() close = new EventEmitter<void>();
   @Output() refresh = new EventEmitter<void>();
 
-  constructor(private accountService: AccountService) {}
+  private accountService = inject(AccountService);
 
   save() {
     const newAcc = {
@@ -39,8 +40,8 @@ export class AddAccount {
 
     this.accountService.createAccount(newAcc).subscribe({
       next: () => {
-        this.refresh.emit(); 
-        this.close.emit(); 
+        this.refresh.emit();
+        this.close.emit();
       },
       error: (err) => console.error('Error creating account:', err)
     });

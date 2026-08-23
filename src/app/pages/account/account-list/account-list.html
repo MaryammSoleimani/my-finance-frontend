@@ -1,3 +1,4 @@
+<!-- account-list.html -->
 <div class="account-container">
   <div class="table-wrapper">
     <div class="section-header"><p>Assets</p></div>
@@ -11,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let acc of assets">
+        <tr *ngFor="let acc of displayedAssets()">
           <td class="col-name">{{ acc.name }}</td>
           <td class="col-balance">{{ acc.balance | number:'1.2-2' }}$</td>
           <td class="col-type">
@@ -41,7 +42,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let acc of liabilities">
+        <tr *ngFor="let acc of displayedLiabilities()">
           <td class="col-name">{{ acc.name }}</td>
           <td class="col-balance">{{ acc.balance | number:'1.2-2' }}$</td>
           <td class="col-type">
@@ -57,16 +58,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-</div>
-
-<div class="modal-overlay" *ngIf="isModalOpen">
-  <div class="confirm-box">
-    <h3>Delete Account</h3>
-    <p>Are you sure you want to delete <strong>{{ accountToDelete?.name }}</strong>?</p>
-    <div class="modal-actions">
-      <button class="cancel-btn" (click)="closeModal()">Cancel</button>
-      <button class="confirm-delete-btn" (click)="confirmDeletion()">Delete</button>
-    </div>
   </div>
 </div>
