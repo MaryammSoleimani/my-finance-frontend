@@ -1,0 +1,22 @@
+<!-- src/app/pages/plans/simulation-summary/simulation-summary.html -->
+<div class="summary-grid">
+  <div class="summary-item">
+    <label>Final Total Assets</label>
+    <!-- بدون () -->
+    <span class="summary-value">${{ summary.final_total_assets | number:'1.2-2' }}</span>
+  </div>
+
+  <div class="summary-item">
+    <label>Final Liquid Assets</label>
+    <!-- بدون () -->
+    <span class="summary-value">${{ summary.final_liquid_assets | number:'1.2-2' }}</span>
+  </div>
+
+  <div class="summary-item">
+    <label>Plan Outcome</label>
+    <!-- بدون () -->
+    <span class="summary-value" [ngClass]="summary.plan_outcome">
+      {{ summary.plan_outcome === 'success' ? '✓ Success' : '✗ Failed' }}
+    </span>
+  </div>
+</div>

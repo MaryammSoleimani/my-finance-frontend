@@ -1,0 +1,61 @@
+.steps-card {
+  background: #15141b;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.steps-header {
+  margin-bottom: 16px;
+}
+
+.steps-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.steps-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.steps-table th {
+  color: #71717a;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #27272a;
+}
+
+.steps-table td {
+  color: white;
+  font-size: 14px;
+  padding: 10px;
+  border-bottom: 1px solid #27272a;
+  font-variant-numeric: tabular-nums;
+}
+
+.steps-table tr:last-child td {
+  border-bottom: none;
+}
+
+.show-more-btn {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #3b82f6;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.show-more-btn:hover {
+  text-decoration: underline;
+}

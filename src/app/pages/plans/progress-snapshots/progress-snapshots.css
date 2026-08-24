@@ -1,0 +1,133 @@
+.snapshots-card {
+  background: #15141b;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.snapshots-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.snapshots-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.snapshots-header p {
+  margin: 4px 0 0 0;
+  color: #71717a;
+  font-size: 13px;
+}
+
+.snapshot-btn {
+  background: transparent;
+  border: 1px solid #27272a;
+  color: #a1a1aa;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.snapshot-btn:hover {
+  background: #27272a;
+  color: white;
+  border-color: #3f3f46;
+}
+
+.snapshots-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.snapshot-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.snapshot-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.snapshot-date {
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.snapshot-value {
+  color: #71717a;
+  font-size: 13px;
+}
+
+.delete-snapshot-btn {
+  background: transparent;
+  border: none;
+  color: #52525b;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.delete-snapshot-btn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.snapshots-empty {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.snapshots-empty p {
+  margin: 0;
+  color: #a1a1aa;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.snapshots-empty .sub-text {
+  margin-top: 8px;
+  color: #71717a;
+  font-size: 13px;
+}
+
+.snapshots-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px;
+  color: #a1a1aa;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #27272a;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

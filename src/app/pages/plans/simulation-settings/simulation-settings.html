@@ -1,0 +1,43 @@
+<div class="settings-section">
+  <div class="settings-header">
+    <h3>Simulation Settings</h3>
+    <button class="configure-btn" (click)="openSettings()">Configure</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" *ngIf="showSettings()" (click)="closeSettings()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <h3>Configure Simulation</h3>
+
+      <div class="form-group">
+        <label>Start Date</label>
+        <input type="date" [(ngModel)]="settings().start_date">
+      </div>
+
+      <div class="form-group">
+        <label>End Date</label>
+        <input type="date" [(ngModel)]="settings().end_date">
+      </div>
+
+      <div class="form-group">
+        <label>Initial Cash ($)</label>
+        <input type="number" [(ngModel)]="settings().initial_cash">
+      </div>
+
+      <div class="form-group">
+        <label>Monthly Income ($)</label>
+        <input type="number" [(ngModel)]="settings().monthly_income">
+      </div>
+
+      <div class="form-group">
+        <label>Monthly Expenses ($)</label>
+        <input type="number" [(ngModel)]="settings().monthly_expenses">
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="closeSettings()">Cancel</button>
+        <button class="btn-save" (click)="saveSettings()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

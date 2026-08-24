@@ -1,3 +1,4 @@
+// src/app/pages/plans/cash-flow/cash-flow.ts
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -5,18 +6,20 @@ import { PlansService } from '../../../services/plans.service';
 
 @Component({
   selector: 'app-cash-flow',
-  imports: [FormsModule,CommonModule],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './cash-flow.html',
   styleUrl: './cash-flow.css',
 })
-export class CashFlow implements OnInit{
+export class CashFlow implements OnInit {
   cashFlows: any[] = [];
   showModal = false;
 
   newFlow = {
     name: '',
     amount: 0,
-    flow_type: 'in', // inflow or outflow
+    flow_type: 'in',
+    frequency: 'monthly'
   };
 
   isEditMode = false;
@@ -29,28 +32,40 @@ export class CashFlow implements OnInit{
   }
 
   loadData() {
-    this.plansService.getCashFlows().subscribe(data => {
-      this.cashFlows = data;
-      this.cdr.detectChanges();
+    this.plansService.getCashFlows().subscribe({
+      next: (data) => {
+        this.cashFlows = data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error loading cash flows:', err)
     });
   }
 
   onSubmit() {
     if (this.isEditMode && this.editingId) {
-      this.plansService.updateCashFlow(this.editingId, this.newFlow).subscribe(() => {
-        this.loadData();
-        this.closeModal();
+      this.plansService.updateCashFlow(this.editingId, this.newFlow).subscribe({
+        next: () => {
+          this.loadData();
+          this.closeModal();
+        },
+        error: (err) => console.error('Error updating cash flow:', err)
       });
     } else {
-      this.plansService.addCashFlow(this.newFlow).subscribe(() => {
-        this.loadData();
-        this.closeModal();
+      this.plansService.addCashFlow(this.newFlow).subscribe({
+        next: () => {
+          this.loadData();
+          this.closeModal();
+        },
+        error: (err) => console.error('Error adding cash flow:', err)
       });
     }
   }
 
   onDelete(id: number) {
-    this.plansService.deleteCashFlow(id).subscribe(() => this.loadData());
+    this.plansService.deleteCashFlow(id).subscribe({
+      next: () => this.loadData(),
+      error: (err) => console.error('Error deleting cash flow:', err)
+    });
   }
 
   openModal() {
@@ -61,7 +76,7 @@ export class CashFlow implements OnInit{
     this.showModal = false;
     this.isEditMode = false;
     this.editingId = null;
-    this.newFlow = { name: '', amount: 0, flow_type: 'in'}
+    this.newFlow = { name: '', amount: 0, flow_type: 'in', frequency: 'monthly' };
   }
 
   onEdit(flow: any) {
@@ -70,6 +85,4 @@ export class CashFlow implements OnInit{
     this.newFlow = { ...flow };
     this.showModal = true;
   }
-
-
 }

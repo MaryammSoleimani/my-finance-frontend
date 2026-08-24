@@ -1,0 +1,36 @@
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  background: #15141b;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-item label {
+  color: #71717a;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.summary-value {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.summary-value.success {
+  color: #10b981;
+}
+
+.summary-value.failed {
+  color: #ef4444;
+}

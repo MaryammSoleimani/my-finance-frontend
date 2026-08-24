@@ -1,0 +1,36 @@
+<div class="steps-card">
+  <div class="steps-header">
+    <h3>Simulation Steps</h3>
+  </div>
+
+  <table class="steps-table">
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th>Liquid</th>
+        <th>Illiquid</th>
+        <th>Total Assets</th>
+        <th>Out</th>
+        <th>In</th>
+        <th>Net</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- بدون () -->
+      <tr *ngFor="let step of displayedSteps">
+        <td>{{ step.month }}</td>
+        <td>${{ step.liquid | number:'1.2-2' }}</td>
+        <td>${{ step.illiquid | number:'1.2-2' }}</td>
+        <td>${{ step.total_assets | number:'1.2-2' }}</td>
+        <td>${{ step.out | number:'1.2-2' }}</td>
+        <td>${{ step.in | number:'1.2-2' }}</td>
+        <td>${{ step.net | number:'1.2-2' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="show-more-btn" (click)="toggleShowAll()">
+    <!-- بدون () -->
+    {{ showAll ? 'show less' : 'show more' }}
+  </button>
+</div>

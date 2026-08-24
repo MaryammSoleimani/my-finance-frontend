@@ -1,0 +1,46 @@
+<!-- src/app/pages/plans/financial-timeline/financial-timeline.html -->
+<div class="timeline-card">
+  <div class="timeline-header">
+    <div class="timeline-title">
+      <h3>Financial Timeline</h3>
+      <p class="timeline-subtitle">Simulated growth of your assets over time</p>
+    </div>
+    <div class="timeline-controls">
+      <button class="run-simulation-btn" (click)="runSimulation()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="margin-right: 6px;">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+        Run Simulation
+      </button>
+    </div>
+  </div>
+
+  <div id="chart">
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [xaxis]="chartOptions.xaxis"
+      [dataLabels]="chartOptions.dataLabels"
+      [stroke]="chartOptions.stroke"
+      [fill]="chartOptions.fill"
+      [colors]="chartOptions.colors"
+      [yaxis]="chartOptions.yaxis"
+      [legend]="chartOptions.legend"
+      [grid]="chartOptions.grid"
+      [tooltip]="chartOptions.tooltip"
+      [annotations]="chartOptions.annotations">
+    </apx-chart>
+  </div>
+
+  <!-- نمایش رویدادها زیر نمودار -->
+  <div class="timeline-events" *ngIf="eventList.length > 0">
+    <h4>Events</h4>
+    <div class="events-list">
+      <div class="event-chip" *ngFor="let event of eventList">
+        <span class="event-number">{{ event.month }}</span>
+        <span class="event-date">{{ getEventDate(event.month) }}</span>
+        <span class="event-name">{{ event.name }}</span>
+      </div>
+    </div>
+  </div>
+</div>

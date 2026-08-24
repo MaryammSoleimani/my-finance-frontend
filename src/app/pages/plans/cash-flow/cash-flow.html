@@ -1,9 +1,9 @@
 <div class="assets-card">
   <div class="card-header">
     <div class="header-content">
-      <div class="icon-wrapper flow-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+      <div class="icon-wrapper" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-          <path d="M7 11l5-5 5 5M7 13l5 5 5-5"></path>
+          <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
         </svg>
       </div>
       <div class="text-group">
@@ -17,14 +17,15 @@
     <div class="asset-row" *ngFor="let flow of cashFlows">
       <div class="asset-info">
         <span class="name">{{ flow.name }}</span>
-        <span class="type">{{ flow.frequency }}</span>
+        <span class="type">{{ flow.frequency === 'monthly' ? 'Monthly' : flow.frequency }}</span>
         <div class="amount-row">
           <span class="price" [style.color]="flow.flow_type === 'in' ? '#00d084' : '#ff5b5b'">
-            {{ flow.flow_type === 'in' ? '+' : '-' }}${{ flow.amount | number }}
+            {{ flow.flow_type === 'in' ? '+' : '-' }}${{ flow.amount | number:'1.2-2' }}/month
           </span>
         </div>
       </div>
-      <div class="action-buttons" style="display: flex; gap: 8px;">
+
+      <div class="action-buttons">
         <button class="edit-btn" (click)="onEdit(flow)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16">
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -42,17 +43,21 @@
 
   <button class="add-button" (click)="openModal()">+ Add Cash Flow</button>
 
+  <!-- Modal -->
   <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h4>{{ isEditMode ? 'Edit' : 'New' }} Cash Flow</h4>
+
       <div class="form-group">
         <label>Name</label>
         <input [(ngModel)]="newFlow.name" placeholder="e.g. Salary" />
       </div>
+
       <div class="form-group">
         <label>Amount ($)</label>
         <input type="number" [(ngModel)]="newFlow.amount" />
       </div>
+
       <div class="form-group">
         <label>Type</label>
         <select [(ngModel)]="newFlow.flow_type">
@@ -60,6 +65,17 @@
           <option value="out">Outflow (Expense)</option>
         </select>
       </div>
+
+      <div class="form-group">
+        <label>Frequency</label>
+        <select [(ngModel)]="newFlow.frequency">
+          <option value="monthly">Monthly</option>
+          <option value="weekly">Weekly</option>
+          <option value="yearly">Yearly</option>
+          <option value="one_time">One Time</option>
+        </select>
+      </div>
+
       <div class="modal-actions">
         <button class="btn-cancel" (click)="closeModal()">Cancel</button>
         <button class="btn-save" (click)="onSubmit()">{{ isEditMode ? 'Update' : 'Save' }}</button>

@@ -1,0 +1,39 @@
+<div class="snapshots-card">
+  <div class="snapshots-header">
+    <div>
+      <h3>Progress Snapshots</h3>
+      <p>Track how your actual financial situation compares to your plan</p>
+    </div>
+    <button class="snapshot-btn" (click)="takeSnapshot()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="margin-right: 6px;">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+        <circle cx="12" cy="13" r="4"></circle>
+      </svg>
+      Take Snapshot
+    </button>
+  </div>
+
+  <div class="snapshots-list" *ngIf="snapshots().length > 0">
+    <div class="snapshot-row" *ngFor="let snap of snapshots()">
+      <div class="snapshot-info">
+        <span class="snapshot-date">{{ snap.date | date:'MMM d, yyyy' }}</span>
+        <span class="snapshot-value">Total Assets: ${{ snap.total_assets | number:'1.2-2' }}</span>
+      </div>
+      <button class="delete-snapshot-btn" (click)="deleteSnapshot(snap.id)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="snapshots-empty" *ngIf="snapshots().length === 0 && !loading()">
+    <p>No snapshots yet</p>
+    <p class="sub-text">Take a snapshot to start tracking your progress against the plan</p>
+  </div>
+
+  <div class="snapshots-loading" *ngIf="loading()">
+    <div class="spinner"></div>
+    <span>Loading...</span>
+  </div>
+</div>
