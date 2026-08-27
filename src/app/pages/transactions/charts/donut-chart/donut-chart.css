@@ -1,8 +1,24 @@
-:host { 
-    display: block !important; /* تبدیل تگ کاستوم به یک بلوک واقعی */
-    width: 100% !important;
-  }
-  .chart-card {
-    width: 100%;
-    overflow: hidden;
-  }
+:host {
+  display: block !important;
+  width: 100% !important;
+}
+
+.chart-card {
+  width: 100%;
+  overflow: hidden;
+}
+
+.chart-header {
+  margin-bottom: 16px;
+}
+
+.chart-title {
+  color: #a1a1aa;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.chart-body {
+  min-height: 300px;
+}

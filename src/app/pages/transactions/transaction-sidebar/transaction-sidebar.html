@@ -1,28 +1,10 @@
 <aside class="sidebar-root custom-scrollbar">
   <div class="tree-container">
     <h3 class="tree-label">Saved Views</h3>
-    
+
     <div role="tree" class="tree-view">
 
-    <div class="tree-branch">
-        <div class="branch-control" (click)="toggleMenu('week')">
-          <svg [class.rotate]="menus.week" class="chevron" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="m9 18 6-6-6-6"></path></svg>
-          <span class="branch-text">Week</span>
-        </div>
-        <div class="branch-content" *ngIf="menus.week">
-          <div class="indent-guide"></div>
-          
-          <div class="tree-item" [class.active-item]="activeView === 'current-week'" (click)="selectView('current-week')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">Current Week</span>
-          </div>
-          <div class="tree-item" [class.active-item]="activeView === 'last-week'" (click)="selectView('last-week')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">Last Week</span>
-          </div>
-        </div>
-      </div>
-
+      <!-- Month -->
       <div class="tree-branch">
         <div class="branch-control" (click)="toggleMenu('month')">
           <svg [class.rotate]="menus.month" class="chevron" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="m9 18 6-6-6-6"></path></svg>
@@ -30,7 +12,7 @@
         </div>
         <div class="branch-content" *ngIf="menus.month">
           <div class="indent-guide"></div>
-          
+
           <div class="tree-item" [class.active-item]="activeView === 'current-month'" (click)="selectView('current-month')">
             <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
             <span class="item-text">Current Month</span>
@@ -46,6 +28,7 @@
         </div>
       </div>
 
+      <!-- Day -->
       <div class="tree-branch">
         <div class="branch-control" (click)="toggleMenu('day')">
           <svg [class.rotate]="menus.day" class="chevron" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="m9 18 6-6-6-6"></path></svg>
@@ -64,6 +47,7 @@
         </div>
       </div>
 
+      <!-- Year -->
       <div class="tree-branch">
         <div class="branch-control" (click)="toggleMenu('year')">
           <svg [class.rotate]="menus.year" class="chevron" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="m9 18 6-6-6-6"></path></svg>
@@ -71,7 +55,7 @@
         </div>
         <div class="branch-content" *ngIf="menus.year">
           <div class="indent-guide"></div>
-          
+
           <div class="tree-item" [class.active-item]="activeView === 'last-year'" (click)="selectView('last-year')">
             <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
             <span class="item-text">Last Year</span>
@@ -84,6 +68,7 @@
         </div>
       </div>
 
+      <!-- Misc -->
       <div class="tree-branch">
         <div class="branch-control" (click)="toggleMenu('misc')">
           <svg [class.rotate]="menus.misc" class="chevron" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="m9 18 6-6-6-6"></path></svg>
@@ -91,7 +76,7 @@
         </div>
         <div class="branch-content" *ngIf="menus.misc">
           <div class="indent-guide"></div>
-          
+
           <div class="tree-item" [class.active-item]="activeView === 'all-time'" (click)="selectView('all-time')">
             <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
             <span class="item-text">All Time</span>
@@ -99,102 +84,160 @@
         </div>
       </div>
 
-      <!-- <div class="tree-branch">
+      <!-- Budget -->
+      <div class="tree-branch">
         <div class="branch-control" (click)="toggleMenu('budget')">
           <svg [class.rotate]="menus.budget" class="chevron" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="m9 18 6-6-6-6"></path></svg>
           <span class="branch-text">Budget</span>
         </div>
         <div class="branch-content" *ngIf="menus.budget">
           <div class="indent-guide"></div>
-          <div class="tree-item">
+          <div class="tree-item" (click)="selectView('monthly-budget')">
             <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
             <span class="item-text">Monthly Budget</span>
           </div>
-          <div class="tree-item">
+          <div class="tree-item" (click)="selectView('yearly-budget')">
             <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
             <span class="item-text">Yearly Budget</span>
           </div>
         </div>
-      </div> -->
-      
+      </div>
+
     </div>
   </div>
 
+  <!-- Advanced Filtering Options -->
   <div class="section-divider"></div>
 
-  <div class="filters-container">
-    <h3 class="tree-label">Filters 💬</h3>
-
-          <div class="filter-card" *ngIf="activeView !== 'per-day'">
-          <div class="card-header">
-            <p class="card-title">Category</p>
-          </div>
-          <div class="badges-wrapper" style="max-height: none;"> 
-            <span *ngFor="let cat of categories" 
-                  class="chakra-badge" 
-                  (click)="selectCategory(cat.name)"
-                  [style.background]="selectedCat === cat.name ? '#2d3748' : ''"
-                  style="cursor: pointer; display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
-              <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="12px" width="12px">
-                <path d="M20 6 9 17l-5-5"></path>
-              </svg>
-              {{ cat.name }}
-            </span>
-          </div>
-          <div class="card-footer" style="justify-content: center;">
-            <button class="text-link-btn" (click)="selectCategory('')" style="color: #ed64a6;">Reset Filter</button>
-          </div>
-        </div>
-
+  <div class="advanced-filter-toggle" (click)="toggleAdvancedFilters()">
+    <span>Show Advanced Filtering Options</span>
+    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+    </svg>
   </div>
 
-  <!-- <div class="filter-card">
-    <div class="card-header">
-      <p class="card-title">Month</p>
-      <div class="header-actions">
-        <button class="icon-btn"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-        <button class="icon-btn"><svg viewBox="0 0 24 24" height="1em" width="1em"><path fill="currentColor" d="M18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711Z"></path></svg></button>
+  <!-- Advanced Filters Content (hidden by default) -->
+  <div class="advanced-filters-content" *ngIf="showAdvancedFilters">
+    <div class="filter-card">
+      <div class="card-header">
+        <p class="card-title">Category</p>
+        <div class="header-actions">
+          <button class="icon-btn" (click)="clearCategoryFilter()">
+            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em">
+              <path d="M18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711Z"></path>
+            </svg>
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="badges-wrapper">
-      <span *ngFor="let m of months" class="chakra-badge">
-        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="12px" width="12px"><path d="M20 6 9 17l-5-5"></path></svg>
-        {{ m }}
-      </span>
-    </div>
-    <div class="card-footer">
-      <button class="more-link">+ 6 more</button>
-      <div class="footer-actions">
-        <button class="text-link-btn">Select All</button>
-        <button class="text-link-btn">Deselect All</button>
-      </div>
-    </div>
-  </div> -->
 
-  <!-- <div class="filter-card">
-    <div class="card-header">
-      <p class="card-title">Year</p>
-      <div class="header-actions">
-        <button class="icon-btn"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-        <button class="icon-btn"><svg viewBox="0 0 24 24" height="1em" width="1em"><path fill="currentColor" d="M18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711Z"></path></svg></button>
+      <div class="badges-wrapper">
+        <span *ngFor="let cat of categories"
+              class="chakra-badge"
+              (click)="selectCategory(cat.name)"
+              [style.background]="selectedCat === cat.name ? '#2d3748' : ''"
+              [style.color]="selectedCat === cat.name ? 'white' : ''"
+              style="cursor: pointer; display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+          <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="12px" width="12px">
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+          {{ cat.name }}
+        </span>
       </div>
-    </div>
-    <div class="badges-wrapper">
-      <span *ngFor="let y of years" class="chakra-badge">
-        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="12px" width="12px"><path d="M20 6 9 17l-5-5"></path></svg>
-        {{ y }}
-      </span>
-    </div>
-    <div class="card-footer">
-      <div class="footer-actions" style="margin-left: auto;">
-        <button class="text-link-btn">Select All</button>
-        <button class="text-link-btn">Deselect All</button>
-      </div>
-    </div>
-  </div> -->
 
-<ng-template #eyeIcon>
-  <svg class="item-icon" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="M21 17v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2"></path><path d="M21 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2"></path><circle cx="12" cy="12" r="1"></circle><path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"></path></svg>
-</ng-template>
+      <div class="card-footer">
+        <button class="more-link" (click)="showAllCategories = !showAllCategories">
+          {{ showAllCategories ? '- less' : '+ 6 more' }}
+        </button>
+        <div class="footer-actions">
+          <button class="text-link-btn" (click)="selectAllCategories()">Select All</button>
+          <button class="text-link-btn" (click)="clearCategoryFilter()">Deselect All</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Month Filter -->
+    <div class="filter-card">
+      <div class="card-header">
+        <p class="card-title">Month</p>
+        <div class="header-actions">
+          <button class="icon-btn" (click)="clearMonthFilter()">
+            <svg viewBox="0 0 24 24" height="1em" width="1em">
+              <path fill="currentColor" d="M18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711Z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="badges-wrapper">
+        <span *ngFor="let m of visibleMonths"
+              class="chakra-badge"
+              [style.background]="selectedMonths.includes(m) ? '#2d3748' : ''"
+              [style.color]="selectedMonths.includes(m) ? 'white' : ''"
+              style="cursor: pointer;"
+              (click)="toggleMonth(m)">
+          <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="12px" width="12px">
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+          {{ m }}
+        </span>
+      </div>
+
+      <div class="card-footer">
+        <button class="more-link" (click)="showAllMonths = !showAllMonths">
+          {{ showAllMonths ? '- less' : '+ 6 more' }}
+        </button>
+        <div class="footer-actions">
+          <button class="text-link-btn" (click)="selectAllMonths()">Select All</button>
+          <button class="text-link-btn" (click)="clearMonthFilter()">Deselect All</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year Filter -->
+    <div class="filter-card">
+      <div class="card-header">
+        <p class="card-title">Year</p>
+        <div class="header-actions">
+          <button class="icon-btn" (click)="clearYearFilter()">
+            <svg viewBox="0 0 24 24" height="1em" width="1em">
+              <path fill="currentColor" d="M18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711Z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="badges-wrapper">
+        <span *ngFor="let y of years"
+              class="chakra-badge"
+              [style.background]="selectedYears.includes(y) ? '#2d3748' : ''"
+              [style.color]="selectedYears.includes(y) ? 'white' : ''"
+              style="cursor: pointer;"
+              (click)="toggleYear(y)">
+          <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="12px" width="12px">
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+          {{ y }}
+        </span>
+      </div>
+
+      <div class="card-footer">
+        <div class="footer-actions" style="margin-left: auto;">
+          <button class="text-link-btn" (click)="selectAllYears()">Select All</button>
+          <button class="text-link-btn" (click)="clearYearFilter()">Deselect All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #eyeIcon>
+    <svg class="item-icon" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em">
+      <path d="M21 17v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2"></path>
+      <path d="M21 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2"></path>
+      <circle cx="12" cy="12" r="1"></circle>
+      <path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"></path>
+    </svg>
+  </ng-template>
 
 </aside>

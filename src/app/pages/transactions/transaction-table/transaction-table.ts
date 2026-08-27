@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+// src/app/pages/transactions/transaction-table/transaction-table.ts
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddNewTransaction } from '../add-new-transaction/add-new-transaction';
 import { TransactionService } from '../../../services/transaction.service';
@@ -20,12 +21,23 @@ export class TransactionTable implements OnInit {
   expandedRows: Set<string> = new Set();
   latestTransactions: any[] = [];
 
+  // میانگین‌ها
+  avgExpense: number = 0;
+  avgDeposit: number = 0;
+
   constructor(private transactionService: TransactionService) {}
 
   ngOnInit() {
     this.loadLatestTransactions();
+    this.calculateAverages();
   }
-  
+
+  calculateAverages() {
+    // محاسبه میانگین بر اساس تعداد گروه‌ها
+    const groupCount = this.groups.length || 1;
+    this.avgExpense = this.grandTotalExpense / groupCount;
+    this.avgDeposit = this.grandTotalDeposit / groupCount;
+  }
 
   toggleRow(catName: string) {
     if (this.expandedRows.has(catName)) {
@@ -37,7 +49,7 @@ export class TransactionTable implements OnInit {
   }
 
   onTransactionSaved() {
-    this.showAddModal = false; 
+    this.showAddModal = false;
     this.loadLatestTransactions();
     this.refreshData.emit();
   }

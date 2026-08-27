@@ -1,3 +1,4 @@
+// src/app/pages/transactions/charts/donut-chart/donut-chart.ts
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -19,18 +20,27 @@ import { NgApexchartsModule } from 'ng-apexcharts';
         [dataLabels]="chartOptions.dataLabels"
         [noData]="chartOptions.noData">
       </apx-chart>
+      <div *ngIf="!series || series.length === 0" class="no-data">
+        <p>No data available</p>
+      </div>
     </div>
   `,
   styles: [`
-    :host { 
-      display: block; 
-      width: 100%; 
+    :host {
+      display: block;
+      width: 100%;
     }
-    .donut-wrapper { 
-      width: 100%; 
-      min-height: 300px; 
-      display: flex; 
-      justify-content: center; 
+    .donut-wrapper {
+      width: 100%;
+      min-height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .no-data {
+      color: #718096;
+      font-size: 16px;
+      text-align: center;
     }
   `]
 })
@@ -38,13 +48,14 @@ export class DonutChart implements OnChanges {
   @Input() series: number[] = [];
   @Input() labels: string[] = [];
   @Input() colors: string[] = [];
+  @Input() centerText: string = '';
+  @Input() centerSubText: string = '';
 
   public chartOptions: any = {
     chart: {
       type: 'donut',
       height: 320,
       width: '100%',
-      // این بخش برای حل مشکل غیب شدن در تب‌ها حیاتی است
       redrawOnParentResize: true,
       redrawOnWindowResize: true
     },
@@ -86,16 +97,17 @@ export class DonutChart implements OnChanges {
       }
     },
     noData: {
-    text: 'No Data Available',
-    style: { color: '#718096', fontSize: '16px' }
-  },
+      text: 'No Data Available',
+      style: { color: '#718096', fontSize: '16px' }
+    }
   };
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['series'] || changes['labels']) {
-      this.chartOptions = {
-        ...this.chartOptions
-      };
+      // اگر داده‌ها خالی هستند، نمودار را نشان نده
+      if (this.series.length === 0) {
+        return;
+      }
     }
   }
 }

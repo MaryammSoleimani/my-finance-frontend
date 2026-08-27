@@ -1,3 +1,4 @@
+// src/app/pages/transactions/charts/bar-chart/bar-chart.ts
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -20,28 +21,36 @@ import { NgApexchartsModule } from 'ng-apexcharts';
         [grid]="chartOptions.grid">
       </apx-chart>
     </div>
+    <div *ngIf="!data || data.length === 0" class="no-data">
+      <p>No data available</p>
+    </div>
   `,
   styles: [`
     :host { display: block; width: 100%; }
     .chart-card { width: 100%; min-height: 320px; }
+    .no-data {
+      color: #718096;
+      font-size: 16px;
+      text-align: center;
+      padding: 40px;
+    }
   `]
 })
 export class BarChart implements OnChanges {
   @Input() data: number[] = [];
   @Input() categories: string[] = [];
   @Input() colors: string[] = [];
-
-  //private myColors = ['#22c55e', '#ef4444', '#a855f7', '#3b82f6', '#f59e0b', '#ec4899', '#14b8a6', '#64748b', '#6366f1'];
+  @Input() tooltipFormatter: any = null;
 
   public chartOptions: any = {
-    series: [{ name: 'Daily Expense', data: [] }],
-    chart: { 
-      type: 'bar', 
-      height: 320, 
+    series: [{ name: 'Expenses', data: [] }],
+    chart: {
+      type: 'bar',
+      height: 320,
       width: '100%',
-      background: 'transparent', 
+      background: 'transparent',
       toolbar: { show: false },
-      redrawOnParentResize: true, // بسیار مهم برای جابه‌جایی تب‌ها
+      redrawOnParentResize: true,
       redrawOnWindowResize: true
     },
     plotOptions: {
@@ -65,7 +74,12 @@ export class BarChart implements OnChanges {
         formatter: (val: number) => '$' + val.toLocaleString()
       }
     },
-    tooltip: { theme: 'dark' },
+    tooltip: {
+      theme: 'dark',
+      y: {
+        formatter: (val: number) => '$' + val.toLocaleString()
+      }
+    },
     grid: { borderColor: '#2d3748', strokeDashArray: 4 }
   };
 
@@ -74,11 +88,23 @@ export class BarChart implements OnChanges {
       this.chartOptions = {
         ...this.chartOptions,
         series: [{ name: 'Expenses', data: [...this.data] }],
-        xaxis: { 
-          ...this.chartOptions.xaxis, 
-          categories: [...this.categories] 
+        xaxis: {
+          ...this.chartOptions.xaxis,
+          categories: [...this.categories]
         },
         colors: (this.colors && this.colors.length > 0) ? this.colors : ['#22c55e']
+      };
+    }
+
+    if (changes['tooltipFormatter'] && this.tooltipFormatter) {
+      this.chartOptions = {
+        ...this.chartOptions,
+        tooltip: {
+          ...this.chartOptions.tooltip,
+          y: {
+            formatter: this.tooltipFormatter
+          }
+        }
       };
     }
   }

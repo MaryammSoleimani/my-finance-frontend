@@ -1,3 +1,4 @@
+/* src/app/pages/transactions/transaction-sidebar/transaction-sidebar.css */
 :host {
   display: block;
   height: 100%;
@@ -6,21 +7,20 @@
 .sidebar-root {
   background-color: #1c1b22;
   height: 100vh;
-  width: 350px; 
+  width: 350px;
   padding: 24px 16px;
-  overflow-y: scroll; 
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
-  border: 1px solid rgb(39, 39, 42); /* اضافه شدن بوردر به کل سایدبار */
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border: 1px solid rgb(39, 39, 42);
 }
 
-/* مخفی کردن اسکرول‌بار در کروم و سافاری */
 .sidebar-root::-webkit-scrollbar {
   display: none;
 }
 
 .tree-label {
-  font-size: 13px; 
+  font-size: 13px;
   font-weight: 700;
   color: #718096;
   text-transform: uppercase;
@@ -48,8 +48,8 @@
 }
 
 .branch-text {
-  font-size: 16px; 
-  color: #e2e8f0; 
+  font-size: 16px;
+  color: #e2e8f0;
   font-weight: 500;
 }
 
@@ -75,7 +75,7 @@
   top: 0;
   bottom: 10px;
   width: 1px;
-  background-color: rgb(39, 39, 42); /* تغییر رنگ به rgb(39, 39, 42) */
+  background-color: rgb(39, 39, 42);
 }
 
 .tree-item {
@@ -94,11 +94,11 @@
 }
 
 .item-text {
-  font-size: 15px; 
+  font-size: 15px;
   color: #718096;
 }
 
-.active-item .item-text, 
+.active-item .item-text,
 .active-item .item-icon {
   color: #b794f4 !important;
   font-weight: 600;
@@ -109,17 +109,42 @@
   color: #4a5568;
 }
 
-/* بخش جداکننده */
 .section-divider {
   height: 1px;
-  background-color: rgb(39, 39, 42); /* تغییر رنگ به rgb(39, 39, 42) */
+  background-color: rgb(39, 39, 42);
   margin: 20px 8px;
 }
 
-/* استایل کارت فیلتر */
+/* Advanced Filter Toggle */
+.advanced-filter-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 8px;
+  cursor: pointer;
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.advanced-filter-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.advanced-filter-toggle svg {
+  color: #718096;
+}
+
+.advanced-filters-content {
+  margin-top: 8px;
+}
+
+/* Filter Cards */
 .filter-card {
   background-color: #1c1b22;
-  border: 1px solid rgb(39, 39, 42); /* تغییر رنگ به rgb(39, 39, 42) */
+  border: 1px solid rgb(39, 39, 42);
   border-radius: 10px;
   padding: 12px;
   margin-top: 10px;
@@ -133,7 +158,7 @@
 }
 
 .card-title {
-  font-size: 16px; 
+  font-size: 16px;
   font-weight: 500;
   color: #fff;
   margin: 0;
@@ -163,14 +188,14 @@
   gap: 5px;
   padding: 2px 8px;
   border-radius: 4px;
-  font-size: 13px; 
+  font-size: 13px;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgb(39, 39, 42); 
+  border-top: 1px solid rgb(39, 39, 42);
   padding-top: 8px;
 }
 
@@ -178,7 +203,7 @@
   background: none;
   border: none;
   color: #718096;
-  font-size: 13px; 
+  font-size: 13px;
   cursor: pointer;
   text-decoration: underline;
 }
@@ -187,4 +212,9 @@
   opacity: 0.3;
   text-decoration: none;
   cursor: not-allowed;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 8px;
 }
