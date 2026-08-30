@@ -1,41 +1,416 @@
 <div class="analytics-wrapper">
+
   <!-- Financial Health Score -->
-  <div class="health-score-card" *ngIf="healthScore">
-    <h3>Financial Health Score</h3>
-    <div class="score-circle" [style.background]="getScoreColor(healthScore.score)">
-      <span class="score-number">{{ healthScore.score }}</span>
-      <span class="score-grade">{{ healthScore.grade }}</span>
+  <div class="health-score-section">
+
+    <div class="section-header">
+      <h3>📊 Financial Health Score</h3>
+      <p>Your overall financial health rating</p>
     </div>
-    <p>Your financial health is {{ healthScore. Grade }}</p>
+
+    <!-- Initial State -->
+    <div
+      class="health-score-initial"
+      *ngIf="!healthScore && !healthScoreLoading"
+    >
+      <div class="initial-content">
+
+        <div class="initial-icon">
+          💡
+        </div>
+
+        <h4>Calculate Your Financial Health</h4>
+
+        <p>
+          Get a personalized score based on your accounts,
+          income, and expenses.
+        </p>
+
+        <button
+          type="button"
+          class="calculate-btn"
+          (click)="loadHealthScore()"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            width="18"
+            height="18"
+          >
+            <path d="M12 20V10"></path>
+            <path d="M18 20V4"></path>
+            <path d="M6 20v-4"></path>
+          </svg>
+
+          Calculate Score
+        </button>
+
+      </div>
+    </div>
+
+
+    <!-- Loading State -->
+    <div
+      class="health-score-loading"
+      *ngIf="healthScoreLoading"
+    >
+      <div class="loading-spinner"></div>
+
+      <p>
+        Calculating your financial health...
+      </p>
+    </div>
+
+
+    <!-- Health Score Result -->
+    <div
+      class="health-score-card"
+      *ngIf="healthScore"
+    >
+
+      <!-- Score Circle -->
+      <div class="score-circle-container">
+
+        <div
+          class="score-circle"
+          [style.background]="getScoreColor(healthScore.score)"
+        >
+
+          <div class="score-circle-inner">
+
+            <span class="score-number">
+              {{ healthScore.score }}
+            </span>
+
+            <span class="score-grade">
+              {{ healthScore.grade }}
+            </span>
+
+          </div>
+
+        </div>
+
+        <p
+          class="score-message"
+          [style.color]="getScoreColor(healthScore.score)"
+        >
+          {{ healthScore.message }}
+        </p>
+
+      </div>
+
+
+      <!-- Score Details -->
+      <div class="score-details">
+
+        <div
+          class="detail-card"
+          *ngFor="let item of healthScore.details | keyvalue"
+        >
+
+          <div
+            class="detail-icon"
+            [style.background]="getStatusColor(item.value.status)"
+          >
+            {{ getStatusIcon(item.value.status) }}
+          </div>
+
+          <div class="detail-info">
+
+            <span class="detail-label">
+              {{ formatLabel(item.key) }}
+            </span>
+
+            <span
+              class="detail-status"
+              [style.color]="getStatusColor(item.value.status)"
+            >
+              {{ item.value.label }}
+            </span>
+
+          </div>
+
+          <span class="detail-score">
+            {{ item.value.score }} pts
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
+
 
   <!-- Anomaly Alerts -->
   <div class="alerts-section">
+
     <h3>🚨 Anomaly Alerts</h3>
-    <div class="alert-card" *ngFor="let alert of anomalyAlerts">
+
+    <div
+      class="alert-card"
+      *ngFor="let alert of anomalyAlerts"
+    >
+
       <div class="alert-header">
-        <span class="alert-category">{{ alert.category_name }}</span>
-        <span class="alert-percentage">{{ alert.deviation_percentage }}%</span>
+
+        <span class="alert-category">
+          {{ alert.category_name }}
+        </span>
+
+        <span class="alert-percentage">
+          {{ alert.deviation_percentage }}%
+        </span>
+
       </div>
-      <p>Expected: ${{ alert.expected_amount | number }}</p>
-      <p>Actual: ${{ alert.actual_amount | number }}</p>
+
+      <p>
+        Expected: ${{ alert.expected_amount | number }}
+      </p>
+
+      <p>
+        Actual: ${{ alert.actual_amount | number }}
+      </p>
+
     </div>
-    <p *ngIf="anomalyAlerts.length === 0" class="no-alerts">No anomalies detected ✅</p>
+
+    <p
+      *ngIf="anomalyAlerts.length === 0"
+      class="no-alerts"
+    >
+      No anomalies detected ✅
+    </p>
+
   </div>
+
 
   <!-- Smart Goal -->
   <div class="smart-goal-section">
-    <h3>🎯 Smart Goal Setting</h3>
+
+    <div class="section-header">
+
+      <h3>🎯 Smart Goal Setting</h3>
+
+      <p>
+        Set a financial goal and see if you can achieve it
+      </p>
+
+    </div>
+
+
+    <!-- Goal Guide -->
+    <div
+      class="goal-guide"
+      *ngIf="!smartGoal"
+    >
+
+      <div class="guide-icon">
+        💡
+      </div>
+
+      <div class="guide-content">
+
+        <h4>How it works?</h4>
+
+        <ul>
+
+          <li>
+            Enter the <strong>amount</strong> you want to save
+          </li>
+
+          <li>
+            Enter the <strong>timeframe</strong> in months
+          </li>
+
+          <li>
+            We'll analyze your
+            <strong>current savings</strong>
+            and
+            <strong>monthly income</strong>
+          </li>
+
+          <li>
+            See if your goal is
+            <strong>feasible</strong>
+            or not
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+
+    <!-- Goal Form -->
     <div class="goal-form">
-      <input type="number" [(ngModel)]="goalAmount" placeholder="Goal Amount">
-      <input type="number" [(ngModel)]="goalMonths" placeholder="Months">
-      <button (click)="calculateGoal()">Calculate</button>
+
+      <div class="form-group">
+
+        <label for="goalAmount">
+          Goal Amount ($)
+        </label>
+
+        <input
+          id="goalAmount"
+          type="number"
+          [(ngModel)]="goalAmount"
+          placeholder="e.g. 50000"
+        />
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="goalMonths">
+          Timeframe (Months)
+        </label>
+
+        <input
+          id="goalMonths"
+          type="number"
+          [(ngModel)]="goalMonths"
+          placeholder="e.g. 24"
+        />
+
+      </div>
+
+
+      <button
+        type="button"
+        (click)="calculateGoal()"
+      >
+        Calculate
+      </button>
+
     </div>
-    <div class="goal-result" *ngIf="smartGoal">
-      <p>Is Feasible: {{ smartGoal.is_feasible ? 'Yes ✅' : 'No ❌' }}</p>
-      <p>Current Savings: ${{ smartGoal.current_savings | number }}</p>
-      <p>Monthly Savings: ${{ smartGoal.monthly_savings | number }}</p>
-      <p>Needed Monthly: ${{ smartGoal.needed_monthly_savings | number }}</p>
+
+
+    <!-- Goal Result -->
+    <div
+      class="goal-result"
+      *ngIf="smartGoal"
+    >
+
+      <div class="result-header">
+
+        <span
+          class="result-icon"
+          [class.success]="smartGoal.is_feasible"
+          [class.failed]="!smartGoal.is_feasible"
+        >
+          {{ smartGoal.is_feasible ? '✅' : '❌' }}
+        </span>
+
+        <h4>
+          {{
+            smartGoal.is_feasible
+              ? 'Goal is Feasible!'
+              : 'Goal is Not Feasible'
+          }}
+        </h4>
+
+      </div>
+
+
+      <div class="result-details">
+
+        <div class="detail-row">
+
+          <span class="detail-label">
+            Current Savings
+          </span>
+
+          <span class="detail-value">
+            ${{ smartGoal.current_savings | number:'1.2-2' }}
+          </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+          <span class="detail-label">
+            Monthly Savings
+          </span>
+
+          <span class="detail-value">
+            ${{ smartGoal.monthly_savings | number:'1.2-2' }}
+          </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+          <span class="detail-label">
+            Needed Monthly
+          </span>
+
+          <span class="detail-value">
+            ${{ smartGoal.needed_monthly_savings | number:'1.2-2' }}
+          </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+          <span class="detail-label">
+            Additional Needed
+          </span>
+
+          <span
+            class="detail-value"
+            [class.warning]="smartGoal.additional_savings_needed > 0"
+          >
+            ${{ smartGoal.additional_savings_needed | number:'1.2-2' }}
+          </span>
+
+        </div>
+
+
+        <div class="detail-row">
+
+          <span class="detail-label">
+            Projected Savings
+          </span>
+
+          <span class="detail-value">
+            ${{ smartGoal.projected_savings | number:'1.2-2' }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- Suggestion -->
+      <div
+        class="goal-suggestion"
+        *ngIf="!smartGoal.is_feasible"
+      >
+
+        <p>
+          💡 <strong>Suggestion:</strong>
+        </p>
+
+        <p>
+          You need to save
+          <strong>
+            ${{ smartGoal.additional_savings_needed | number:'1.2-2' }}
+          </strong>
+          more per month to reach your goal.
+        </p>
+
+      </div>
+
     </div>
+
   </div>
+
 </div>
