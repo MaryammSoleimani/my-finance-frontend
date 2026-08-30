@@ -1,0 +1,111 @@
+.analytics-wrapper {
+  padding: 40px;
+  background: #0b0e11;
+  min-height: 100vh;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.health-score-card {
+  background: #1c1b22;
+  border: 1px solid #27272a;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.score-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  color: white;
+}
+
+.score-number {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.score-grade {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.alerts-section, .smart-goal-section {
+  background: #1c1b22;
+  border: 1px solid #27272a;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.alert-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.alert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.alert-category {
+  font-weight: 600;
+}
+
+.alert-percentage {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.no-alerts {
+  color: #10b981;
+  font-weight: 500;
+}
+
+.goal-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.goal-form input {
+  flex: 1;
+  background: #09090b;
+  border: 1px solid #27272a;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.goal-form button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.goal-result {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 16px;
+  border-radius: 8px;
+}
+
+

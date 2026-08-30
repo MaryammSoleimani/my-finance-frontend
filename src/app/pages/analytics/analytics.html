@@ -1,0 +1,41 @@
+<div class="analytics-wrapper">
+  <!-- Financial Health Score -->
+  <div class="health-score-card" *ngIf="healthScore">
+    <h3>Financial Health Score</h3>
+    <div class="score-circle" [style.background]="getScoreColor(healthScore.score)">
+      <span class="score-number">{{ healthScore.score }}</span>
+      <span class="score-grade">{{ healthScore.grade }}</span>
+    </div>
+    <p>Your financial health is {{ healthScore. Grade }}</p>
+  </div>
+
+  <!-- Anomaly Alerts -->
+  <div class="alerts-section">
+    <h3>🚨 Anomaly Alerts</h3>
+    <div class="alert-card" *ngFor="let alert of anomalyAlerts">
+      <div class="alert-header">
+        <span class="alert-category">{{ alert.category_name }}</span>
+        <span class="alert-percentage">{{ alert.deviation_percentage }}%</span>
+      </div>
+      <p>Expected: ${{ alert.expected_amount | number }}</p>
+      <p>Actual: ${{ alert.actual_amount | number }}</p>
+    </div>
+    <p *ngIf="anomalyAlerts.length === 0" class="no-alerts">No anomalies detected ✅</p>
+  </div>
+
+  <!-- Smart Goal -->
+  <div class="smart-goal-section">
+    <h3>🎯 Smart Goal Setting</h3>
+    <div class="goal-form">
+      <input type="number" [(ngModel)]="goalAmount" placeholder="Goal Amount">
+      <input type="number" [(ngModel)]="goalMonths" placeholder="Months">
+      <button (click)="calculateGoal()">Calculate</button>
+    </div>
+    <div class="goal-result" *ngIf="smartGoal">
+      <p>Is Feasible: {{ smartGoal.is_feasible ? 'Yes ✅' : 'No ❌' }}</p>
+      <p>Current Savings: ${{ smartGoal.current_savings | number }}</p>
+      <p>Monthly Savings: ${{ smartGoal.monthly_savings | number }}</p>
+      <p>Needed Monthly: ${{ smartGoal.needed_monthly_savings | number }}</p>
+    </div>
+  </div>
+</div>
