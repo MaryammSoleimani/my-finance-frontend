@@ -1,7 +1,7 @@
 <div class="nav-relative-container" *ngIf="isUserLoggedIn" >
   <nav class="chakra-segment-group__root" >
-  <div class="chakra-segment-group__indicator" 
-       [style.left.px]="indicatorLeft" 
+  <div class="chakra-segment-group__indicator"
+       [style.left.px]="indicatorLeft"
        [style.width.px]="indicatorWidth">
   </div>
 
@@ -32,6 +32,14 @@
       <p>Plans</p>
     </div>
   </label>
+
+  <label class="segment-item" routerLink="/analytics" routerLinkActive="active-item" (click)="moveIndicator($event)">
+    <div class="chakra-stack">
+      <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="M3 3v18h18"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
+      <p>Analytics</p>
+    </div>
+  </label>
+
 
   <label class="segment-item" routerLink="/configuration" routerLinkActive="active-item" (click)="moveIndicator($event)">
     <div class="chakra-stack">

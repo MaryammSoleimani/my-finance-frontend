@@ -1,4 +1,3 @@
-// src/app/pages/transactions/transactions.ts
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { TransactionSidebar } from "./transaction-sidebar/transaction-sidebar";
 import { DonutChart } from './charts/donut-chart/donut-chart';

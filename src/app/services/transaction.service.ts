@@ -1,4 +1,3 @@
-// src/app/services/transaction.service.ts
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -20,7 +19,6 @@ export class TransactionService {
     });
   }
 
-  // ✅ آدرس‌های صحیح - بدون /transactions/
   getCategoryExpenses(period: string = 'current-month', category?: string): Observable<any> {
     let url = `${this.baseUrl}/category-expenses/?period=${period}`;
     if (category) {
@@ -53,7 +51,6 @@ export class TransactionService {
     return this.http.get<any>(url);
   }
 
-  // ✅ آدرس صحیح برای categories - باید زیر /api/transaction/ باشد
   getCategories(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/categories/`);
   }
@@ -66,7 +63,6 @@ export class TransactionService {
     return this.http.get<string[]>(`${this.baseUrl}/years/`);
   }
 
-  // ✅ آدرس‌های صحیح برای CRUD - بدون /transactions/
   createTransaction(transaction: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/`, transaction);
   }
