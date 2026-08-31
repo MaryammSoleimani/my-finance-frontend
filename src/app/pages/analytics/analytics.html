@@ -1,6 +1,9 @@
 <div class="analytics-wrapper">
 
+  <!-- ===================================================== -->
   <!-- Financial Health Score -->
+  <!-- ===================================================== -->
+
   <div class="health-score-section">
 
     <div class="section-header">
@@ -67,7 +70,7 @@
     <!-- Health Score Result -->
     <div
       class="health-score-card"
-      *ngIf="healthScore"
+      *ngIf="healthScore && !healthScoreLoading"
     >
 
       <!-- Score Circle -->
@@ -145,11 +148,22 @@
   </div>
 
 
+  <!-- ===================================================== -->
   <!-- Anomaly Alerts -->
+  <!-- ===================================================== -->
+
   <div class="alerts-section">
 
-    <h3>🚨 Anomaly Alerts</h3>
+    <div class="section-header">
+      <h3>🚨 Anomaly Alerts</h3>
 
+      <p>
+        Unusual spending patterns detected in your finances
+      </p>
+    </div>
+
+
+    <!-- Alerts -->
     <div
       class="alert-card"
       *ngFor="let alert of anomalyAlerts"
@@ -167,16 +181,32 @@
 
       </div>
 
-      <p>
-        Expected: ${{ alert.expected_amount | number }}
-      </p>
 
-      <p>
-        Actual: ${{ alert.actual_amount | number }}
-      </p>
+      <div class="alert-values">
+
+        <p>
+          <span>Expected</span>
+
+          <strong>
+            ${{ alert.expected_amount | number }}
+          </strong>
+        </p>
+
+
+        <p>
+          <span>Actual</span>
+
+          <strong>
+            ${{ alert.actual_amount | number }}
+          </strong>
+        </p>
+
+      </div>
 
     </div>
 
+
+    <!-- No Alerts -->
     <p
       *ngIf="anomalyAlerts.length === 0"
       class="no-alerts"
@@ -187,7 +217,10 @@
   </div>
 
 
+  <!-- ===================================================== -->
   <!-- Smart Goal -->
+  <!-- ===================================================== -->
+
   <div class="smart-goal-section">
 
     <div class="section-header">
@@ -195,13 +228,17 @@
       <h3>🎯 Smart Goal Setting</h3>
 
       <p>
-        Set a financial goal and see if you can achieve it
+        Find out how much you need to save each month
+        to reach your financial goal.
       </p>
 
     </div>
 
 
+    <!-- ================================================= -->
     <!-- Goal Guide -->
+    <!-- ================================================= -->
+
     <div
       class="goal-guide"
       *ngIf="!smartGoal"
@@ -213,29 +250,31 @@
 
       <div class="guide-content">
 
-        <h4>How it works?</h4>
+        <h4>
+          How it works?
+        </h4>
 
         <ul>
 
           <li>
-            Enter the <strong>amount</strong> you want to save
+            Enter the <strong>goal amount</strong>
+            you want to reach.
           </li>
 
           <li>
-            Enter the <strong>timeframe</strong> in months
+            Enter the <strong>number of months</strong>
+            you have.
           </li>
 
           <li>
-            We'll analyze your
-            <strong>current savings</strong>
-            and
-            <strong>monthly income</strong>
+            We'll calculate the
+            <strong>required monthly savings</strong>.
           </li>
 
           <li>
-            See if your goal is
-            <strong>feasible</strong>
-            or not
+            We'll check whether the goal is
+            <strong>financially reasonable</strong>
+            based on your assets.
           </li>
 
         </ul>
@@ -245,9 +284,13 @@
     </div>
 
 
+    <!-- ================================================= -->
     <!-- Goal Form -->
+    <!-- ================================================= -->
+
     <div class="goal-form">
 
+      <!-- Goal Amount -->
       <div class="form-group">
 
         <label for="goalAmount">
@@ -256,7 +299,9 @@
 
         <input
           id="goalAmount"
+          name="goalAmount"
           type="number"
+          min="1"
           [(ngModel)]="goalAmount"
           placeholder="e.g. 50000"
         />
@@ -264,6 +309,7 @@
       </div>
 
 
+      <!-- Goal Months -->
       <div class="form-group">
 
         <label for="goalMonths">
@@ -272,14 +318,17 @@
 
         <input
           id="goalMonths"
+          name="goalMonths"
           type="number"
+          min="1"
           [(ngModel)]="goalMonths"
-          placeholder="e.g. 24"
+          placeholder="e.g. 5"
         />
 
       </div>
 
 
+      <!-- Calculate Button -->
       <button
         type="button"
         (click)="calculateGoal()"
@@ -290,98 +339,138 @@
     </div>
 
 
+    <!-- ================================================= -->
     <!-- Goal Result -->
+    <!-- ================================================= -->
+
     <div
       class="goal-result"
       *ngIf="smartGoal"
     >
 
+      <!-- Result Header -->
       <div class="result-header">
 
         <span
           class="result-icon"
-          [class.success]="smartGoal.is_feasible"
-          [class.failed]="!smartGoal.is_feasible"
+          [class.success]="smartGoal.risk_status === 'good'"
+          [class.ok]="smartGoal.risk_status === 'ok'"
+          [class.warning]="smartGoal.risk_status === 'warning'"
+          [class.danger]="smartGoal.risk_status === 'danger'"
         >
-          {{ smartGoal.is_feasible ? '✅' : '❌' }}
+          {{ getRiskIcon(smartGoal.risk_status) }}
         </span>
 
-        <h4>
-          {{
-            smartGoal.is_feasible
-              ? 'Goal is Feasible!'
-              : 'Goal is Not Feasible'
-          }}
-        </h4>
+
+        <div>
+
+          <h4>
+            {{ getRiskTitle(smartGoal.risk_level) }}
+          </h4>
+
+          <p class="goal-summary">
+            Goal:
+            ${{ smartGoal.goal_amount | number:'1.0-2' }}
+
+            in
+
+            {{ smartGoal.months }}
+            months
+          </p>
+
+        </div>
 
       </div>
 
+
+      <!-- ================================================= -->
+      <!-- Main Monthly Saving -->
+      <!-- ================================================= -->
+
+      <div class="goal-main-result">
+
+        <div class="monthly-saving-box">
+
+          <span class="monthly-saving-label">
+            Required Monthly Saving
+          </span>
+
+          <strong class="monthly-saving-amount">
+            ${{ smartGoal.required_monthly_savings | number:'1.0-2' }}
+          </strong>
+
+          <span class="monthly-saving-text">
+            per month
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- Goal Details -->
+      <!-- ================================================= -->
 
       <div class="result-details">
 
+        <!-- Goal Amount -->
         <div class="detail-row">
 
           <span class="detail-label">
-            Current Savings
+            Goal Amount
           </span>
 
           <span class="detail-value">
-            ${{ smartGoal.current_savings | number:'1.2-2' }}
+            ${{ smartGoal.goal_amount | number:'1.0-2' }}
           </span>
 
         </div>
 
 
+        <!-- Timeframe -->
         <div class="detail-row">
 
           <span class="detail-label">
-            Monthly Savings
+            Timeframe
           </span>
 
           <span class="detail-value">
-            ${{ smartGoal.monthly_savings | number:'1.2-2' }}
+            {{ smartGoal.months }} months
           </span>
 
         </div>
 
 
+        <!-- Required Monthly Saving -->
         <div class="detail-row">
 
           <span class="detail-label">
-            Needed Monthly
+            Required Monthly Saving
           </span>
 
-          <span class="detail-value">
-            ${{ smartGoal.needed_monthly_savings | number:'1.2-2' }}
+          <span class="detail-value highlight">
+            ${{ smartGoal.required_monthly_savings | number:'1.0-2' }}
           </span>
 
         </div>
 
 
+        <!-- Risk Level -->
         <div class="detail-row">
 
           <span class="detail-label">
-            Additional Needed
+            Risk Level
           </span>
 
           <span
-            class="detail-value"
-            [class.warning]="smartGoal.additional_savings_needed > 0"
+            class="detail-value risk-value"
+            [class.good]="smartGoal.risk_status === 'good'"
+            [class.ok]="smartGoal.risk_status === 'ok'"
+            [class.warning]="smartGoal.risk_status === 'warning'"
+            [class.danger]="smartGoal.risk_status === 'danger'"
           >
-            ${{ smartGoal.additional_savings_needed | number:'1.2-2' }}
-          </span>
-
-        </div>
-
-
-        <div class="detail-row">
-
-          <span class="detail-label">
-            Projected Savings
-          </span>
-
-          <span class="detail-value">
-            ${{ smartGoal.projected_savings | number:'1.2-2' }}
+            {{ smartGoal.risk_level | titlecase }}
           </span>
 
         </div>
@@ -389,22 +478,24 @@
       </div>
 
 
-      <!-- Suggestion -->
+      <!-- ================================================= -->
+      <!-- Recommendation -->
+      <!-- ================================================= -->
+
       <div
         class="goal-suggestion"
-        *ngIf="!smartGoal.is_feasible"
+        [class.recommendation-good]="smartGoal.risk_status === 'good'"
+        [class.recommendation-ok]="smartGoal.risk_status === 'ok'"
+        [class.recommendation-warning]="smartGoal.risk_status === 'warning'"
+        [class.recommendation-danger]="smartGoal.risk_status === 'danger'"
       >
 
-        <p>
-          💡 <strong>Suggestion:</strong>
+        <p class="recommendation-title">
+          💡 Recommendation
         </p>
 
         <p>
-          You need to save
-          <strong>
-            ${{ smartGoal.additional_savings_needed | number:'1.2-2' }}
-          </strong>
-          more per month to reach your goal.
+          {{ smartGoal.recommendation }}
         </p>
 
       </div>
@@ -414,3 +505,4 @@
   </div>
 
 </div>
+
