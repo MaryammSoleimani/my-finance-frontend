@@ -1,0 +1,57 @@
+<div class="chat-container" *ngIf="isOpen">
+  <!-- هدر چت -->
+  <div class="chat-header">
+    <div class="header-info">
+      <div class="bot-icon">🤖</div>
+      <div>
+        <h3>Financial Assistant</h3>
+        <p>AI-powered financial advice</p>
+      </div>
+    </div>
+    <button class="close-btn" (click)="closeChat()">×</button>
+  </div>
+
+  <!-- پیام‌ها -->
+  <div class="chat-messages">
+    <div *ngFor="let msg of messages"
+         class="message"
+         [class.user-message]="msg.sender === 'user'"
+         [class.assistant-message]="msg.sender === 'assistant'">
+      <div class="message-content">
+        {{ msg.text }}
+      </div>
+      <span class="message-time">{{ msg.timestamp | date:'HH:mm' }}</span>
+    </div>
+
+    <!-- لودینگ -->
+    <div *ngIf="isLoading" class="message assistant-message">
+      <div class="typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ورودی -->
+  <div class="chat-input">
+    <input
+      type="text"
+      [(ngModel)]="inputMessage"
+      placeholder="Ask me anything about your finances..."
+      (keyup.enter)="sendMessage()">
+    <button (click)="sendMessage()" [disabled]="isLoading">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- دکمه شناور برای باز کردن چت -->
+<button class="chat-fab" *ngIf="!isOpen" (click)="openChat()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+  </svg>
+</button>

@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { Navbar } from "./navbar/navbar";
 import { AuthService } from './services/auth.services';
 import { CommonModule } from '@angular/common';
+import { ChatBot } from "./chat-bot/chat-bot";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, CommonModule],
+  imports: [RouterOutlet, Navbar, ChatBot, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
