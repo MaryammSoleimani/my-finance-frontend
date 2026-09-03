@@ -6,7 +6,6 @@
     [totalLiabilities]="totalLiabilities()">
   </app-account-summary>
 
-
   <div *ngIf="error()" class="error-banner">
     {{ error() }}
     <button (click)="loadAccountData()">Retry</button>
@@ -16,7 +15,7 @@
     <div class="side-panel">
       <div class="side-header">
         <h3 style="color: white; padding-left: 0; font-size: 18px;">Accounts</h3>
-        <button class="add-account-btn" (click)="showAddAccount = true">
+        <button class="add-account-btn" (click)="onCloseAddAccount()">
           + Add
         </button>
       </div>
@@ -30,7 +29,8 @@
         *ngIf="!loading()"
         [assets]="assets()"
         [liabilities]="liabilities()"
-        (deleteAccount)="deleteAccount($event)">
+        (deleteAccount)="deleteAccount($event)"
+        (editAccount)="onEditAccount($event)">
       </app-account-list>
     </div>
 
@@ -49,9 +49,11 @@
       </app-account-chart>
     </div>
 
+    <!-- مودال افزودن/ویرایش -->
     <app-add-account
       *ngIf="showAddAccount"
-      (close)="showAddAccount = false"
+      [account]="editingAccount"
+      (close)="onCloseAddAccount()"
       (refresh)="loadAccountData()">
     </app-add-account>
   </div>

@@ -56,12 +56,13 @@
 
 .side-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
   padding: 0;
   width: 100%;
-  max-width: 490px; /* همان عرض account-container */
+  max-width: 490px;
+  gap: 8px;
 }
 
 .add-account-btn {
@@ -74,6 +75,7 @@
   font-size: 13px;
   cursor: pointer;
   transition: opacity 0.2s;
+  margin-left: auto;
 
 
 }

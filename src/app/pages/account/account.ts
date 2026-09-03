@@ -1,4 +1,3 @@
-// account.ts
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { AccountSummary } from './account-summary/account-summary';
 import { AccountList } from './account-list/account-list';
@@ -43,6 +42,7 @@ export class Account implements OnInit {
   readonly currentPeriod = computed(() => this.currentPeriodSignal());
 
   showAddAccount = false;
+  editingAccount: AccountData | null = null;  // ← برای ویرایش
   periods = [
     { label: '2W', value: '2w' },
     { label: '1M', value: '1m' },
@@ -93,5 +93,17 @@ export class Account implements OnInit {
         this.errorSignal.set('Failed to delete account.');
       }
     });
+  }
+
+  // ← متد جدید برای ویرایش
+  onEditAccount(account: AccountData) {
+    this.editingAccount = account;
+    this.showAddAccount = true;
+  }
+
+  // ← متد جدید برای بستن مودال
+  onCloseAddAccount() {
+    this.showAddAccount = false;
+    this.editingAccount = null;
   }
 }

@@ -131,6 +131,32 @@ table{
   transform: scale(1.1);
 }
 
+.edit-btn {
+  background: transparent;
+  border: none;
+  color: #a1a1aa;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.2s;
+  margin-right: 5px;
+}
+
+.custom-table tbody tr:hover .edit-btn {
+  opacity: 1;
+}
+
+.edit-btn:hover {
+  color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.1);
+  transform: scale(1.1);
+}
+
+
 
 
 .modal-overlay {

@@ -1,7 +1,7 @@
 <div class="modal-backdrop">
   <div class="modal-box">
     <div class="modal-header">
-      <h2>New Account</h2>
+      <h2>{{ account ? 'Edit Account' : 'New Account' }}</h2>
       <button (click)="close.emit()">×</button>
     </div>
 
@@ -36,7 +36,7 @@
 
     <div class="modal-actions">
       <button class="btn-cancel" (click)="close.emit()">Cancel</button>
-      <button class="btn-save" (click)="save()">Create Account</button>
+      <button class="btn-save" (click)="save()">{{ account ? 'Update' : 'Create Account' }}</button>
     </div>
   </div>
 </div>

@@ -17,6 +17,7 @@ export class AccountList {
     this.liabilitiesSignal.set(value || []);
   }
   @Output() deleteAccount = new EventEmitter<number>();
+  @Output() editAccount = new EventEmitter<AccountData>();  // ← خروجی جدید برای ویرایش
 
   private assetsSignal = signal<AccountData[]>([]);
   private liabilitiesSignal = signal<AccountData[]>([]);
@@ -45,5 +46,10 @@ export class AccountList {
       this.deleteAccount.emit(account.id);
       this.closeModal();
     }
+  }
+
+  // ← متد جدید برای ویرایش
+  onEdit(account: AccountData) {
+    this.editAccount.emit(account);
   }
 }
