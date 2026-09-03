@@ -87,7 +87,7 @@ export class BarChart implements OnChanges {
     if (changes['data'] || changes['categories'] || changes['colors']) {
       this.chartOptions = {
         ...this.chartOptions,
-        series: [{ name: 'Expenses', data: [...this.data] }],
+        series: [{ name: '', data: [...this.data] }],
         xaxis: {
           ...this.chartOptions.xaxis,
           categories: [...this.categories]

@@ -62,44 +62,110 @@ export class Transactions implements OnInit, AfterViewInit {
   }
 
   loadCharts() {
-    const endpoint = this.chartMode === 'expenses' ? 'getCategoryExpenses' : 'getCategoryDeposits';
+  const categoryEndpoint =
+    this.chartMode === 'expenses'
+      ? 'getCategoryExpenses'
+      : 'getCategoryDeposits';
 
-    this.transactionService[endpoint](this.activeView).subscribe({
-      next: (data) => {
-        if (data) {
-          this.chartData = [...data.series];
-          this.chartLabels = [...data.labels];
-          this.chartColors = [...data.colors];
+  const dailyEndpoint =
+    this.chartMode === 'expenses'
+      ? 'getDailyExpenses'
+      : 'getDailyDeposits';
 
-          if (data.center_text) {
-            this.donutCenterText = data.center_text;
-          }
+  // Reset charts before loading new data
+  this.chartData = [];
+  this.chartLabels = [];
+  this.chartColors = [];
+  this.barData = [];
+  this.barLabels = [];
+  this.donutCenterText = '';
+  this.donutCenterSubText = '';
 
-          const total = data.series.reduce((a: number, b: number) => a + b, 0);
-          this.donutCenterSubText = total.toLocaleString();
+  // =========================
+  // DONUT CHART
+  // =========================
 
-          this.cdr.detectChanges();
-        }
-      },
-      error: (err) => console.error('Error loading charts:', err)
-    });
+  this.transactionService[categoryEndpoint](this.activeView).subscribe({
+    next: (data) => {
 
-    this.transactionService.getDailyExpenses(this.activeView).subscribe({
-      next: (data) => {
-        if (data) {
-          this.barData = [...data.data];
-          this.barLabels = [...data.categories];
+      if (!data || !data.series || data.series.length === 0) {
+        this.chartData = [];
+        this.chartLabels = [];
+        this.chartColors = [];
+        this.donutCenterText = '';
+        this.donutCenterSubText = '';
 
-          this.barTooltipFormatter = (val: number, opts: any) => {
-            return `${opts.w.globals.seriesNames[opts.seriesIndex]}: $${val.toLocaleString()}`;
-          };
+        this.cdr.detectChanges();
+        return;
+      }
 
-          this.cdr.detectChanges();
-        }
-      },
-      error: (err) => console.error('Error loading daily expenses:', err)
-    });
-  }
+      this.chartData = [...data.series];
+      this.chartLabels = [...data.labels];
+      this.chartColors = [...data.colors];
+
+      this.donutCenterText = data.center_text || '';
+
+      const total = data.series.reduce(
+        (a: number, b: number) => a + b,
+        0
+      );
+
+      this.donutCenterSubText = total.toLocaleString();
+
+      this.cdr.detectChanges();
+    },
+
+    error: (err) => {
+      console.error('Error loading category chart:', err);
+
+      this.chartData = [];
+      this.chartLabels = [];
+      this.chartColors = [];
+
+      this.cdr.detectChanges();
+    }
+  });
+
+
+  // =========================
+  // BAR CHART
+  // =========================
+
+  this.transactionService[dailyEndpoint](this.activeView).subscribe({
+    next: (data) => {
+
+      if (!data || !data.data || data.data.length === 0) {
+        this.barData = [];
+        this.barLabels = [];
+
+        this.cdr.detectChanges();
+        return;
+      }
+
+      this.barData = [...data.data];
+      this.barLabels = [...data.categories];
+
+     this.barTooltipFormatter = (val: number, opts: any) => {
+        const label = this.chartMode === 'expenses'
+          ? 'Expenses'
+          : 'Deposits';
+
+        return `${label}: $${val.toLocaleString()}`;
+     };
+
+      this.cdr.detectChanges();
+    },
+
+    error: (err) => {
+      console.error('Error loading daily chart:', err);
+
+      this.barData = [];
+      this.barLabels = [];
+
+      this.cdr.detectChanges();
+    }
+  });
+}
 
   onFilterUpdate(period: string) {
     this.activeView = period;
@@ -121,23 +187,107 @@ export class Transactions implements OnInit, AfterViewInit {
   }
 
   onCategoryFilter(categoryName: string) {
-    this.transactionService.getGroupedTransactions(this.activeView, categoryName).subscribe(res => {
-      this.groupedTransactions = [...res.groups];
-      this.hasData = this.groupedTransactions.length > 0;
-      this.cdr.detectChanges();
+
+  const categoryEndpoint =
+    this.chartMode === 'expenses'
+      ? 'getCategoryExpenses'
+      : 'getCategoryDeposits';
+
+  const dailyEndpoint =
+    this.chartMode === 'expenses'
+      ? 'getDailyExpenses'
+      : 'getDailyDeposits';
+
+
+  // =========================
+  // TABLE
+  // =========================
+
+  this.transactionService
+    .getGroupedTransactions(this.activeView, categoryName)
+    .subscribe({
+      next: (res) => {
+        this.groupedTransactions = [...res.groups];
+
+        this.hasData = this.groupedTransactions.length > 0;
+
+        this.cdr.detectChanges();
+      },
+
+      error: (err) => {
+        console.error('Category table error:', err);
+      }
     });
 
-    this.transactionService.getCategoryExpenses(this.activeView, categoryName).subscribe(data => {
-      this.chartData = data.series.length > 0 ? [...data.series] : [];
-      this.chartLabels = data.labels.length > 0 ? [...data.labels] : [];
-      this.chartColors = data.colors.length > 0 ? [...data.colors] : ['#718096'];
-      this.cdr.detectChanges();
-    });
 
-    this.transactionService.getDailyExpenses(this.activeView, categoryName).subscribe(data => {
+  // =========================
+  // DONUT
+  // =========================
+
+  this.transactionService[categoryEndpoint](
+    this.activeView,
+    categoryName
+  ).subscribe({
+    next: (data) => {
+
+      if (!data || data.series.length === 0) {
+        this.chartData = [];
+        this.chartLabels = [];
+        this.chartColors = [];
+        this.donutCenterText = '';
+        this.donutCenterSubText = '';
+
+        this.cdr.detectChanges();
+        return;
+      }
+
+      this.chartData = [...data.series];
+      this.chartLabels = [...data.labels];
+      this.chartColors = [...data.colors];
+
+      const total = data.series.reduce(
+        (a: number, b: number) => a + b,
+        0
+      );
+
+      this.donutCenterSubText = total.toLocaleString();
+
+      this.cdr.detectChanges();
+    },
+
+    error: (err) => {
+      console.error('Category donut error:', err);
+    }
+  });
+
+
+  // =========================
+  // BAR
+  // =========================
+
+  this.transactionService[dailyEndpoint](
+    this.activeView,
+    categoryName
+  ).subscribe({
+    next: (data) => {
+
+      if (!data || data.data.length === 0) {
+        this.barData = [];
+        this.barLabels = [];
+
+        this.cdr.detectChanges();
+        return;
+      }
+
       this.barData = [...data.data];
       this.barLabels = [...data.categories];
+
       this.cdr.detectChanges();
-    });
-  }
+    },
+
+    error: (err) => {
+      console.error('Category bar error:', err);
+    }
+  });
+}
 }
