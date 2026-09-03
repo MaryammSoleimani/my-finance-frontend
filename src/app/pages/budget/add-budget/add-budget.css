@@ -1,0 +1,154 @@
+/* =========================================================
+   Modal Styles
+   ========================================================= */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  padding: 24px;
+  width: 400px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+}
+
+.modal-header button {
+  background: none;
+  border: none;
+  color: #71717a;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* =========================================================
+   Input Groups
+   ========================================================= */
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  display: block;
+  color: #a1a1aa;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  height: 40px;
+  background: #09090b;
+  border: 1px solid #27272a;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input-group input::placeholder {
+  color: #52525b;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #3b82f6;
+}
+
+/* =========================================================
+   Reset Toggle
+   ========================================================= */
+
+.reset-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.reset-toggle button {
+  flex: 1;
+  background: #27272a;
+  border: 1px solid #27272a;
+  color: #a1a1aa;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.reset-toggle button.active {
+  background: white;
+  color: black;
+  border-color: white;
+}
+
+/* =========================================================
+   Modal Actions
+   ========================================================= */
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-cancel {
+  background: transparent;
+  border: 1px solid #27272a;
+  color: #a1a1aa;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-cancel:hover {
+  background: #27272a;
+}
+
+.btn-save {
+  background: white;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btn-save:hover {
+  opacity: 0.9;
+}

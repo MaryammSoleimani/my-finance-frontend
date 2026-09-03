@@ -1,0 +1,39 @@
+<div class="modal-backdrop">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Create Budget Entry</h2>
+      <button (click)="close.emit()">×</button>
+    </div>
+
+    <div class="input-group">
+      <label>Name</label>
+      <input type="text" [(ngModel)]="name" placeholder="e.g. Groceries">
+    </div>
+
+    <div class="input-group">
+      <label>Resets</label>
+      <div class="reset-toggle">
+        <button [class.active]="resetPeriod === 'monthly'" (click)="resetPeriod = 'monthly'">Per Month</button>
+        <button [class.active]="resetPeriod === 'yearly'" (click)="resetPeriod = 'yearly'">Per Year</button>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Amount</label>
+      <input type="number" [(ngModel)]="amount" placeholder="e.g. 500">
+    </div>
+
+    <div class="input-group">
+      <label>Category Links</label>
+      <select [(ngModel)]="categoryId">
+        <option [ngValue]="null" disabled>Select a category</option>
+        <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+      </select>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="close.emit()">Cancel</button>
+      <button class="btn-save" (click)="save()">Save</button>
+    </div>
+  </div>
+</div>

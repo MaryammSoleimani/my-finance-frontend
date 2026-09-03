@@ -1,0 +1,80 @@
+<!-- budget.html -->
+<div class="budget-wrapper">
+  <!-- Header -->
+  <div class="budget-header">
+    <div class="period-toggle">
+      <button [class.active]="period === 'monthly'" (click)="setPeriod('monthly')">Month</button>
+      <button [class.active]="period === 'yearly'" (click)="setPeriod('yearly')">Year</button>
+    </div>
+    <button class="add-budget-btn" (click)="onAddBudget()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+        <path d="M12 5v14M5 12h14"></path>
+      </svg>
+      Add Budget
+    </button>
+  </div>
+
+  <!-- Summary Card -->
+  <div class="summary-card" *ngIf="summary">
+    <div class="summary-item">
+      <span class="summary-label">Budget</span>
+      <span class="summary-value">${{ summary.total_budget | number:'1.2-2' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Spent</span>
+      <span class="summary-value">${{ summary.total_spent | number:'1.2-2' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Remaining</span>
+      <span class="summary-value" [style.color]="summary.remaining >= 0 ? '#10b981' : '#ef4444'">
+        ${{ summary.remaining | number:'1.2-2' }}
+      </span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Percentage</span>
+      <span class="summary-value">{{ summary.percentage_used }}%</span>
+    </div>
+  </div>
+
+  <div class="budget-list">
+    <div class="budget-card" *ngFor="let budget of budgets">
+      <div class="budget-header">
+        <div class="budget-info">
+          <h4>{{ budget.name }}</h4>
+          <p>{{ budget.category_name }}</p>
+        </div>
+        <div class="budget-actions">
+          <button class="menu-btn">•••</button>
+        </div>
+      </div>
+
+      <!-- Budget Progress -->
+      <div class="budget-progress">
+        <div class="progress-header">
+          <span class="spent">${{ budget.spent_amount | number:'1.2-2' }}</span>
+          <span class="limit">of ${{ budget.amount | number:'1.2-2' }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill"
+               [style.width]="budget.percentage_used + '%'"
+               [style.background]="getProgressColor(budget.percentage_used)">
+          </div>
+        </div>
+        <div class="progress-footer">
+          <span class="percentage">{{ budget.percentage_used }}%</span>
+          <span class="remaining">${{ budget.amount - budget.spent_amount | number:'1.2-2' }} left</span>
+        </div>
+      </div>
+
+      <!-- View Transactions -->
+      <button class="view-transactions-btn">View Transactions</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Add Budget -->
+<app-add-budget
+  *ngIf="showAddBudget"
+  (close)="onCloseAddBudget()"
+  (saved)="onBudgetSaved()">
+</app-add-budget>
