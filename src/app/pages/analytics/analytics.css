@@ -55,6 +55,321 @@
   line-height: 1.5;
 }
 
+/* =========================================================
+   Insufficient Data State
+   ========================================================= */
+
+.health-score-insufficient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 220px;
+
+  margin-top: 20px;
+
+  text-align: center;
+}
+
+
+.insufficient-icon {
+  margin-bottom: 16px;
+
+  font-size: 48px;
+}
+
+
+.health-score-insufficient h4 {
+  margin: 0 0 8px;
+
+  color: white;
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+
+.health-score-insufficient p {
+  margin: 0 0 20px;
+
+  color: #71717a;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  max-width: 400px;
+}
+
+
+/* =========================================================
+   Recommendations Section
+   ========================================================= */
+
+.recommendations-section {
+  margin-top: 24px;
+
+  padding: 16px;
+
+  background: rgba(59, 130, 246, 0.05);
+
+  border: 1px solid rgba(59, 130, 246, 0.1);
+
+  border-radius: 12px;
+}
+
+
+.recommendations-section h4 {
+  margin: 0 0 12px;
+
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+
+.recommendations-section ul {
+  margin: 0;
+
+  padding-left: 20px;
+
+  color: #a1a1aa;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+.recommendations-section li {
+  margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   Smart Goal - Required Monthly Saving Box
+   ========================================================= */
+
+.goal-main-result {
+  margin-bottom: 16px;
+}
+
+
+.monthly-saving-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(59, 130, 246, 0.06);
+
+  border: 1px solid rgba(59, 130, 246, 0.15);
+
+  border-radius: 12px;
+
+  text-align: center;
+}
+
+
+.monthly-saving-label {
+  margin-bottom: 8px;
+
+  color: #a1a1aa;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+.monthly-saving-amount {
+  color: #3b82f6;
+
+  font-size: 36px;
+  font-weight: 800;
+
+  line-height: 1.2;
+}
+
+
+.monthly-saving-text {
+  margin-top: 6px;
+
+  color: #71717a;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   Smart Goal - Result Details
+   ========================================================= */
+
+.result-details {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 12px;
+
+  background: rgba(255, 255, 255, 0.02);
+
+  border-radius: 8px;
+}
+
+
+.detail-label {
+  color: #a1a1aa;
+
+  font-size: 13px;
+}
+
+
+.detail-value {
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.detail-value.highlight {
+  color: #3b82f6;
+}
+
+
+.detail-value.risk-value {
+  padding: 4px 8px;
+
+  border-radius: 4px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+.detail-value.risk-value.good {
+  background: rgba(16, 185, 129, 0.1);
+
+  color: #10b981;
+}
+
+
+.detail-value.risk-value.ok {
+  background: rgba(59, 130, 246, 0.1);
+
+  color: #3b82f6;
+}
+
+
+.detail-value.risk-value.warning {
+  background: rgba(245, 158, 11, 0.1);
+
+  color: #f59e0b;
+}
+
+
+.detail-value.risk-value.danger {
+  background: rgba(239, 68, 68, 0.1);
+
+  color: #ef4444;
+}
+
+
+/* =========================================================
+   Smart Goal - Recommendation
+   ========================================================= */
+
+.goal-suggestion {
+  padding: 16px;
+
+  background: rgba(245, 158, 11, 0.08);
+
+  border: 1px solid rgba(245, 158, 11, 0.18);
+
+  border-radius: 10px;
+}
+
+
+.goal-suggestion.recommendation-good {
+  background: rgba(16, 185, 129, 0.08);
+
+  border-color: rgba(16, 185, 129, 0.18);
+}
+
+
+.goal-suggestion.recommendation-ok {
+  background: rgba(59, 130, 246, 0.08);
+
+  border-color: rgba(59, 130, 246, 0.18);
+}
+
+
+.goal-suggestion.recommendation-warning {
+  background: rgba(245, 158, 11, 0.08);
+
+  border-color: rgba(245, 158, 11, 0.18);
+}
+
+
+.goal-suggestion.recommendation-danger {
+  background: rgba(239, 68, 68, 0.08);
+
+  border-color: rgba(239, 68, 68, 0.18);
+}
+
+
+.goal-suggestion p {
+  margin: 0 0 6px;
+
+  color: #f59e0b;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+.goal-suggestion.recommendation-good p {
+  color: #10b981;
+}
+
+
+.goal-suggestion.recommendation-ok p {
+  color: #3b82f6;
+}
+
+
+.goal-suggestion.recommendation-danger p {
+  color: #ef4444;
+}
+
+
+.goal-suggestion p:last-child {
+  margin-bottom: 0;
+}
+
+
+.recommendation-title {
+  font-weight: 600;
+
+  margin-bottom: 8px !important;
+}
+
 
 /* =========================================================
    Financial Health - Initial State

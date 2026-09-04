@@ -1,4 +1,3 @@
-// src/app/components/chat-bot/chat-bot.ts
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +17,7 @@ interface Message {
   styleUrl: './chat-bot.css'
 })
 export class ChatBot implements OnInit {
-  @Input() isOpen: boolean = true;  // اگر می‌خواهید از بیرون کنترل کنید
+  @Input() isOpen: boolean = false;
   messages: Message[] = [];
   inputMessage: string = '';
   isLoading: boolean = false;
@@ -26,7 +25,7 @@ export class ChatBot implements OnInit {
   constructor(private assistantService: AssistantService) {}
 
   ngOnInit() {
-    // پیام خوش‌آمدگویی
+
     this.messages.push({
       text: 'Hello! I am your financial assistant. How can I help you today?',
       sender: 'assistant',
@@ -67,12 +66,12 @@ export class ChatBot implements OnInit {
     });
   }
 
-  // ✅ متد جدید برای بستن چت
+
   closeChat() {
     this.isOpen = false;
   }
 
-  // ✅ متد جدید برای باز کردن چت
+
   openChat() {
     this.isOpen = true;
   }

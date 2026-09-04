@@ -6,6 +6,7 @@ import { TransactionService } from '../../services/transaction.service';
 import { BarChart } from './charts/bar-chart/bar-chart';
 import { TransactionTable } from './transaction-table/transaction-table';
 import { AddNewTransaction } from './add-new-transaction/add-new-transaction';
+import { BudgetService } from '../../services/budget.service';
 
 @Component({
   selector: 'app-transactions',
@@ -39,7 +40,8 @@ export class Transactions implements OnInit, AfterViewInit {
 
   constructor(
     private transactionService: TransactionService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+     private budgetService: BudgetService
   ) {}
 
   ngOnInit() {}
@@ -54,11 +56,21 @@ export class Transactions implements OnInit, AfterViewInit {
   onTransactionSaved() {
     this.showAddModal = false;
     this.onFilterUpdate(this.activeView);
+    this.refreshBudget();
   }
 
   setChartMode(mode: string) {
     this.chartMode = mode;
     this.loadCharts();
+  }
+
+   refreshBudget() {
+    this.budgetService.getBudgets().subscribe({
+      next: (data) => {
+        // بودجه به‌روزرسانی شد
+      },
+      error: (err) => console.error(err)
+    });
   }
 
   loadCharts() {

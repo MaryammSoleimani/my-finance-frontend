@@ -105,7 +105,7 @@ export class BarChart implements OnChanges {
             formatter: this.tooltipFormatter
           }
         }
-      };
+      }
     }
   }
 }

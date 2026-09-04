@@ -1,18 +1,60 @@
 <div class="login-page">
   <div class="login-card">
     <h2>Financial Tracker</h2>
-    <p>Please enter your details</p>
-    
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" [(ngModel)]="credentials.username" placeholder="Enter username">
+    <p>{{ mode === 'login' ? 'Please enter your details' : 'Create your account' }}</p>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
     </div>
 
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" [(ngModel)]="credentials.password" placeholder="••••••••">
+    <!-- فرم ورود -->
+    <div *ngIf="mode === 'login'">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" [(ngModel)]="credentials.username" placeholder="Enter username">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" [(ngModel)]="credentials.password" placeholder="••••••••">
+      </div>
+
+      <button (click)="onLogin()">Sign In</button>
+
+      <p class="switch-mode">
+        Don't have an account?
+        <a (click)="switchMode('register')">Create account</a>
+      </p>
     </div>
 
-    <button (click)="onLogin()">Sign In</button>
+    <!-- فرم ثبت‌نام -->
+    <div *ngIf="mode === 'register'">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" [(ngModel)]="registerData.username" placeholder="Choose a username">
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="registerData.email" placeholder="you@example.com">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" [(ngModel)]="registerData.password" placeholder="Create a password">
+      </div>
+
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" [(ngModel)]="registerData.confirmPassword" placeholder="Confirm password">
+      </div>
+
+      <button (click)="onRegister()">Create Account</button>
+
+      <p class="switch-mode">
+        Already have an account?
+        <a (click)="switchMode('login')">Sign In</a>
+      </p>
+    </div>
   </div>
 </div>

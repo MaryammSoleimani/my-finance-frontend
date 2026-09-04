@@ -1,5 +1,5 @@
 <div class="chat-container" *ngIf="isOpen">
-  <!-- هدر چت -->
+
   <div class="chat-header">
     <div class="header-info">
       <div class="bot-icon">🤖</div>
@@ -23,7 +23,6 @@
       <span class="message-time">{{ msg.timestamp | date:'HH:mm' }}</span>
     </div>
 
-    <!-- لودینگ -->
     <div *ngIf="isLoading" class="message assistant-message">
       <div class="typing-indicator">
         <span></span>
@@ -33,7 +32,6 @@
     </div>
   </div>
 
-  <!-- ورودی -->
   <div class="chat-input">
     <input
       type="text"
@@ -49,7 +47,6 @@
   </div>
 </div>
 
-<!-- دکمه شناور برای باز کردن چت -->
 <button class="chat-fab" *ngIf="!isOpen" (click)="openChat()">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>

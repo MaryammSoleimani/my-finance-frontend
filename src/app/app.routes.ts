@@ -25,10 +25,14 @@ export const routes: Routes = [
     path: 'analytics',
     loadComponent: () => import('./pages/analytics/analytics').then(m => m.Analytics)
   },
+  {
+    path: 'budget',
+    loadComponent: () => import('./pages/budget/budget').then(m => m.Budget)
+  },
 
   {
     path: 'configuration',
-    loadComponent: () => import('./pages/home/home').then(m => m.Home)
+    loadComponent: () => import('./pages/configuration/configuration').then(m => m.Configuration)
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }

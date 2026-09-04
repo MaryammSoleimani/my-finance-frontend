@@ -1,37 +1,359 @@
 <div class="home-container">
-  <header class="welcome-section">
-    <h1>Welcome back, <span>{{ username }}</span>!</h1>
-    <p>Everything looks good. Here’s what’s happening with your accounts today.</p>
-    <button routerLink="/accounts" class="btn-primary">Go to Accounts</button>
-  </header>
 
-  <main class="dashboard-grid">
-    <div class="card latest-transactions">
+  <div class="dashboard-grid">
+
+    <!-- ================================================= -->
+    <!-- TRANSACTIONS -->
+    <!-- ================================================= -->
+
+    <div class="card transactions-card">
+
       <div class="card-header">
-        <h2>Latest Transactions</h2>
-        <button class="btn-text">View All</button>
+        <div class="header-left">
+
+          <svg viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               width="22"
+               height="22">
+
+            <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+            <line x1="8" y1="8" x2="16" y2="8"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+            <line x1="8" y1="16" x2="13" y2="16"></line>
+
+          </svg>
+
+          <h2>Transactions</h2>
+        </div>
+
+        <a routerLink="/transactions" class="see-more">
+          See more →
+        </a>
       </div>
+
 
       <div class="transaction-list">
-        <div *ngFor="let t of latestTransactions" class="tr-item">
-          <div class="tr-left">
-            <div class="tr-icon" [style.background-color]="t.kind === 'income' ? '#10b98122' : '#ef444422'">
-              {{ t.kind === 'income' ? '💰' : '🛒' }}
-            </div>
-            <div class="tr-details">
-              <p class="tr-title">{{ t.description || 'Transaction' }}</p>
-              <p class="tr-subtitle">{{ t.date | date:'MMM d' }} • {{ t.account_name }}</p>
-            </div>
+
+        <div
+          *ngFor="let t of latestTransactions"
+          class="tr-item">
+
+          <div class="tr-details">
+
+            <p class="tr-title">
+              {{ t.desc || 'Transaction' }}
+            </p>
+
+            <p class="tr-subtitle">
+              {{ t.date | date:'M/d/yyyy' }}
+              •
+              {{ t.category_name || t.account_name }}
+            </p>
+
           </div>
-          <div class="tr-amount" [ngClass]="t.kind">
+
+          <div
+            class="tr-amount"
+            [ngClass]="t.kind">
+
             {{ t.kind === 'expense' ? '-' : '+' }}{{ t.amount | number:'1.2-2' }}$
+
           </div>
+
         </div>
 
-        <div *ngIf="latestTransactions.length === 0" class="empty-state">
+
+        <div
+          *ngIf="latestTransactions.length === 0"
+          class="empty-state">
+
           No recent activity found.
+
         </div>
+
+
+        <div
+          *ngIf="latestTransactions.length > 0"
+          class="view-all-transactions">
+
+          <a routerLink="/transactions">
+            View all transactions →
+          </a>
+
+        </div>
+
       </div>
+
     </div>
-  </main>
+
+
+
+    <!-- ================================================= -->
+    <!-- BUDGET PROGRESS -->
+    <!-- ================================================= -->
+
+    <div class="card budget-card">
+
+      <div class="card-header">
+
+        <div class="header-left">
+
+          <svg viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               width="22"
+               height="22">
+
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 3v9l6 3"></path>
+
+          </svg>
+
+          <h2>Budget Progress</h2>
+
+        </div>
+
+        <a routerLink="/budget" class="see-more">
+          See more →
+        </a>
+
+      </div>
+
+
+      <div
+        class="budget-content"
+        *ngIf="budgetSummary">
+
+        <div class="budget-row">
+
+          <span>Spent this month</span>
+
+          <span class="budget-spent">
+            ${{ budgetSummary.total_spent | number:'1.2-2' }}
+          </span>
+
+        </div>
+
+
+        <!-- Progress Bar -->
+
+        <div class="budget-progress-bar">
+
+          <div
+            class="budget-progress-fill"
+            [style.width]="
+              budgetSummary.total_budget > 0
+                ? (budgetSummary.total_spent / budgetSummary.total_budget * 100) + '%'
+                : '0%'
+            ">
+          </div>
+
+        </div>
+
+
+        <div class="budget-bottom-row">
+
+          <span>
+            Target ${{ budgetSummary.total_budget | number:'1.2-2' }}
+          </span>
+
+          <span>
+            ${{ budgetSummary.total_budget - budgetSummary.total_spent | number:'1.2-2' }}
+            left
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="budget-empty"
+        *ngIf="!budgetSummary">
+
+        No budget information available.
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- NET WORTH -->
+    <!-- ================================================= -->
+
+    <div class="card net-worth-card">
+
+      <div class="card-header">
+
+        <div class="header-left">
+
+          <svg viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               width="22"
+               height="22">
+
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+
+          </svg>
+
+          <h2>Net Worth</h2>
+
+        </div>
+
+        <a routerLink="/accounts" class="see-more">
+          See more →
+        </a>
+
+      </div>
+
+
+      <div
+        class="net-worth-content"
+        *ngIf="accountSummary">
+
+        <p class="net-worth-label">
+          Total Net Worth
+        </p>
+
+        <p class="net-worth-value">
+          ${{ accountSummary.net_worth | number:'1.2-2' }}
+        </p>
+
+
+        <div class="net-worth-bar">
+
+          <div
+            class="net-worth-fill"
+            [style.width]="
+              accountSummary.total_assets > 0
+                ? (accountSummary.net_worth / accountSummary.total_assets * 100) + '%'
+                : '0%'
+            ">
+          </div>
+
+        </div>
+
+
+        <div class="net-worth-details">
+
+          <div class="detail-row">
+
+            <span>Assets</span>
+
+            <span class="detail-value assets">
+              ${{ accountSummary.total_assets | number:'1.2-2' }}
+            </span>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>Liabilities</span>
+
+            <span class="detail-value liabilities">
+              ${{ accountSummary.total_liabilities | number:'1.2-2' }}
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- PLANS -->
+    <!-- ================================================= -->
+
+    <div class="card plans-card">
+
+      <div class="card-header">
+
+        <div class="header-left">
+
+          <svg viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               width="22"
+               height="22">
+
+            <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+            <line x1="9" y1="8" x2="15" y2="8"></line>
+            <line x1="9" y1="12" x2="15" y2="12"></line>
+            <line x1="9" y1="16" x2="13" y2="16"></line>
+
+          </svg>
+
+          <h2>Plans</h2>
+
+        </div>
+
+        <a routerLink="/plans" class="see-more">
+          See more →
+        </a>
+
+      </div>
+
+
+      <div class="plans-content">
+
+        <!-- Decorative illustration -->
+
+        <div class="plans-illustration">
+
+          <div class="clipboard">
+
+            <div class="clip"></div>
+
+            <div class="line"></div>
+            <div class="line short"></div>
+            <div class="line"></div>
+            <div class="line short"></div>
+
+          </div>
+
+          <div class="target">
+
+            <div class="target-ring ring-1"></div>
+            <div class="target-ring ring-2"></div>
+            <div class="target-center"></div>
+
+          </div>
+
+          <div class="arrow"></div>
+
+        </div>
+
+
+        <p>
+          View and manage your financial plans
+        </p>
+
+        <a
+          routerLink="/plans"
+          class="plans-button">
+
+          Go to Plans
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>

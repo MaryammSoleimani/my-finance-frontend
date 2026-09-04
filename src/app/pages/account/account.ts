@@ -101,6 +101,11 @@ export class Account implements OnInit {
     this.showAddAccount = true;
   }
 
+  openAddAccount() {
+    this.editingAccount = null;
+    this.showAddAccount = true;
+  }
+
   // ← متد جدید برای بستن مودال
   onCloseAddAccount() {
     this.showAddAccount = false;

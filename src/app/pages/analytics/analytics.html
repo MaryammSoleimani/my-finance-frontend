@@ -67,10 +67,35 @@
     </div>
 
 
+    <!-- Insufficient Data State -->
+    <div
+      class="health-score-insufficient"
+      *ngIf="healthScore && healthScore.status === 'insufficient_data'"
+    >
+      <div class="insufficient-icon">
+        📊
+      </div>
+
+      <h4>Not Enough Data</h4>
+
+      <p>
+        {{ healthScore.message }}
+      </p>
+
+      <button
+        type="button"
+        class="calculate-btn"
+        (click)="loadHealthScore()"
+      >
+        Try Again
+      </button>
+    </div>
+
+
     <!-- Health Score Result -->
     <div
       class="health-score-card"
-      *ngIf="healthScore && !healthScoreLoading"
+      *ngIf="healthScore && healthScore.status !== 'insufficient_data' && !healthScoreLoading"
     >
 
       <!-- Score Circle -->
@@ -136,10 +161,24 @@
           </div>
 
           <span class="detail-score">
-            {{ item.value.score }} pts
+            {{ item.value.score }} / {{ item.value.max_score }}
           </span>
 
         </div>
+
+      </div>
+
+
+      <!-- Recommendations -->
+      <div class="recommendations-section" *ngIf="healthScore.recommendations && healthScore.recommendations.length > 0">
+
+        <h4>💡 Recommendations</h4>
+
+        <ul>
+          <li *ngFor="let rec of healthScore.recommendations">
+            {{ rec }}
+          </li>
+        </ul>
 
       </div>
 
@@ -505,4 +544,3 @@
   </div>
 
 </div>
-
