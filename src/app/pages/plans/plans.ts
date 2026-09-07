@@ -6,7 +6,6 @@ import { Events } from './events/events';
 import { SimulationSummary } from './simulation-summary/simulation-summary';
 import { FinancialTimeline } from './financial-timeline/financial-timeline';
 import { SimulationSteps } from './simulation-steps/simulation-steps';
-import { ProgressSnapshots } from './progress-snapshots/progress-snapshots';
 
 @Component({
   selector: 'app-plans',
@@ -17,8 +16,7 @@ import { ProgressSnapshots } from './progress-snapshots/progress-snapshots';
     Events,
     SimulationSummary,
     FinancialTimeline,
-    SimulationSteps,
-    ProgressSnapshots
+    SimulationSteps
   ],
   templateUrl: './plans.html',
   styleUrl: './plans.css',

@@ -16,21 +16,19 @@
       </tr>
     </thead>
     <tbody>
-      <!-- بدون () -->
       <tr *ngFor="let step of displayedSteps">
         <td>{{ step.month }}</td>
-        <td>${{ step.liquid | number:'1.2-2' }}</td>
-        <td>${{ step.illiquid | number:'1.2-2' }}</td>
-        <td>${{ step.total_assets | number:'1.2-2' }}</td>
-        <td>${{ step.out | number:'1.2-2' }}</td>
-        <td>${{ step.in | number:'1.2-2' }}</td>
-        <td>${{ step.net | number:'1.2-2' }}</td>
+        <td>{{ step.liquid | number:'1.0-0' }} تومان</td>
+        <td>{{ step.illiquid | number:'1.0-0' }} تومان</td>
+        <td>{{ step.total_assets | number:'1.0-0' }} تومان</td>
+        <td>{{ step.out | number:'1.0-0' }} تومان</td>
+        <td>{{ step.in | number:'1.0-0' }} تومان</td>
+        <td>{{ step.net | number:'1.0-0' }} تومان</td>
       </tr>
     </tbody>
   </table>
 
   <button class="show-more-btn" (click)="toggleShowAll()">
-    <!-- بدون () -->
     {{ showAll ? 'show less' : 'show more' }}
   </button>
 </div>

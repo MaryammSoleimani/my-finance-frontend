@@ -19,7 +19,7 @@
         <span class="name">{{ asset.name }}</span>
         <span class="type">{{ asset.asset_type }}</span>
         <div class="amount-row">
-          <span class="price">${{ asset.amount | number:'1.2-2' }}</span>
+          <span class="price">{{ asset.amount_toman | number:'1.0-0' }} تومان</span>
           <span class="growth" *ngIf="asset.growth_rate > 0">{{ asset.growth_rate }}% growth</span>
         </div>
       </div>
@@ -79,9 +79,9 @@
         <div class="form-group">
           <label>Current Value</label>
           <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="color: #71717a;">$</span>
+            <span style="color: #71717a;"></span>
             <input type="number" [(ngModel)]="newAsset.amount" placeholder="0" style="flex: 1;" />
-            <span style="color: #71717a;">USD</span>
+            <span style="color: #71717a;">تومان</span>
           </div>
           <small>Current dollar value</small>
         </div>

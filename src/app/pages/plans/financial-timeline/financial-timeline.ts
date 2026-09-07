@@ -1,4 +1,3 @@
-// src/app/pages/plans/financial-timeline/financial-timeline.ts
 import { Component, OnInit, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule, ChartComponent } from 'ng-apexcharts';
@@ -42,7 +41,14 @@ export class FinancialTimeline implements OnInit {
     yaxis: {
       labels: {
         style: { colors: '#71717a' },
-        formatter: (val: number) => `$${(val / 1000).toFixed(1)}k`
+        formatter: (val: number) => {
+          if (val >= 1000000) {
+            return `${(val / 1000000).toFixed(1)}M تومان`;
+          } else if (val >= 1000) {
+            return `${(val / 1000).toFixed(0)}K تومان`;
+          }
+          return `${val} تومان`;
+        }
       }
     },
     legend: {
@@ -57,7 +63,9 @@ export class FinancialTimeline implements OnInit {
     tooltip: {
       theme: 'dark',
       y: {
-        formatter: (val: number) => `$${val.toLocaleString()}`
+        formatter: (val: number) => {
+          return `${val.toLocaleString()} تومان`;
+        }
       }
     }
   };
@@ -77,7 +85,6 @@ export class FinancialTimeline implements OnInit {
           { name: 'Liquid', data: data.liquid },
           { name: 'Illiquid', data: data.illiquid }
         ];
-        this.chartOptions.xaxis.categories = data.dates;
         this.updateAnnotations();
       },
       error: (err) => console.error('Error loading timeline:', err)
@@ -137,7 +144,7 @@ export class FinancialTimeline implements OnInit {
     });
   }
 
-  getEventDate(month: number): string {
+   getEventDate(month: number): string {
     const today = new Date();
     const eventDate = new Date(today);
     eventDate.setMonth(today.getMonth() + month);

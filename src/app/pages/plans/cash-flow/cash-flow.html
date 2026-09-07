@@ -20,7 +20,7 @@
         <span class="type">{{ flow.frequency === 'monthly' ? 'Monthly' : flow.frequency }}</span>
         <div class="amount-row">
           <span class="price" [style.color]="flow.flow_type === 'in' ? '#00d084' : '#ff5b5b'">
-            {{ flow.flow_type === 'in' ? '+' : '-' }}${{ flow.amount | number:'1.2-2' }}/month
+             {{ flow.flow_type === 'in' ? '+' : '-' }}{{ flow.amount_toman | number:'1.0-0' }} تومان/ماه
           </span>
         </div>
       </div>
@@ -54,7 +54,7 @@
       </div>
 
       <div class="form-group">
-        <label>Amount ($)</label>
+        <label>Amount (تومان)</label>
         <input type="number" [(ngModel)]="newFlow.amount" />
       </div>
 
