@@ -222,25 +222,15 @@
 
 
       <div class="alert-values">
-
-        <p>
-          <span>Expected</span>
-
-          <strong>
-            ${{ alert.expected_amount | number }}
-          </strong>
-        </p>
-
-
-        <p>
-          <span>Actual</span>
-
-          <strong>
-            ${{ alert.actual_amount | number }}
-          </strong>
-        </p>
-
-      </div>
+  <p>
+    <span>Expected</span>
+    <strong>{{ alert.expected_amount_toman | number:'1.0-0' }} تومان</strong>
+  </p>
+  <p>
+    <span>Actual</span>
+    <strong>{{ alert.actual_amount_toman | number:'1.0-0' }} تومان</strong>
+  </p>
+</div>
 
     </div>
 
