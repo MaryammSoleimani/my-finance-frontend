@@ -1,8 +1,8 @@
-// account.models.ts
 export interface AccountData {
   id: number;
   name: string;
   balance: number;
+  balance_toman: number;  // ← اضافه شد
   type: string;
   is_debt: boolean;
   color: string;

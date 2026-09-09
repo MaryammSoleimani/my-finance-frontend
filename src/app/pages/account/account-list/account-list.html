@@ -14,7 +14,7 @@
       <tbody>
         <tr *ngFor="let acc of displayedAssets()">
           <td class="col-name">{{ acc.name }}</td>
-          <td class="col-balance">{{ acc.balance | number:'1.2-2' }}$</td>
+          <td class="col-balance">{{ acc.balance | number:'1.0-0' }} تومان</td>
           <td class="col-type">
             <span class="badge" [ngClass]="acc.type | lowercase">
                 {{ acc.type }}
@@ -49,7 +49,7 @@
       <tbody>
         <tr *ngFor="let acc of displayedLiabilities()">
           <td class="col-name">{{ acc.name }}</td>
-          <td class="col-balance">{{ acc.balance | number:'1.2-2' }}$</td>
+          <td class="col-balance">{{ acc.balance | number:'1.0-0' }} تومان</td>
           <td class="col-type">
             <span class="badge" [ngClass]="acc.type | lowercase">
               {{ acc.type }}

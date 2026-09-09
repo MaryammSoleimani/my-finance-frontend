@@ -1,3 +1,4 @@
+// account.ts
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { AccountSummary } from './account-summary/account-summary';
 import { AccountList } from './account-list/account-list';
@@ -6,6 +7,7 @@ import { AccountService } from '../../services/account.service';
 import { CommonModule } from '@angular/common';
 import { AddAccount } from './add-account/add-account';
 import { AccountData } from './account.models';
+import moment from 'moment-jalaali';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -42,7 +44,7 @@ export class Account implements OnInit {
   readonly currentPeriod = computed(() => this.currentPeriodSignal());
 
   showAddAccount = false;
-  editingAccount: AccountData | null = null;  // ← برای ویرایش
+  editingAccount: AccountData | null = null;
   periods = [
     { label: '2W', value: '2w' },
     { label: '1M', value: '1m' },
@@ -76,6 +78,17 @@ export class Account implements OnInit {
         this.netWorthSignal.set(data.net_worth || 0);
         this.totalAssetsSignal.set(data.total_assets || 0);
         this.totalLiabilitiesSignal.set(data.total_liabilities || 0);
+
+        // تبدیل تاریخ نمودار به شمسی
+        if (data.chart_data && data.chart_data.dates) {
+          data.chart_data.dates = data.chart_data.dates.map((date: string) => {
+            if (date && date.includes('-')) {
+              return moment(date, 'YYYY-MM-DD').format('jYYYY/jMM/jDD');
+            }
+            return date;
+          });
+        }
+
         this.chartDataSignal.set(data.chart_data || { series: [], dates: [], colors: [] });
       },
       error: (err: any) => {
@@ -95,7 +108,6 @@ export class Account implements OnInit {
     });
   }
 
-  // ← متد جدید برای ویرایش
   onEditAccount(account: AccountData) {
     this.editingAccount = account;
     this.showAddAccount = true;
@@ -106,7 +118,6 @@ export class Account implements OnInit {
     this.showAddAccount = true;
   }
 
-  // ← متد جدید برای بستن مودال
   onCloseAddAccount() {
     this.showAddAccount = false;
     this.editingAccount = null;
