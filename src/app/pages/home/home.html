@@ -1,3 +1,4 @@
+<!-- home.html -->
 <div class="home-container">
 
   <div class="dashboard-grid">
@@ -58,7 +59,7 @@
             class="tr-amount"
             [ngClass]="t.kind">
 
-            {{ t.kind === 'expense' ? '-' : '+' }}{{ t.amount | number:'1.2-2' }}$
+            {{ t.kind === 'expense' ? '-' : '+' }}{{ t.amount_toman | number:'1.0-0' }} تومان
 
           </div>
 
@@ -132,7 +133,7 @@
           <span>Spent this month</span>
 
           <span class="budget-spent">
-            ${{ budgetSummary.total_spent | number:'1.2-2' }}
+            {{ budgetSummary.total_spent | number:'1.0-0' }} تومان
           </span>
 
         </div>
@@ -157,11 +158,11 @@
         <div class="budget-bottom-row">
 
           <span>
-            Target ${{ budgetSummary.total_budget | number:'1.2-2' }}
+            Target {{ budgetSummary.total_budget | number:'1.0-0' }} تومان
           </span>
 
           <span>
-            ${{ budgetSummary.total_budget - budgetSummary.total_spent | number:'1.2-2' }}
+            {{ budgetSummary.total_budget - budgetSummary.total_spent | number:'1.0-0' }} تومان
             left
           </span>
 
@@ -224,7 +225,7 @@
         </p>
 
         <p class="net-worth-value">
-          ${{ accountSummary.net_worth | number:'1.2-2' }}
+          {{ accountSummary.net_worth | number:'1.0-0' }} تومان
         </p>
 
 
@@ -249,7 +250,7 @@
             <span>Assets</span>
 
             <span class="detail-value assets">
-              ${{ accountSummary.total_assets | number:'1.2-2' }}
+              {{ accountSummary.total_assets | number:'1.0-0' }} تومان
             </span>
 
           </div>
@@ -260,7 +261,7 @@
             <span>Liabilities</span>
 
             <span class="detail-value liabilities">
-              ${{ accountSummary.total_liabilities | number:'1.2-2' }}
+              {{ accountSummary.total_liabilities | number:'1.0-0' }} تومان
             </span>
 
           </div>
