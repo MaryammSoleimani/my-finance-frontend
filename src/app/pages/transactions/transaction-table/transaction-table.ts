@@ -1,4 +1,4 @@
-// src/app/pages/transactions/transaction-table/transaction-table.ts
+// transaction-table.ts
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddNewTransaction } from '../add-new-transaction/add-new-transaction';
@@ -15,13 +15,14 @@ export class TransactionTable implements OnInit {
   @Input() groups: any[] = [];
   @Input() grandTotalExpense: number = 0;
   @Input() grandTotalDeposit: number = 0;
-  @Output() refreshData = new EventEmitter<void>();
+  @Input() showAddModal: boolean = false;  // ← اضافه کنید
 
-  showAddModal = false;
+  @Output() refreshData = new EventEmitter<void>();
+  @Output() showAddModalChange = new EventEmitter<boolean>();  // ← اضافه کنید
+
   expandedRows: Set<string> = new Set();
   latestTransactions: any[] = [];
 
-  // میانگین‌ها
   avgExpense: number = 0;
   avgDeposit: number = 0;
 
@@ -33,7 +34,6 @@ export class TransactionTable implements OnInit {
   }
 
   calculateAverages() {
-    // محاسبه میانگین بر اساس تعداد گروه‌ها
     const groupCount = this.groups.length || 1;
     this.avgExpense = this.grandTotalExpense / groupCount;
     this.avgDeposit = this.grandTotalDeposit / groupCount;
@@ -50,6 +50,7 @@ export class TransactionTable implements OnInit {
 
   onTransactionSaved() {
     this.showAddModal = false;
+    this.showAddModalChange.emit(false);  // ← اضافه کنید
     this.loadLatestTransactions();
     this.refreshData.emit();
   }

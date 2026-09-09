@@ -1,3 +1,4 @@
+// transactions.ts
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { TransactionSidebar } from "./transaction-sidebar/transaction-sidebar";
 import { DonutChart } from './charts/donut-chart/donut-chart';
@@ -7,11 +8,12 @@ import { BarChart } from './charts/bar-chart/bar-chart';
 import { TransactionTable } from './transaction-table/transaction-table';
 import { AddNewTransaction } from './add-new-transaction/add-new-transaction';
 import { BudgetService } from '../../services/budget.service';
+import { ImportTransactions } from './import-transactions/import-transactions';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [TransactionSidebar, DonutChart, CommonModule, BarChart, TransactionTable, AddNewTransaction],
+  imports: [TransactionSidebar, DonutChart, CommonModule, BarChart, TransactionTable, AddNewTransaction, ImportTransactions],
   providers: [TransactionService],
   templateUrl: './transactions.html',
   styleUrl: './transactions.css',
@@ -30,6 +32,7 @@ export class Transactions implements OnInit, AfterViewInit {
   activeView: string = 'current-month';
   hasData: boolean = false;
   showAddModal: boolean = false;
+  showImportModal: boolean = false;
 
   chartMode: string = 'expenses';
 
@@ -41,7 +44,7 @@ export class Transactions implements OnInit, AfterViewInit {
   constructor(
     private transactionService: TransactionService,
     private cdr: ChangeDetectorRef,
-     private budgetService: BudgetService
+    private budgetService: BudgetService
   ) {}
 
   ngOnInit() {}
@@ -52,6 +55,13 @@ export class Transactions implements OnInit, AfterViewInit {
       this.onFilterUpdate('current-month');
     }, 50);
   }
+  onTransactionsImported() {
+  this.showImportModal = false;
+
+  this.onFilterUpdate(this.activeView);
+
+  this.refreshBudget();
+}
 
   onTransactionSaved() {
     this.showAddModal = false;
@@ -64,7 +74,7 @@ export class Transactions implements OnInit, AfterViewInit {
     this.loadCharts();
   }
 
-   refreshBudget() {
+  refreshBudget() {
     this.budgetService.getBudgets().subscribe({
       next: (data) => {
         // بودجه به‌روزرسانی شد
@@ -74,110 +84,74 @@ export class Transactions implements OnInit, AfterViewInit {
   }
 
   loadCharts() {
-  const categoryEndpoint =
-    this.chartMode === 'expenses'
-      ? 'getCategoryExpenses'
-      : 'getCategoryDeposits';
+    const categoryEndpoint = this.chartMode === 'expenses' ? 'getCategoryExpenses' : 'getCategoryDeposits';
+    const dailyEndpoint = this.chartMode === 'expenses' ? 'getDailyExpenses' : 'getDailyDeposits';
 
-  const dailyEndpoint =
-    this.chartMode === 'expenses'
-      ? 'getDailyExpenses'
-      : 'getDailyDeposits';
+    this.chartData = [];
+    this.chartLabels = [];
+    this.chartColors = [];
+    this.barData = [];
+    this.barLabels = [];
+    this.donutCenterText = '';
+    this.donutCenterSubText = '';
 
-  // Reset charts before loading new data
-  this.chartData = [];
-  this.chartLabels = [];
-  this.chartColors = [];
-  this.barData = [];
-  this.barLabels = [];
-  this.donutCenterText = '';
-  this.donutCenterSubText = '';
+    this.transactionService[categoryEndpoint](this.activeView).subscribe({
+      next: (data) => {
+        if (!data || !data.series || data.series.length === 0) {
+          this.chartData = [];
+          this.chartLabels = [];
+          this.chartColors = [];
+          this.donutCenterText = '';
+          this.donutCenterSubText = '';
+          this.cdr.detectChanges();
+          return;
+        }
 
-  // =========================
-  // DONUT CHART
-  // =========================
-
-  this.transactionService[categoryEndpoint](this.activeView).subscribe({
-    next: (data) => {
-
-      if (!data || !data.series || data.series.length === 0) {
+        this.chartData = [...data.series];
+        this.chartLabels = [...data.labels];
+        this.chartColors = [...data.colors];
+        this.donutCenterText = data.center_text || '';
+        const total = data.series.reduce((a: number, b: number) => a + b, 0);
+        this.donutCenterSubText = total.toLocaleString();
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error loading category chart:', err);
         this.chartData = [];
         this.chartLabels = [];
         this.chartColors = [];
-        this.donutCenterText = '';
-        this.donutCenterSubText = '';
+        this.cdr.detectChanges();
+      }
+    });
+
+    this.transactionService[dailyEndpoint](this.activeView).subscribe({
+      next: (data) => {
+        if (!data || !data.data || data.data.length === 0) {
+          this.barData = [];
+          this.barLabels = [];
+          this.cdr.detectChanges();
+          return;
+        }
+
+        this.barData = [...data.data];
+        this.barLabels = [...data.categories];
+
+
+        this.barTooltipFormatter = (val: number, opts: any) => {
+          const label = this.chartMode === 'expenses' ? 'Expenses' : 'Deposits';
+          return `${label}: ${val.toLocaleString()} تومان`;
+        };
 
         this.cdr.detectChanges();
-        return;
-      }
-
-      this.chartData = [...data.series];
-      this.chartLabels = [...data.labels];
-      this.chartColors = [...data.colors];
-
-      this.donutCenterText = data.center_text || '';
-
-      const total = data.series.reduce(
-        (a: number, b: number) => a + b,
-        0
-      );
-
-      this.donutCenterSubText = total.toLocaleString();
-
-      this.cdr.detectChanges();
-    },
-
-    error: (err) => {
-      console.error('Error loading category chart:', err);
-
-      this.chartData = [];
-      this.chartLabels = [];
-      this.chartColors = [];
-
-      this.cdr.detectChanges();
-    }
-  });
-
-
-  // =========================
-  // BAR CHART
-  // =========================
-
-  this.transactionService[dailyEndpoint](this.activeView).subscribe({
-    next: (data) => {
-
-      if (!data || !data.data || data.data.length === 0) {
+      },
+      error: (err) => {
+        console.error('Error loading daily chart:', err);
         this.barData = [];
         this.barLabels = [];
-
         this.cdr.detectChanges();
-        return;
       }
-
-      this.barData = [...data.data];
-      this.barLabels = [...data.categories];
-
-     this.barTooltipFormatter = (val: number, opts: any) => {
-        const label = this.chartMode === 'expenses'
-          ? 'Expenses'
-          : 'Deposits';
-
-        return `${label}: $${val.toLocaleString()}`;
-     };
-
-      this.cdr.detectChanges();
-    },
-
-    error: (err) => {
-      console.error('Error loading daily chart:', err);
-
-      this.barData = [];
-      this.barLabels = [];
-
-      this.cdr.detectChanges();
-    }
-  });
-}
+    });
+  }
 
   onFilterUpdate(period: string) {
     this.activeView = period;
@@ -199,107 +173,52 @@ export class Transactions implements OnInit, AfterViewInit {
   }
 
   onCategoryFilter(categoryName: string) {
+    const categoryEndpoint = this.chartMode === 'expenses' ? 'getCategoryExpenses' : 'getCategoryDeposits';
+    const dailyEndpoint = this.chartMode === 'expenses' ? 'getDailyExpenses' : 'getDailyDeposits';
 
-  const categoryEndpoint =
-    this.chartMode === 'expenses'
-      ? 'getCategoryExpenses'
-      : 'getCategoryDeposits';
-
-  const dailyEndpoint =
-    this.chartMode === 'expenses'
-      ? 'getDailyExpenses'
-      : 'getDailyDeposits';
-
-
-  // =========================
-  // TABLE
-  // =========================
-
-  this.transactionService
-    .getGroupedTransactions(this.activeView, categoryName)
-    .subscribe({
+    this.transactionService.getGroupedTransactions(this.activeView, categoryName).subscribe({
       next: (res) => {
         this.groupedTransactions = [...res.groups];
-
         this.hasData = this.groupedTransactions.length > 0;
-
         this.cdr.detectChanges();
       },
-
-      error: (err) => {
-        console.error('Category table error:', err);
-      }
+      error: (err) => console.error('Category table error:', err)
     });
 
-
-  // =========================
-  // DONUT
-  // =========================
-
-  this.transactionService[categoryEndpoint](
-    this.activeView,
-    categoryName
-  ).subscribe({
-    next: (data) => {
-
-      if (!data || data.series.length === 0) {
-        this.chartData = [];
-        this.chartLabels = [];
-        this.chartColors = [];
-        this.donutCenterText = '';
-        this.donutCenterSubText = '';
-
+    this.transactionService[categoryEndpoint](this.activeView, categoryName).subscribe({
+      next: (data) => {
+        if (!data || data.series.length === 0) {
+          this.chartData = [];
+          this.chartLabels = [];
+          this.chartColors = [];
+          this.donutCenterText = '';
+          this.donutCenterSubText = '';
+          this.cdr.detectChanges();
+          return;
+        }
+        this.chartData = [...data.series];
+        this.chartLabels = [...data.labels];
+        this.chartColors = [...data.colors];
+        const total = data.series.reduce((a: number, b: number) => a + b, 0);
+        this.donutCenterSubText = total.toLocaleString();
         this.cdr.detectChanges();
-        return;
-      }
+      },
+      error: (err) => console.error('Category donut error:', err)
+    });
 
-      this.chartData = [...data.series];
-      this.chartLabels = [...data.labels];
-      this.chartColors = [...data.colors];
-
-      const total = data.series.reduce(
-        (a: number, b: number) => a + b,
-        0
-      );
-
-      this.donutCenterSubText = total.toLocaleString();
-
-      this.cdr.detectChanges();
-    },
-
-    error: (err) => {
-      console.error('Category donut error:', err);
-    }
-  });
-
-
-  // =========================
-  // BAR
-  // =========================
-
-  this.transactionService[dailyEndpoint](
-    this.activeView,
-    categoryName
-  ).subscribe({
-    next: (data) => {
-
-      if (!data || data.data.length === 0) {
-        this.barData = [];
-        this.barLabels = [];
-
+    this.transactionService[dailyEndpoint](this.activeView, categoryName).subscribe({
+      next: (data) => {
+        if (!data || data.data.length === 0) {
+          this.barData = [];
+          this.barLabels = [];
+          this.cdr.detectChanges();
+          return;
+        }
+        this.barData = [...data.data];
+        this.barLabels = [...data.categories];
         this.cdr.detectChanges();
-        return;
-      }
-
-      this.barData = [...data.data];
-      this.barLabels = [...data.categories];
-
-      this.cdr.detectChanges();
-    },
-
-    error: (err) => {
-      console.error('Category bar error:', err);
-    }
-  });
-}
+      },
+      error: (err) => console.error('Category bar error:', err)
+    });
+  }
 }

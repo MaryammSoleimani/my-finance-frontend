@@ -195,3 +195,52 @@
   background: #27272a;
   border-radius: 10px;
 }
+
+
+
+
+.transaction-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.import-transaction-btn,
+.add-transaction-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  height: 40px;
+
+  padding: 0 14px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.import-transaction-btn {
+  background: #242424;
+
+  border: 1px solid #3a3a3a;
+
+  color: #ddd;
+}
+
+.import-transaction-btn:hover {
+  background: #2d2d2d;
+
+  border-color: #555;
+}
+
+.import-transaction-btn svg,
+.add-transaction-btn svg {
+  width: 16px;
+  height: 16px;
+}

@@ -1,4 +1,4 @@
-// src/app/pages/transactions/charts/bar-chart/bar-chart.ts
+// bar-chart.ts
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -43,7 +43,7 @@ export class BarChart implements OnChanges {
   @Input() tooltipFormatter: any = null;
 
   public chartOptions: any = {
-    series: [{ name: 'Expenses', data: [] }],
+    series: [{ name: 'هزینه‌ها', data: [] }],
     chart: {
       type: 'bar',
       height: 320,
@@ -66,18 +66,43 @@ export class BarChart implements OnChanges {
     xaxis: {
       categories: [],
       axisBorder: { show: false },
-      labels: { style: { colors: '#718096' } }
+      labels: {
+        style: { colors: '#718096' },
+        rotate: -45,
+        rotateAlways: false,
+        hideOverlappingLabels: true,
+        formatter: (val: string) => {
+          // تبدیل تاریخ میلادی به شمسی
+          if (val && val.includes('-')) {
+            const parts = val.split('-');
+            if (parts.length === 3) {
+              return `${parts[2]}/${parts[1]}`;  // فرض: yyyy-mm-dd
+            }
+          }
+          return val;
+        }
+      }
     },
     yaxis: {
       labels: {
         style: { colors: '#718096' },
-        formatter: (val: number) => '$' + val.toLocaleString()
+        formatter: (val: number) => {
+          // تبدیل به تومان با فرمت خوانا
+          if (val >= 1000000) {
+            return `${(val / 1000000).toFixed(1)}M تومان`;
+          } else if (val >= 1000) {
+            return `${(val / 1000).toFixed(0)}K تومان`;
+          }
+          return `${val} تومان`;
+        }
       }
     },
     tooltip: {
       theme: 'dark',
       y: {
-        formatter: (val: number) => '$' + val.toLocaleString()
+        formatter: (val: number) => {
+          return `${val.toLocaleString()} تومان`;
+        }
       }
     },
     grid: { borderColor: '#2d3748', strokeDashArray: 4 }
@@ -87,7 +112,7 @@ export class BarChart implements OnChanges {
     if (changes['data'] || changes['categories'] || changes['colors']) {
       this.chartOptions = {
         ...this.chartOptions,
-        series: [{ name: '', data: [...this.data] }],
+        series: [{ name: 'هزینه‌ها', data: [...this.data] }],
         xaxis: {
           ...this.chartOptions.xaxis,
           categories: [...this.categories]
@@ -105,7 +130,7 @@ export class BarChart implements OnChanges {
             formatter: this.tooltipFormatter
           }
         }
-      }
+      };
     }
   }
 }

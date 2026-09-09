@@ -1,4 +1,3 @@
-```html
 <div class="transactions-layout">
 
   <div class="sidebar-wrapper">
@@ -19,45 +18,20 @@
       </div>
 
       <div class="empty-table">
-
         <div class="table-toolbar">
-
           <div class="search-group">
-            <input
-              type="text"
-              placeholder="Search Transactions"
-              class="search-input">
-
-            <button class="search-btn">
-              Search
-            </button>
+            <input type="text" placeholder="Search Transactions" class="search-input">
+            <button class="search-btn">Search</button>
           </div>
-
-          <button
-            class="add-transaction-btn"
-            (click)="showAddModal = true">
-
-            <svg
-              stroke="currentColor"
-              fill="none"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              height="1em"
-              width="1em">
-
+          <button class="add-transaction-btn" (click)="showAddModal = true">
+            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em">
               <path d="M5 12h14m-7-7v14"></path>
-
             </svg>
-
             Add Transaction
-
           </button>
-
         </div>
 
-
         <table class="empty-table-content">
-
           <thead>
             <tr>
               <th>CATEGORY</th>
@@ -65,27 +39,20 @@
               <th class="text-right">DEPOSIT</th>
             </tr>
           </thead>
-
           <tbody>
             <tr>
-
               <td class="font-bold">
                 Totals (avg)
               </td>
-
               <td class="text-right">
-                $0.00 ($0.00)
+                0 تومان
               </td>
-
               <td class="text-right">
-                $0.00 ($0.00)
+                0 تومان
               </td>
-
             </tr>
           </tbody>
-
         </table>
-
       </div>
 
     </div>
@@ -99,15 +66,11 @@
 
       <div class="charts-main-container">
 
-
         <!-- ================= DONUT CHART ================= -->
 
         <div class="donut-card">
-
           <h3 class="chart-header">
-            {{ chartMode === 'expenses'
-              ? 'Expenses by month'
-              : 'Deposits by month' }}
+            {{ chartMode === 'expenses' ? 'Expenses by month' : 'Deposits by month' }}
           </h3>
 
           <app-donut-chart
@@ -117,44 +80,30 @@
             [centerText]="donutCenterText"
             [centerSubText]="donutCenterSubText">
           </app-donut-chart>
-
         </div>
-
 
         <!-- ================= BAR CHART ================= -->
 
         <div class="bar-card">
-
           <h3 class="chart-header">
-            {{ chartMode === 'expenses'
-              ? 'Expenses by category, colored by month'
-              : 'Deposits by category, colored by month' }}
+            {{ chartMode === 'expenses' ? 'Expenses by category, colored by month' : 'Deposits by category, colored by month' }}
           </h3>
 
-
           <div class="chart-controls">
-
             <button
               class="toggle-btn"
               [class.active]="chartMode === 'expenses'"
               (click)="setChartMode('expenses')">
-
               Expenses
-
             </button>
-
 
             <button
               class="toggle-btn"
               [class.active]="chartMode === 'deposits'"
               (click)="setChartMode('deposits')">
-
               Deposits
-
             </button>
-
           </div>
-
 
           <app-bar-chart
             [data]="barData"
@@ -162,31 +111,84 @@
             [colors]="chartColors"
             [tooltipFormatter]="barTooltipFormatter">
           </app-bar-chart>
-
         </div>
 
       </div>
 
-
       <!-- ================= TRANSACTION TABLE ================= -->
 
       <div class="table-section">
+        <div class="table-toolbar">
+          <div class="search-group">
+            <input type="text" placeholder="Search Transactions" class="search-input">
+            <button class="search-btn">Search</button>
+          </div>
+           <div class="transaction-actions">
 
-        <app-transaction-table
-          [groups]="groupedTransactions"
-          [grandTotalExpense]="totalExpense"
-          [grandTotalDeposit]="totalDeposit"
-          (refreshData)="onFilterUpdate(activeView)">
-        </app-transaction-table>
+  <button
+    class="import-transaction-btn"
+    (click)="showImportModal = true">
 
+    <svg
+      stroke="currentColor"
+      fill="none"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      height="1em"
+      width="1em">
+
+      <path d="M12 3v12"></path>
+      <path d="M7 10l5 5 5-5"></path>
+      <path d="M5 21h14"></path>
+
+    </svg>
+
+    Import CSV
+
+  </button>
+
+
+  <button
+    class="add-transaction-btn"
+    (click)="showAddModal = true">
+
+    <svg
+      stroke="currentColor"
+      fill="none"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      height="1em"
+      width="1em">
+
+      <path d="M5 12h14m-7-7v14"></path>
+
+    </svg>
+
+    Add Transaction
+
+  </button>
+
+</div>
+
+</div>
+        </div>
+
+       <!-- transactions.html -->
+      <app-transaction-table
+        [groups]="groupedTransactions"
+        [grandTotalExpense]="totalExpense"
+        [grandTotalDeposit]="totalDeposit"
+        [showAddModal]="showAddModal"
+        (showAddModalChange)="showAddModal = $event"
+        (refreshData)="onFilterUpdate(activeView)">
+      </app-transaction-table>
       </div>
 
-    </div>
+
 
   </main>
 
 </div>
-
 
 <!-- ================= ADD TRANSACTION MODAL ================= -->
 
@@ -195,4 +197,9 @@
   (close)="showAddModal = false"
   (saved)="onTransactionSaved()">
 </app-add-new-transaction>
-```
+
+<app-import-transactions
+  *ngIf="showImportModal"
+  (close)="showImportModal = false"
+  (imported)="onTransactionsImported()">
+</app-import-transactions>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { TransactionService } from '../../../services/transaction.service';
-
+import moment from 'moment';
 @Component({
   selector: 'app-add-new-transaction',
   standalone: true,
@@ -36,6 +36,7 @@ export class AddNewTransaction implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.newData.date = moment().format('YYYY-MM-DD');
     this.loadDropdownData();
   }
 
@@ -98,6 +99,7 @@ export class AddNewTransaction implements OnInit {
 
     const payload = {
       ...this.newData,
+      date: this.newData.date,
       amount: Number(this.newData.amount),
       account: Number(this.newData.account),
       category: Number(this.newData.category)

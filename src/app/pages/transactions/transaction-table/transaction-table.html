@@ -1,11 +1,11 @@
-<!-- src/app/pages/transactions/transaction-table/transaction-table.html -->
+<!-- transaction-table.html -->
 <div class="table-container">
   <div class="toolbar">
     <div class="search-group">
       <input type="text" placeholder="Search Transactions" class="search-input">
       <button class="search-btn">Search</button>
     </div>
-    <button class="add-transaction-btn" (click)="showAddModal = true">
+    <button class="add-transaction-btn" (click)="showAddModal = true; showAddModalChange.emit(true)">
       <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em">
         <path d="M5 12h14m-7-7v14"></path>
       </svg>
@@ -40,8 +40,8 @@
         </td>
         <td class="cat-name">{{ group.category__name }}</td>
         <td></td>
-        <td class="text-right expense-cell">${{ (group.total_expense || 0) | number:'1.2-2' }}</td>
-        <td class="text-right deposit-cell">${{ (group.total_deposit || 0) | number:'1.2-2' }}</td>
+        <td class="text-right expense-cell">{{ (group.total_expense || 0) | number:'1.0-0' }} تومان</td>
+        <td class="text-right deposit-cell">{{ (group.total_deposit || 0) | number:'1.0-0' }} تومان</td>
       </tr>
 
       <tr *ngIf="expandedRows.has(group.category__name)" class="details-row">
@@ -62,7 +62,7 @@
                 <td>{{ item.desc }}</td>
                 <td>{{ item.account }}</td>
                 <td>{{ item.date }}</td>
-                <td class="font-bold">${{ item.amount | number:'1.2-2' }}</td>
+                <td class="font-bold">{{ item.amount_toman | number:'1.0-0' }} تومان</td>
                 <td>{{ item.kind }}</td>
                 <td><button class="menu-btn">···</button></td>
               </tr>
@@ -75,8 +75,8 @@
       <tr class="totals-row">
         <td colspan="2">Totals (avg)</td>
         <td></td>
-        <td class="text-right">${{ grandTotalExpense | number:'1.2-2' }} ({{ avgExpense | number:'1.2-2' }})</td>
-        <td class="text-right">${{ grandTotalDeposit | number:'1.2-2' }} ({{ avgDeposit | number:'1.2-2' }})</td>
+        <td class="text-right">{{ grandTotalExpense | number:'1.0-0' }} تومان ({{ avgExpense | number:'1.0-0' }})</td>
+        <td class="text-right">{{ grandTotalDeposit | number:'1.0-0' }} تومان ({{ avgDeposit | number:'1.0-0' }})</td>
       </tr>
     </tfoot>
   </table>
@@ -84,6 +84,6 @@
 
 <app-add-new-transaction
   *ngIf="showAddModal"
-  (close)="showAddModal = false"
+  (close)="showAddModal = false; showAddModalChange.emit(false)"
   (saved)="onTransactionSaved()">
 </app-add-new-transaction>
