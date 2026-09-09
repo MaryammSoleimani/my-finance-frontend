@@ -1,258 +1,149 @@
 <div class="import-backdrop">
-
   <div class="import-modal">
 
-    <!-- ================= HEADER ================= -->
-
+    <!-- HEADER -->
     <div class="import-header">
-
       <div>
         <h2>Import Bank Statement</h2>
-
-        <p>
-          Import transactions from your bank CSV file.
-        </p>
+        <p>Import transactions from your bank CSV file.</p>
       </div>
-
-      <button
-        class="close-btn"
-        (click)="closeModal()">
-        ×
-      </button>
-
+      <button class="close-btn" (click)="closeModal()">×</button>
     </div>
 
-
-    <!-- ================= BODY ================= -->
-
+    <!-- BODY -->
     <div class="import-body">
 
-      <!-- Account -->
+      <!-- اگر Preview فعال نباشه، فرم عادی رو نشون بده -->
+      <ng-container *ngIf="!showPreview">
 
-      <div class="input-group">
-
-        <label>Account</label>
-
-        <select
-          [(ngModel)]="selectedAccount">
-
-          <option
-            [ngValue]="null"
-            disabled>
-            Select Account
-          </option>
-
-          <option
-            *ngFor="let account of accounts"
-            [ngValue]="account.id">
-
-            {{ account.name }}
-
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <!-- Expense Category -->
-
-      <div class="input-group">
-
-        <label>Expense Category</label>
-
-        <select
-          [(ngModel)]="selectedExpenseCategory">
-
-          <option
-            [ngValue]="null"
-            disabled>
-
-            Select Expense Category
-
-          </option>
-
-          <option
-            *ngFor="let category of categories"
-            [ngValue]="category.id">
-
-            {{ category.name }}
-
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <!-- Income Category -->
-
-      <div class="input-group">
-
-        <label>Income Category</label>
-
-        <select
-          [(ngModel)]="selectedIncomeCategory">
-
-          <option
-            [ngValue]="null"
-            disabled>
-
-            Select Income Category
-
-          </option>
-
-          <option
-            *ngFor="let category of categories"
-            [ngValue]="category.id">
-
-            {{ category.name }}
-
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <!-- CSV -->
-
-      <div class="file-section">
-
-        <label class="file-label">
-          Bank CSV File
-        </label>
-
-        <label class="file-picker">
-
-          <input
-            type="file"
-            accept=".csv,text/csv"
-            (change)="onFileSelected($event)">
-
-          <div class="upload-icon">
-            ⇧
-          </div>
-
-          <div>
-
-            <strong>
-              Choose CSV File
-            </strong>
-
-            <span>
-              Only .csv files are supported
-            </span>
-
-          </div>
-
-        </label>
-
-
-        <!-- Selected file -->
-
-        <div
-          *ngIf="selectedFile"
-          class="selected-file">
-
-          <span class="file-icon">
-            CSV
-          </span>
-
-          <div class="file-info">
-
-            <strong>
-              {{ selectedFile.name }}
-            </strong>
-
-            <span>
-              {{ (selectedFile.size / 1024) | number:'1.0-0' }} KB
-            </span>
-
-          </div>
-
-          <span class="check-icon">
-            ✓
-          </span>
-
+        <!-- Account -->
+        <div class="input-group">
+          <label>Account</label>
+          <select [(ngModel)]="selectedAccount">
+            <option [ngValue]="null" disabled>Select Account</option>
+            <option *ngFor="let account of accounts" [ngValue]="account.id">
+              {{ account.name }}
+            </option>
+          </select>
         </div>
 
-      </div>
+        <!-- CSV -->
+        <div class="file-section">
+          <label class="file-label">Bank CSV File</label>
+          <label class="file-picker">
+            <input type="file" accept=".csv,text/csv" (change)="onFileSelected($event)">
+            <div class="upload-icon">⇧</div>
+            <div>
+              <strong>Choose CSV File</strong>
+              <span>Only .csv files are supported</span>
+            </div>
+          </label>
 
+          <div *ngIf="selectedFile" class="selected-file">
+            <span class="file-icon">CSV</span>
+            <div class="file-info">
+              <strong>{{ selectedFile.name }}</strong>
+              <span>{{ (selectedFile.size / 1024) | number:'1.0-0' }} KB</span>
+            </div>
+            <span class="check-icon">✓</span>
+          </div>
+        </div>
 
-      <!-- Info -->
+        <!-- Info -->
+        <div class="import-info">
+          <strong>How it works</strong>
+          <p>
+            Deposits and withdrawals are categorized automatically.
+            If a category doesn't exist, it will be created based on keywords.
+            Transactions that can't be categorized will be shown for manual assignment.
+          </p>
+        </div>
 
-      <div class="import-info">
+        <!-- Error / Success -->
+        <div *ngIf="errorMessage" class="error-message">
+          <span>!</span> {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage && !showPreview" class="success-message">
+          <span>✓</span> {{ successMessage }}
+        </div>
 
-        <strong>How it works</strong>
+      </ng-container>
 
-        <p>
-          Deposits and withdrawals will be imported
-          automatically. Bank amounts are converted
-          from Rial to Toman.
-        </p>
+      <!-- ========================================================== -->
+      <!-- PREVIEW SECTION - برای نمایش تراکنش‌های بدون دسته‌بندی -->
+      <!-- ========================================================== -->
 
-      </div>
+      <ng-container *ngIf="showPreview">
 
+        <div class="preview-header">
+          <h3>📋 Unmatched Transactions</h3>
+          <p>{{ previewTransactions.length }} transactions need category assignment</p>
+        </div>
 
-      <!-- Error -->
+        <div class="preview-table-wrapper">
+          <table class="preview-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Type</th>
+                <th>Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tx of previewTransactions; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ tx.date }}</td>
+                <td class="desc-cell">{{ tx.description }}</td>
+                <td [class.income]="tx.kind === 'income'" [class.expense]="tx.kind === 'expense'">
+                  {{ tx.amount | number:'1.0-0' }}
+                </td>
+                <td>
+                  <span class="badge" [class.badge-income]="tx.kind === 'income'" [class.badge-expense]="tx.kind === 'expense'">
+                    {{ tx.kind === 'income' ? '💰 Income' : '💸 Expense' }}
+                  </span>
+                </td>
+                <td>
+                  <select [(ngModel)]="tx.selectedCategoryId" class="category-select">
+                    <option [ngValue]="null" disabled>Select Category</option>
+                    <option *ngFor="let cat of allCategories" [ngValue]="cat.id">
+                      {{ cat.name }}
+                    </option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <div
-        *ngIf="errorMessage"
-        class="error-message">
+        <!-- Preview actions -->
+        <div class="preview-actions">
+          <button class="cancel-btn" (click)="showPreview = false; successMessage = '';">Back</button>
+          <button class="import-btn" (click)="saveUnmatchedTransactions()" [disabled]="importing">
+            <span *ngIf="!importing">✅ Save All ({{ previewTransactions.length }})</span>
+            <span *ngIf="importing">Saving...</span>
+          </button>
+        </div>
 
-        <span>!</span>
+        <!-- Error in preview -->
+        <div *ngIf="errorMessage" class="error-message">
+          <span>!</span> {{ errorMessage }}
+        </div>
 
-        {{ errorMessage }}
-
-      </div>
-
-
-      <!-- Success -->
-
-      <div
-        *ngIf="successMessage"
-        class="success-message">
-
-        <span>✓</span>
-
-        {{ successMessage }}
-
-      </div>
+      </ng-container>
 
     </div>
 
-
-    <!-- ================= FOOTER ================= -->
-
-    <div class="import-footer">
-
-      <button
-        class="cancel-btn"
-        [disabled]="importing"
-        (click)="closeModal()">
-
-        Cancel
-
+    <!-- FOOTER - فقط در حالت عادی نمایش داده بشه -->
+    <div class="import-footer" *ngIf="!showPreview">
+      <button class="cancel-btn" [disabled]="importing" (click)="closeModal()">Cancel</button>
+      <button class="import-btn" [disabled]="importing" (click)="importTransactions()">
+        <span *ngIf="!importing">Import Transactions</span>
+        <span *ngIf="importing">Importing...</span>
       </button>
-
-      <button
-        class="import-btn"
-        [disabled]="importing"
-        (click)="importTransactions()">
-
-        <span *ngIf="!importing">
-          Import Transactions
-        </span>
-
-        <span *ngIf="importing">
-          Importing...
-        </span>
-
-      </button>
-
     </div>
 
   </div>
-
 </div>
