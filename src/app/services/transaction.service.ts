@@ -2,6 +2,25 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface CsvImportResponse {
+  success: boolean;
+  message: string;
+  imported: number;
+  skipped: number;
+  errors_count: number;
+  errors: CsvImportIssue[];
+  unmatched_count: number;
+  unmatched: CsvImportIssue[];
+}
+
+export interface CsvImportIssue {
+  row: number;
+  message: string;
+  description?: string;
+  kind?: 'expense' | 'income';
+}
+
+
 export interface TransactionData {
   id: number;
   date: string;
@@ -44,11 +63,8 @@ export class TransactionService {
 
   importCsv(
     file: File,
-    accountId: number,
-    expenseCategoryId: number | null,
-    incomeCategoryId: number | null
-  ): Observable<any> {
-
+    accountId: number
+  ): Observable<CsvImportResponse> {
     const token = localStorage.getItem('access_token');
 
     const formData = new FormData();
@@ -56,29 +72,26 @@ export class TransactionService {
     formData.append('file', file);
     formData.append('account', String(accountId));
 
-    if (expenseCategoryId !== null) {
-      formData.append(
-        'expense_category',
-        String(expenseCategoryId)
-      );
-    }
-
-    if (incomeCategoryId !== null) {
-      formData.append(
-        'income_category',
-        String(incomeCategoryId)
-      );
-    }
-
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.post(
+     return this.http.post<CsvImportResponse>(
       `${this.baseUrl}/import-csv/`,
       formData,
       { headers }
     );
+  }
+
+  saveUnmatched(transactions: any[]): Observable<any> {
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    // ✅ اصلاح: حذف 'transactions/' از آدرس
+    return this.http.post(`${this.baseUrl}/save-unmatched/`, { transactions }, { headers });
   }
 
   // =========================================================
