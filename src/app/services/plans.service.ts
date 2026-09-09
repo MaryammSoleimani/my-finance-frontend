@@ -1,6 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+export interface AssetData {
+  id: number;
+  name: string;
+  amount: number;
+  amount_toman: number;  // ← اضافه شد
+  asset_type: string;
+  growth_rate: number;
+  annual_income_rate: number;
+  liquidity_penalty: number;
+
+}
+
+export interface CashFlowData {
+  id: number;
+  name: string;
+  amount: number;
+  amount_toman: number;
+  flow_type: string;
+  frequency: string;
+
+}
+
+export interface EventData {
+  id: number;
+  name: string;
+  event_type: string;
+  month: number;
+  cash_flow: number | null;
+  cash_flow_name: string | null;
+  amount: number;
+  amount_toman: number;
+  description: string | null;
+
+}
 
 @Injectable({ providedIn: 'root' })
 export class PlansService {
@@ -40,7 +74,7 @@ export class PlansService {
   }
 
   importSelectedAccounts(accountIds: number[]): Observable<any> {
-    return this.http.post(`${this.apiUrl}/assets/import_selected/`, { account_ids: accountIds });
+    return this.http.post(`${this.apiUrl}/assets/import_selected/`, {account_ids: accountIds});
   }
 
   // ==========================================
@@ -108,21 +142,6 @@ export class PlansService {
   }
 
   runSimulation(): Observable<any> {
-  return this.http.post(`${this.apiUrl}/simulation/run/`, {});
-}
-
-  // ==========================================
-  // Progress Snapshots
-  // ==========================================
-  getSnapshots(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/snapshots/`);
-  }
-
-  takeSnapshot(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/snapshots/`, {});
-  }
-
-  deleteSnapshot(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/snapshots/${id}/`);
+    return this.http.post(`${this.apiUrl}/simulation/run/`, {});
   }
 }

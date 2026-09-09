@@ -7,6 +7,7 @@ export interface AccountSummaryData {
   net_worth: number;
   total_assets: number;
   total_liabilities: number;
+  balance_toman: number;
   assets: any[];
   liabilities: any[];
   chart_data: {
@@ -14,6 +15,16 @@ export interface AccountSummaryData {
     dates: string[];
   };
 }
+export interface AccountData {
+  id: number;
+  name: string;
+  balance: number;
+  balance_toman: number;  // ← اضافه شد
+  type: string;
+  is_debt: boolean;
+  color: string;
+}
+
 
 @Injectable({
   providedIn: 'root'

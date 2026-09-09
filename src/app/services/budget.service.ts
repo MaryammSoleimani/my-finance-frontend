@@ -1,7 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+export interface BudgetData {
+  id: number;
+  name: string;
+  amount: number;
+  amount_toman: number;  // ← اضافه شد
+  reset_period: string;
+  category: number;
+  category_name: string;
+  category_color: string;
+  spent_amount: number;
+  spent_amount_toman: number;  // ← اضافه شد
+  percentage_used: number;
+  created_at_shamsi: string;  // ← اضافه شد
+  updated_at_shamsi: string;  // ← اضافه شد
+}
 @Injectable({
   providedIn: 'root'
 })

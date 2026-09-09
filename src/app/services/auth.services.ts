@@ -22,7 +22,6 @@ export class AuthService {
     );
   }
 
-  // ✅ متد جدید برای ثبت‌نام
   register(userData: any) {
     return this.http.post(this.registerUrl, userData).pipe(
       tap((response: any) => {

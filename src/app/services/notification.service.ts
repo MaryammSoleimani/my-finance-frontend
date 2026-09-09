@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+export interface NotificationData {
+  id: number;
+  title: string;
+  message: string;
+  type: string;
+  is_read: boolean;
+  enabled: boolean;
+  created_at_shamsi: string;  // ← اضافه شد
+}
 @Injectable({
   providedIn: 'root'
 })
