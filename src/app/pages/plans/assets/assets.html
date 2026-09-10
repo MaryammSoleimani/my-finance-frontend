@@ -1,164 +1,980 @@
 <div class="assets-card">
+
+
+  <!-- Header -->
+
   <div class="card-header">
+
+
     <div class="header-content">
-      <div class="icon-wrapper" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-          <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-        </svg>
+
+
+      <div class="icon-wrapper">
+
+
+        💰
+
+
       </div>
+
+
+
+
       <div class="text-group">
-        <h3>Assets</h3>
-        <p>What you own right now</p>
+
+
+        <h3>
+
+          دارایی‌ها
+
+        </h3>
+
+
+
+        <p>
+
+          مدیریت دارایی‌های مالی شما
+
+        </p>
+
+
+
       </div>
+
+
     </div>
+
+
   </div>
+
+
+
+
+
+
+
+
+  <!-- Assets List -->
+
 
   <div class="assets-list">
-    <div class="asset-row" *ngFor="let asset of assets">
+
+
+    <div
+
+      class="asset-row"
+
+      *ngFor="let asset of assets">
+
+
+
+
+
       <div class="asset-info">
-        <span class="name">{{ asset.name }}</span>
-        <span class="type">{{ asset.asset_type }}</span>
+
+
+
+        <span class="name">
+
+          {{ asset.name }}
+
+        </span>
+
+
+
+
+        <span class="type">
+
+          {{ asset.asset_type === 'liquid'
+              ? 'نقدشونده'
+              : 'غیرنقدشونده'
+          }}
+
+        </span>
+
+
+
+
+
+
         <div class="amount-row">
-          <span class="price">{{ asset.amount_toman | number:'1.0-0' }} تومان</span>
-          <span class="growth" *ngIf="asset.growth_rate > 0">{{ asset.growth_rate }}% growth</span>
+
+
+
+          <span class="price">
+
+
+            {{ asset.amount_toman | number:'1.0-0' }}
+
+            تومان
+
+
+
+          </span>
+
+
+
+
+          <span
+
+            class="growth"
+
+            *ngIf="asset.growth_rate > 0">
+
+
+            رشد
+
+            {{ asset.growth_rate }}
+
+            ٪
+
+
+
+          </span>
+
+
+
         </div>
+
+
+
       </div>
+
+
+
+
+
+
 
       <div class="action-buttons">
-        <button class="edit-btn" (click)="onEdit(asset)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-          </svg>
+
+
+
+        <button
+
+          class="edit-btn"
+
+          (click)="onEdit(asset)"
+
+          title="ویرایش">
+
+
+          ✏️
+
+
         </button>
-        <button class="delete-btn" (click)="onDelete(asset.id)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16">
-            <path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-          </svg>
+
+
+
+
+
+        <button
+
+          class="delete-btn"
+
+          (click)="onDelete(asset.id)"
+
+          title="حذف">
+
+
+          🗑️
+
+
         </button>
+
+
+
+
       </div>
+
+
+
+
+
     </div>
+
+
+
   </div>
 
-  <!-- Import Button -->
-  <button class="import-btn" (click)="openImportModal()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="margin-right: 8px;">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-      <polyline points="7 10 12 15 17 10"></polyline>
-      <line x1="12" y1="15" x2="12" y2="3"></line>
-    </svg>
-    Import from accounts ({{ assets.length }})
+
+
+
+
+
+
+
+
+  <!-- Import -->
+
+
+  <button
+
+    class="import-btn"
+
+    (click)="openImportModal()">
+
+
+
+    📥
+
+    وارد کردن از حساب‌ها
+
+    ({{ assets.length }})
+
+
+
   </button>
 
-  <!-- Add Asset Button -->
-  <button class="add-button" (click)="openModal()">+ Add Asset</button>
 
-  <!-- Create/Edit Asset Modal -->
-  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <h4>{{ isEditMode ? 'Edit' : 'Create New' }} Asset</h4>
+
+
+
+
+
+
+
+  <!-- Add Asset -->
+
+
+  <button
+
+    class="add-button"
+
+    (click)="openModal()">
+
+
+
+    + افزودن دارایی
+
+
+
+  </button>
+
+
+
+
+
+
+
+
+
+  <!-- Create / Edit Modal -->
+
+
+  <div
+
+    class="modal-overlay"
+
+    *ngIf="showModal"
+
+    (click)="closeModal()">
+
+
+
+
+
+    <div
+
+      class="modal-content"
+
+      (click)="$event.stopPropagation()">
+
+
+
+
+
+      <h4>
+
+
+        {{ isEditMode
+
+          ? 'ویرایش دارایی'
+
+          : 'ایجاد دارایی جدید'
+
+        }}
+
+
+      </h4>
+
+
+
+
+
+
+
 
       <div class="form-grid">
-        <!-- Asset Name -->
+
+
+
+
+
+        <!-- Name -->
+
+
         <div class="form-group">
-          <label>Asset Name</label>
-          <input [(ngModel)]="newAsset.name" placeholder="e.g. Checking Account, Investment Portfolio" />
-          <small>Give your asset a descriptive name</small>
+
+
+          <label>
+
+            نام دارایی
+
+
+          </label>
+
+
+
+
+          <input
+
+            [(ngModel)]="newAsset.name"
+
+            placeholder="مثلاً حساب بانکی، سرمایه‌گذاری">
+
+
+
+          <small>
+
+            یک نام مشخص برای دارایی وارد کنید
+
+          </small>
+
+
+
         </div>
 
-        <!-- Asset Type -->
+
+
+
+
+
+
+
+
+        <!-- Type -->
+
+
         <div class="form-group">
-          <label>Asset Type</label>
-          <select [(ngModel)]="newAsset.asset_type">
-            <option *ngFor="let t of assetTypes" [value]="t.value">{{ t.label }}</option>
+
+
+          <label>
+
+            نوع دارایی
+
+
+          </label>
+
+
+
+
+          <select
+
+            [(ngModel)]="newAsset.asset_type">
+
+
+
+            <option
+
+              *ngFor="let t of assetTypes"
+
+              [value]="t.value">
+
+
+              {{ t.value === 'liquid'
+                  ? 'نقدشونده'
+                  : 'غیرنقدشونده'
+              }}
+
+
+
+            </option>
+
+
+
           </select>
-          <small>Liquid vs illiquid</small>
+
+
+
+          <small>
+
+            نقدشونده یا غیرنقدشونده
+
+          </small>
+
+
+
         </div>
 
-        <!-- Current Value -->
+
+
+
+
+
+
+
+
+        <!-- Amount -->
+
+
         <div class="form-group">
-          <label>Current Value</label>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="color: #71717a;"></span>
-            <input type="number" [(ngModel)]="newAsset.amount" placeholder="0" style="flex: 1;" />
-            <span style="color: #71717a;">تومان</span>
+
+
+          <label>
+
+            ارزش فعلی
+
+
+          </label>
+
+
+
+
+          <div class="input-with-label">
+
+
+            <input
+
+              type="number"
+
+              [(ngModel)]="newAsset.amount"
+
+              placeholder="۰">
+
+
+
+            <span>
+
+              تومان
+
+            </span>
+
+
+
           </div>
-          <small>Current dollar value</small>
+
+
+
+
+
+          <small>
+
+            ارزش فعلی دارایی
+
+          </small>
+
+
+
         </div>
 
-        <!-- Liquidity Penalty -->
+
+
+
+
+
+
+
+
+        <!-- Liquidity -->
+
+
         <div class="form-group">
-          <label>Liquidity Penalty</label>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <input type="number" [(ngModel)]="newAsset.liquidity_penalty" placeholder="0" style="flex: 1;" />
-            <span style="color: #71717a;">%</span>
+
+
+          <label>
+
+            هزینه نقد کردن
+
+
+          </label>
+
+
+
+
+          <div class="input-with-label">
+
+
+            <input
+
+              type="number"
+
+              [(ngModel)]="newAsset.liquidity_penalty"
+
+              placeholder="۰">
+
+
+
+            <span>
+
+              ٪
+
+            </span>
+
+
+
           </div>
-          <small>Early withdrawal cost</small>
+
+
+
+
+
+          <small>
+
+            هزینه برداشت زودهنگام
+
+          </small>
+
+
+
         </div>
 
-        <!-- Annual Growth Rate -->
+
+
+
+
+
+
+
+
+        <!-- Growth -->
+
+
         <div class="form-group">
-          <label>Annual Growth Rate</label>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <input type="number" [(ngModel)]="newAsset.growth_rate" placeholder="0" style="flex: 1;" />
-            <span style="color: #71717a;">%</span>
+
+
+          <label>
+
+            نرخ رشد سالانه
+
+
+          </label>
+
+
+
+
+          <div class="input-with-label">
+
+
+            <input
+
+              type="number"
+
+              [(ngModel)]="newAsset.growth_rate"
+
+              placeholder="۰">
+
+
+
+            <span>
+
+              ٪
+
+            </span>
+
+
+
           </div>
-          <small>Expected appreciation</small>
+
+
+
+
+          <small>
+
+            میزان افزایش ارزش پیش‌بینی‌شده
+
+          </small>
+
+
+
         </div>
 
-        <!-- Annual Income Rate -->
+
+
+
+
+
+
+
+
+        <!-- Income -->
+
+
         <div class="form-group">
-          <label>Annual Income Rate</label>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <input type="number" [(ngModel)]="newAsset.annual_income_rate" placeholder="0" style="flex: 1;" />
-            <span style="color: #71717a;">%</span>
+
+
+          <label>
+
+            درآمد سالانه
+
+
+          </label>
+
+
+
+
+          <div class="input-with-label">
+
+
+            <input
+
+              type="number"
+
+              [(ngModel)]="newAsset.annual_income_rate"
+
+              placeholder="۰">
+
+
+
+            <span>
+
+              ٪
+
+            </span>
+
+
+
           </div>
-          <small>Dividends, interest, rental</small>
+
+
+
+
+          <small>
+
+            سود، اجاره یا درآمد دوره‌ای
+
+          </small>
+
+
+
         </div>
+
+
+
+
+
       </div>
+
+
+
+
+
+
+
+
 
       <div class="modal-actions">
-        <button class="btn-cancel" (click)="closeModal()">Cancel</button>
-        <button class="btn-save" (click)="onSubmit()">{{ isEditMode ? 'Update' : 'Create Asset' }}</button>
+
+
+
+        <button
+
+          class="btn-cancel"
+
+          (click)="closeModal()">
+
+
+
+          لغو
+
+
+
+        </button>
+
+
+
+
+
+
+
+        <button
+
+          class="btn-save"
+
+          (click)="onSubmit()">
+
+
+
+          {{ isEditMode
+
+            ? 'به‌روزرسانی'
+
+            : 'ایجاد دارایی'
+
+          }}
+
+
+
+        </button>
+
+
+
+
+
       </div>
+
+
+
+
+
+
     </div>
+
+
+
+
   </div>
+
+
+
+
+
+
+
+
 
   <!-- Import Modal -->
-  <div class="modal-overlay" *ngIf="showImportModal" (click)="closeModal()">
-    <div class="import-card" (click)="$event.stopPropagation()">
+
+
+  <div
+
+    class="modal-overlay"
+
+    *ngIf="showImportModal"
+
+    (click)="showImportModal=false">
+
+
+
+
+
+    <div
+
+      class="import-card"
+
+      (click)="$event.stopPropagation()">
+
+
+
+
+
       <div class="import-header">
+
+
+
         <div class="title-section">
-          <h4>Import from Accounts</h4>
-          <p>Select accounts to import as assets</p>
+
+
+          <h4>
+
+            وارد کردن از حساب‌ها
+
+          </h4>
+
+
+
+          <p>
+
+            حساب‌های موردنظر را برای تبدیل به دارایی انتخاب کنید
+
+          </p>
+
+
+
         </div>
-        <button class="close-x" (click)="showImportModal = false">×</button>
+
+
+
+
+
+
+        <button
+
+          class="close-x"
+
+          (click)="showImportModal=false">
+
+
+          ×
+
+
+        </button>
+
+
+
+
       </div>
+
+
+
+
+
+
+
+
 
       <div class="selection-area">
-        <div class="acc-row" *ngFor="let acc of availableAccounts"
-             [class.selected]="selectedAccountIds.includes(acc.id)"
-             (click)="toggleAccountSelection(acc.id)">
+
+
+
+
+
+        <div
+
+          class="acc-row"
+
+          *ngFor="let acc of availableAccounts"
+
+          [class.selected]="selectedAccountIds.includes(acc.id)"
+
+          (click)="toggleAccountSelection(acc.id)">
+
+
+
+
+
           <div>
-            <span class="acc-name">{{ acc.name }}</span>
-            <span class="acc-type">{{ acc.type }}</span>
+
+
+            <span class="acc-name">
+
+              {{ acc.name }}
+
+
+            </span>
+
+
+
+            <span class="acc-type">
+
+
+              {{ acc.type }}
+
+
+            </span>
+
+
+
           </div>
+
+
+
+
+
+
           <div class="acc-amount">
-            ${{ acc.balance | number }}
+
+
+
+            {{ acc.balance | number }}
+
+            تومان
+
+
+
+
+
             <div class="custom-checkbox">
-              <div class="inner-dot" *ngIf="selectedAccountIds.includes(acc.id)"></div>
+
+
+              <div
+
+                class="inner-dot"
+
+                *ngIf="selectedAccountIds.includes(acc.id)">
+
+
+              </div>
+
+
             </div>
+
+
+
+
           </div>
+
+
+
+
+
         </div>
+
+
+
+
       </div>
 
+
+
+
+
+
+
+
+
       <div class="import-footer">
-        <button class="btn-cancel-link" (click)="showImportModal = false">Cancel</button>
-        <button class="btn-confirm-import" [disabled]="selectedAccountIds.length === 0"
-                (click)="confirmImport()">
-          Import {{ selectedAccountIds.length }} Account{{ selectedAccountIds.length !== 1 ? 's' : '' }}
+
+
+
+        <button
+
+          class="btn-cancel-link"
+
+          (click)="showImportModal=false">
+
+
+          لغو
+
+
         </button>
+
+
+
+
+
+
+        <button
+
+          class="btn-confirm-import"
+
+          [disabled]="selectedAccountIds.length === 0"
+
+          (click)="confirmImport()">
+
+
+
+          وارد کردن
+
+          {{ selectedAccountIds.length }}
+
+          حساب
+
+
+
+        </button>
+
+
+
+
+
       </div>
+
+
+
+
+
+
     </div>
+
+
+
+
+
   </div>
+
+
+
+
+
 </div>

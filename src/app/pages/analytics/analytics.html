@@ -1,546 +1,1108 @@
 <div class="analytics-wrapper">
 
-  <!-- ===================================================== -->
-  <!-- Financial Health Score -->
-  <!-- ===================================================== -->
 
   <div class="health-score-section">
 
+
     <div class="section-header">
-      <h3>📊 Financial Health Score</h3>
-      <p>Your overall financial health rating</p>
+
+      <h3>
+        📊 {{'analytics.health_score.title' | translate}}
+      </h3>
+
+
+      <p>
+        {{'analytics.health_score.description' | translate}}
+      </p>
+
     </div>
 
-    <!-- Initial State -->
+
+
+
     <div
       class="health-score-initial"
-      *ngIf="!healthScore && !healthScoreLoading"
-    >
+      *ngIf="!healthScore && !healthScoreLoading">
+
+
       <div class="initial-content">
+
 
         <div class="initial-icon">
           💡
         </div>
 
-        <h4>Calculate Your Financial Health</h4>
+
+
+        <h4>
+          {{'analytics.health_score.calculate_title' | translate}}
+        </h4>
+
+
+
 
         <p>
-          Get a personalized score based on your accounts,
-          income, and expenses.
+          {{'analytics.health_score.calculate_description' | translate}}
         </p>
+
+
+
+
 
         <button
           type="button"
           class="calculate-btn"
-          (click)="loadHealthScore()"
-        >
+          (click)="loadHealthScore()">
+
+
           <svg
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             stroke-width="2"
             width="18"
-            height="18"
-          >
+            height="18">
+
             <path d="M12 20V10"></path>
             <path d="M18 20V4"></path>
             <path d="M6 20v-4"></path>
+
           </svg>
 
-          Calculate Score
+
+
+          {{'analytics.health_score.calculate' | translate}}
+
+
         </button>
 
+
       </div>
+
+
     </div>
 
 
-    <!-- Loading State -->
+
+
+
+
     <div
       class="health-score-loading"
-      *ngIf="healthScoreLoading"
-    >
+      *ngIf="healthScoreLoading">
+
+
       <div class="loading-spinner"></div>
 
+
       <p>
-        Calculating your financial health...
+        {{'analytics.health_score.loading' | translate}}
       </p>
+
+
     </div>
 
 
-    <!-- Insufficient Data State -->
+
+
+
+
     <div
       class="health-score-insufficient"
-      *ngIf="healthScore && healthScore.status === 'insufficient_data'"
-    >
+      *ngIf="
+      healthScore &&
+      healthScore.status === 'insufficient_data'
+      ">
+
+
       <div class="insufficient-icon">
         📊
       </div>
 
-      <h4>Not Enough Data</h4>
+
+
+
+      <h4>
+        {{'analytics.health_score.insufficient_title' | translate}}
+      </h4>
+
+
+
 
       <p>
-        {{ healthScore.message }}
+        {{healthScore.message}}
       </p>
+
+
+
+
 
       <button
         type="button"
         class="calculate-btn"
-        (click)="loadHealthScore()"
-      >
-        Try Again
+        (click)="loadHealthScore()">
+
+
+        {{'analytics.retry' | translate}}
+
+
       </button>
+
+
     </div>
-
-
-    <!-- Health Score Result -->
-    <div
+        <div
       class="health-score-card"
-      *ngIf="healthScore && healthScore.status !== 'insufficient_data' && !healthScoreLoading"
-    >
+      *ngIf="
+      healthScore &&
+      healthScore.status !== 'insufficient_data' &&
+      !healthScoreLoading
+      ">
 
-      <!-- Score Circle -->
+
+
       <div class="score-circle-container">
+
+
 
         <div
           class="score-circle"
-          [style.background]="getScoreColor(healthScore.score)"
-        >
+          [style.background]="getScoreColor(healthScore.score)">
+
+
 
           <div class="score-circle-inner">
 
+
             <span class="score-number">
-              {{ healthScore.score }}
+
+              {{healthScore.score}}
+
             </span>
 
+
+
             <span class="score-grade">
-              {{ healthScore.grade }}
+
+              {{healthScore.grade}}
+
             </span>
+
+
 
           </div>
 
+
         </div>
+
+
+
 
         <p
           class="score-message"
-          [style.color]="getScoreColor(healthScore.score)"
-        >
-          {{ healthScore.message }}
+          [style.color]="getScoreColor(healthScore.score)">
+
+
+          {{healthScore.message}}
+
+
         </p>
 
-      </div>
 
-
-      <!-- Score Details -->
-      <div class="score-details">
-
-        <div
-          class="detail-card"
-          *ngFor="let item of healthScore.details | keyvalue"
-        >
-
-          <div
-            class="detail-icon"
-            [style.background]="getStatusColor(item.value.status)"
-          >
-            {{ getStatusIcon(item.value.status) }}
-          </div>
-
-          <div class="detail-info">
-
-            <span class="detail-label">
-              {{ formatLabel(item.key) }}
-            </span>
-
-            <span
-              class="detail-status"
-              [style.color]="getStatusColor(item.value.status)"
-            >
-              {{ item.value.label }}
-            </span>
-
-          </div>
-
-          <span class="detail-score">
-            {{ item.value.score }} / {{ item.value.max_score }}
-          </span>
-
-        </div>
 
       </div>
 
 
-      <!-- Recommendations -->
-      <div class="recommendations-section" *ngIf="healthScore.recommendations && healthScore.recommendations.length > 0">
 
-        <h4>💡 Recommendations</h4>
 
-        <ul>
-          <li *ngFor="let rec of healthScore.recommendations">
-            {{ rec }}
-          </li>
-        </ul>
 
-      </div>
+
+
+
+      <div
+  class="score-details">
+
+
+  <div
+    class="detail-card"
+    *ngFor="let item of healthScore.details | keyvalue">
+
+
+
+    <div
+      class="detail-icon"
+      [style.background]="
+      getStatusColor($any(item.value).status)
+      ">
+
+
+      {{getStatusIcon($any(item.value).status)}}
+
 
     </div>
+
+
+
+
+
+    <div class="detail-info">
+
+
+      <span class="detail-label">
+
+
+        {{formatLabel(item.key)}
+
+
+      </span>
+
+
+
+
+
+      <span
+        class="detail-status"
+        [style.color]="
+        getStatusColor($any(item.value).status)
+        ">
+
+
+        {{$any(item.value).label}}
+
+
+      </span>
+
+
+
+    </div>
+
+
+
+
+
+    <span class="detail-score">
+
+
+      {{$any(item.value).score}}
+
+      /
+
+      {{$any(item.value).max_score}}
+
+
+
+    </span>
+
+
 
   </div>
 
 
-  <!-- ===================================================== -->
-  <!-- Anomaly Alerts -->
-  <!-- ===================================================== -->
 
-  <div class="alerts-section">
+</div>
 
-    <div class="section-header">
-      <h3>🚨 Anomaly Alerts</h3>
 
-      <p>
-        Unusual spending patterns detected in your finances
-      </p>
+
+
+
+
+
+
+      <div
+        class="recommendations-section"
+        *ngIf="
+        healthScore.recommendations &&
+        healthScore.recommendations.length > 0
+        ">
+
+
+
+        <h4>
+
+          💡 {{'analytics.recommendations' | translate}}
+
+        </h4>
+
+
+
+
+        <ul>
+
+
+          <li
+            *ngFor="let rec of healthScore.recommendations">
+
+
+            {{rec}}
+
+
+          </li>
+
+
+        </ul>
+
+
+
+      </div>
+
+
+
     </div>
 
 
-    <!-- Alerts -->
+
+  </div>
+
+
+
+
+
+
+
+
+  <div class="alerts-section">
+
+
+
+    <div class="section-header">
+
+
+
+      <h3>
+
+        🚨 {{'analytics.alerts.title' | translate}}
+
+      </h3>
+
+
+
+
+
+      <p>
+
+        {{'analytics.alerts.description' | translate}}
+
+      </p>
+
+
+
+    </div>
+
+
+
+
+
+
+
     <div
       class="alert-card"
-      *ngFor="let alert of anomalyAlerts"
-    >
+      *ngFor="let alert of anomalyAlerts">
+
+
 
       <div class="alert-header">
 
+
+
         <span class="alert-category">
-          {{ alert.category_name }}
+
+
+          {{alert.category_name}}
+
+
         </span>
+
+
+
+
 
         <span class="alert-percentage">
-          {{ alert.deviation_percentage }}%
+
+
+          {{alert.deviation_percentage}}%
+
+
         </span>
 
+
+
       </div>
+
+
+
+
+
+
 
 
       <div class="alert-values">
 
+
         <p>
-          <span>Expected</span>
+
+
+          <span>
+
+            {{'analytics.alerts.expected' | translate}}
+
+          </span>
+
+
+
 
           <strong>
-            ${{ alert.expected_amount | number }}
+
+
+            {{alert.expected_amount | number}}
+
+
+            {{'currency.symbol' | translate}}
+
+
+
           </strong>
+
+
+
         </p>
 
 
+
+
+
+
         <p>
-          <span>Actual</span>
+
+
+          <span>
+
+            {{'analytics.alerts.actual' | translate}}
+
+          </span>
+
+
+
 
           <strong>
-            ${{ alert.actual_amount | number }}
+
+
+            {{alert.actual_amount | number}}
+
+
+            {{'currency.symbol' | translate}}
+
+
+
           </strong>
+
+
+
         </p>
+
+
 
       </div>
+
+
 
     </div>
 
 
-    <!-- No Alerts -->
+
     <p
+
       *ngIf="anomalyAlerts.length === 0"
-      class="no-alerts"
-    >
-      No anomalies detected ✅
+
+      class="no-alerts">
+
+
+      {{'analytics.alerts.empty' | translate}}
+
+
     </p>
+
+
 
   </div>
 
 
-  <!-- ===================================================== -->
-  <!-- Smart Goal -->
-  <!-- ===================================================== -->
+
+
+
+
+
+
 
   <div class="smart-goal-section">
 
+
+
     <div class="section-header">
 
-      <h3>🎯 Smart Goal Setting</h3>
+
+      <h3>
+
+        🎯 {{'analytics.goal.title' | translate}}
+
+      </h3>
+
+
+
+
 
       <p>
-        Find out how much you need to save each month
-        to reach your financial goal.
+
+        {{'analytics.goal.description' | translate}}
+
       </p>
+
+
 
     </div>
 
 
-    <!-- ================================================= -->
-    <!-- Goal Guide -->
-    <!-- ================================================= -->
+
+
+
+
+
+
 
     <div
+
       class="goal-guide"
-      *ngIf="!smartGoal"
-    >
+
+      *ngIf="!smartGoal">
+
+
 
       <div class="guide-icon">
+
         💡
+
       </div>
+
+
+
+
 
       <div class="guide-content">
 
+
         <h4>
-          How it works?
+
+          {{'analytics.goal.how_title' | translate}}
+
         </h4>
+
+
+
 
         <ul>
 
-          <li>
-            Enter the <strong>goal amount</strong>
-            you want to reach.
-          </li>
 
           <li>
-            Enter the <strong>number of months</strong>
-            you have.
+
+            {{'analytics.goal.step_one' | translate}}
+
           </li>
 
-          <li>
-            We'll calculate the
-            <strong>required monthly savings</strong>.
-          </li>
+
 
           <li>
-            We'll check whether the goal is
-            <strong>financially reasonable</strong>
-            based on your assets.
+
+            {{'analytics.goal.step_two' | translate}}
+
           </li>
+
+
+
+          <li>
+
+            {{'analytics.goal.step_three' | translate}}
+
+          </li>
+
+
+
+          <li>
+
+            {{'analytics.goal.step_four' | translate}}
+
+          </li>
+
 
         </ul>
 
+
+
       </div>
+
+
 
     </div>
 
 
-    <!-- ================================================= -->
-    <!-- Goal Form -->
-    <!-- ================================================= -->
+
+
+
+
+
+
 
     <div class="goal-form">
 
-      <!-- Goal Amount -->
+
+
       <div class="form-group">
+
+
 
         <label for="goalAmount">
-          Goal Amount ($)
+
+
+          {{'analytics.goal.amount' | translate}}
+
+
+          (
+
+          {{'currency.symbol' | translate}}
+
+          )
+
+
         </label>
 
+
+
+
+
+
         <input
+
           id="goalAmount"
+
           name="goalAmount"
+
           type="number"
+
           min="1"
+
           [(ngModel)]="goalAmount"
-          placeholder="e.g. 50000"
-        />
+
+          [placeholder]="
+
+          'analytics.goal.amount_placeholder' | translate
+
+          ">
+
 
       </div>
 
 
-      <!-- Goal Months -->
+
+
+
+
+
+
+
       <div class="form-group">
 
+
+
         <label for="goalMonths">
-          Timeframe (Months)
+
+
+          {{'analytics.goal.months' | translate}}
+
+
         </label>
 
+
+
+
+
+
         <input
+
           id="goalMonths"
+
           name="goalMonths"
+
           type="number"
+
           min="1"
+
           [(ngModel)]="goalMonths"
-          placeholder="e.g. 5"
-        />
+
+          [placeholder]="
+
+          'analytics.goal.months_placeholder' | translate
+
+          ">
+
 
       </div>
 
 
-      <!-- Calculate Button -->
+
+
+
+
+
+
       <button
+
         type="button"
-        (click)="calculateGoal()"
-      >
-        Calculate
+
+        (click)="calculateGoal()">
+
+
+
+        {{'analytics.calculate' | translate}}
+
+
+
       </button>
+
+
 
     </div>
 
 
-    <!-- ================================================= -->
-    <!-- Goal Result -->
-    <!-- ================================================= -->
+
 
     <div
-      class="goal-result"
-      *ngIf="smartGoal"
-    >
 
-      <!-- Result Header -->
+      class="goal-result"
+
+      *ngIf="smartGoal">
+
+
+
+
+
       <div class="result-header">
 
-        <span
-          class="result-icon"
-          [class.success]="smartGoal.risk_status === 'good'"
-          [class.ok]="smartGoal.risk_status === 'ok'"
-          [class.warning]="smartGoal.risk_status === 'warning'"
-          [class.danger]="smartGoal.risk_status === 'danger'"
-        >
-          {{ getRiskIcon(smartGoal.risk_status) }}
+
+
+        <span class="result-icon">
+
+
+          {{getRiskIcon(smartGoal.risk_status)}}
+
+
         </span>
+
+
+
 
 
         <div>
 
+
+
           <h4>
-            {{ getRiskTitle(smartGoal.risk_level) }}
+
+
+            {{getRiskTitle(smartGoal.risk_level)}}
+
+
           </h4>
 
+
+
+
+
           <p class="goal-summary">
-            Goal:
-            ${{ smartGoal.goal_amount | number:'1.0-2' }}
 
-            in
 
-            {{ smartGoal.months }}
-            months
+            {{'analytics.goal.target' | translate}}
+
+
+            :
+
+
+            {{smartGoal.goal_amount | number}}
+
+
+            {{'currency.symbol' | translate}}
+
+
+
+            {{'analytics.goal.in' | translate}}
+
+
+            {{smartGoal.months}}
+
+
+            {{'analytics.goal.months_unit' | translate}}
+
+
+
           </p>
 
+
+
         </div>
+
+
 
       </div>
 
 
-      <!-- ================================================= -->
-      <!-- Main Monthly Saving -->
-      <!-- ================================================= -->
 
-      <div class="goal-main-result">
 
-        <div class="monthly-saving-box">
 
-          <span class="monthly-saving-label">
-            Required Monthly Saving
-          </span>
 
-          <strong class="monthly-saving-amount">
-            ${{ smartGoal.required_monthly_savings | number:'1.0-2' }}
-          </strong>
 
-          <span class="monthly-saving-text">
-            per month
-          </span>
 
-        </div>
+
+      <div class="monthly-saving-box">
+
+
+
+        <span class="monthly-saving-label">
+
+
+          {{'analytics.goal.monthly_saving' | translate}}
+
+
+        </span>
+
+
+
+
+
+
+        <strong class="monthly-saving-amount">
+
+
+
+          {{smartGoal.required_monthly_savings | number}}
+
+
+
+          {{'currency.symbol' | translate}}
+
+
+
+        </strong>
+
+
 
       </div>
 
 
-      <!-- ================================================= -->
-      <!-- Goal Details -->
-      <!-- ================================================= -->
+
+
+
+
+
+
 
       <div class="result-details">
 
-        <!-- Goal Amount -->
+
+
         <div class="detail-row">
 
+
           <span class="detail-label">
-            Goal Amount
+
+
+            {{'analytics.goal.target_amount' | translate}}
+
+
           </span>
 
+
+
+
           <span class="detail-value">
-            ${{ smartGoal.goal_amount | number:'1.0-2' }}
+
+
+            {{smartGoal.goal_amount | number}}
+
+
+            {{'currency.symbol' | translate}}
+
+
+
           </span>
+
+
 
         </div>
 
 
-        <!-- Timeframe -->
+
+
+
+
+
+
         <div class="detail-row">
 
+
           <span class="detail-label">
-            Timeframe
+
+
+            {{'analytics.goal.duration' | translate}}
+
+
           </span>
 
+
+
+
+
           <span class="detail-value">
-            {{ smartGoal.months }} months
+
+
+            {{smartGoal.months}}
+
+
+            {{'analytics.goal.months_unit' | translate}}
+
+
+
           </span>
+
+
 
         </div>
 
 
-        <!-- Required Monthly Saving -->
+
+
+
+
+
+
+
         <div class="detail-row">
 
+
           <span class="detail-label">
-            Required Monthly Saving
+
+
+            {{'analytics.goal.monthly_saving' | translate}}
+
+
           </span>
+
+
+
+
 
           <span class="detail-value highlight">
-            ${{ smartGoal.required_monthly_savings | number:'1.0-2' }}
+
+
+
+            {{smartGoal.required_monthly_savings | number}}
+
+
+
+            {{'currency.symbol' | translate}}
+
+
+
           </span>
+
+
 
         </div>
 
 
-        <!-- Risk Level -->
+
+
+
+
+
+
+
         <div class="detail-row">
 
+
           <span class="detail-label">
-            Risk Level
+
+
+            {{'analytics.goal.risk_level' | translate}}
+
+
           </span>
 
-          <span
-            class="detail-value risk-value"
-            [class.good]="smartGoal.risk_status === 'good'"
-            [class.ok]="smartGoal.risk_status === 'ok'"
-            [class.warning]="smartGoal.risk_status === 'warning'"
-            [class.danger]="smartGoal.risk_status === 'danger'"
-          >
-            {{ smartGoal.risk_level | titlecase }}
+
+
+
+
+          <span class="detail-value">
+
+
+            {{smartGoal.risk_level}}
+
+
           </span>
+
+
 
         </div>
 
+
+
       </div>
 
 
-      <!-- ================================================= -->
-      <!-- Recommendation -->
-      <!-- ================================================= -->
 
-      <div
-        class="goal-suggestion"
-        [class.recommendation-good]="smartGoal.risk_status === 'good'"
-        [class.recommendation-ok]="smartGoal.risk_status === 'ok'"
-        [class.recommendation-warning]="smartGoal.risk_status === 'warning'"
-        [class.recommendation-danger]="smartGoal.risk_status === 'danger'"
-      >
+
+
+
+
+
+
+      <div class="goal-suggestion">
+
+
 
         <p class="recommendation-title">
-          💡 Recommendation
+
+
+          💡 {{'analytics.goal.suggestion' | translate}}
+
+
         </p>
+
+
+
 
         <p>
-          {{ smartGoal.recommendation }}
+
+
+          {{smartGoal.recommendation}}
+
+
         </p>
 
+
+
       </div>
+
+
+
+
 
     </div>
 
+
+
+
+
   </div>
 
+
+
+
+
 </div>
+

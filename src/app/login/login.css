@@ -1,102 +1,431 @@
+/* =====================================
+   Login Page
+===================================== */
+
 
 .login-page {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #0b0e11;
-  font-family: 'Inter', sans-serif;
+
+
+    height:100vh;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    background:#0b0e11;
+
+
+    font-family:inherit;
+
+
+    color:white;
+
+
+    direction:inherit;
+
+
+    padding:20px;
+
+
+    box-sizing:border-box;
+
+
 }
+
+
+
+
+
+
 
 .login-card {
-  background: #16191d;
-  padding: 40px;
-  border-radius: 16px;
-  border: 1px solid #2d3748;
-  width: 100%;
-  max-width: 400px;
+
+
+    background:#16191d;
+
+
+    padding:40px;
+
+
+    border-radius:16px;
+
+
+    border:1px solid #2d3748;
+
+
+    width:100%;
+
+
+    max-width:400px;
+
+
+    box-sizing:border-box;
+
+
 }
+
+
+
+
+
+
 
 h2 {
-  color: white;
-  margin-bottom: 8px;
-  text-align: center;
+
+
+    color:white;
+
+
+    margin:0 0 8px;
+
+
+    text-align:center;
+
+
+    font-size:24px;
+
+
 }
+
+
+
+
+
+
 
 p {
-  color: #718096;
-  text-align: center;
-  margin-bottom: 32px;
-  font-size: 14px;
+
+
+    color:#718096;
+
+
+    text-align:center;
+
+
+    margin-bottom:32px;
+
+
+    font-size:14px;
+
+
+    line-height:1.8;
+
+
 }
+
+
+
+
+
+
 
 .form-group {
-  margin-bottom: 20px;
+
+
+    margin-bottom:20px;
+
+
 }
+
+
+
+
+
+
 
 label {
-  display: block;
-  color: #a0aec0;
-  font-size: 12px;
-  margin-bottom: 8px;
-  text-transform: uppercase;
+
+
+    display:block;
+
+
+    color:#a0aec0;
+
+
+    font-size:12px;
+
+
+    margin-bottom:8px;
+
+
+    text-transform:none;
+
+
 }
+
+
+
+
+
+
 
 input {
-  width: 100%;
-  background: #0b0e11;
-  border: 1px solid #2d3748;
-  padding: 12px;
-  border-radius: 8px;
-  color: white;
-  outline: none;
+
+
+    width:100%;
+
+
+    background:#0b0e11;
+
+
+    border:1px solid #2d3748;
+
+
+    padding:12px;
+
+
+    border-radius:8px;
+
+
+    color:white;
+
+
+    outline:none;
+
+
+    box-sizing:border-box;
+
+
+    font-family:inherit;
+
+
+    direction:inherit;
+
+
 }
+
+
+
+
+
+
 
 input:focus {
-  border-color: #3182ce;
+
+
+    border-color:#3182ce;
+
+
 }
+
+
+
+
+
+
 
 button {
-  width: 100%;
-  background: #3182ce;
-  color: white;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 10px;
+
+
+    width:100%;
+
+
+    background:#3182ce;
+
+
+    color:white;
+
+
+    padding:12px;
+
+
+    border-radius:8px;
+
+
+    border:none;
+
+
+    font-weight:bold;
+
+
+    cursor:pointer;
+
+
+    margin-top:10px;
+
+
+    font-family:inherit;
+
+
 }
+
+
+
+
+
+
 
 button:hover {
-  background: #2b6cb0;
+
+
+    background:#2b6cb0;
+
+
 }
+
+
+
+
+
+
 
 .error-message {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  font-size: 14px;
-  text-align: center;
+
+
+    background:rgba(239,68,68,.1);
+
+
+    border:1px solid rgba(239,68,68,.2);
+
+
+    color:#ef4444;
+
+
+    padding:12px;
+
+
+    border-radius:8px;
+
+
+    margin-bottom:16px;
+
+
+    font-size:14px;
+
+
+    text-align:center;
+
+
+    direction:inherit;
+
+
 }
+
+
+
+
+
+
 
 .switch-mode {
-  margin-top: 20px;
-  text-align: center;
-  color: #718096;
-  font-size: 14px;
+
+
+    margin-top:20px;
+
+
+    text-align:center;
+
+
+    color:#718096;
+
+
+    font-size:14px;
+
+
 }
+
+
+
+
+
+
 
 .switch-mode a {
-  color: #3182ce;
-  cursor: pointer;
-  font-weight: 600;
-  text-decoration: none;
+
+
+    color:#3182ce;
+
+
+    cursor:pointer;
+
+
+    font-weight:600;
+
+
+    text-decoration:none;
+
+
 }
 
+
+
+
+
+
+
 .switch-mode a:hover {
-  text-decoration: underline;
+
+
+    text-decoration:underline;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ===============================
+   Direction Support
+=============================== */
+
+
+html[dir="rtl"] .login-page {
+
+
+    direction:rtl;
+
+
+    text-align:right;
+
+
+}
+
+
+
+
+
+
+
+html[dir="ltr"] .login-page {
+
+
+    direction:ltr;
+
+
+    text-align:left;
+
+
+}
+
+
+
+
+
+
+
+
+
+@media(max-width:600px){
+
+
+    .login-card {
+
+
+        padding:25px;
+
+
+    }
+
+
 }

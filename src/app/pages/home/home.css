@@ -1,692 +1,361 @@
-:host {
-    --bg-dark: #1c1b22;
-    --card-bg: #15141b;
-    --border: #29282f;
-
-    --text-main: #fafafa;
-    --text-muted: #a1a1aa;
-
-    --primary: #3b82f6;
-    --success: #10b981;
-    --danger: #ef4444;
-
-    display: block;
+.home-container{
+width:100%;
+min-height:100%;
+padding:24px;
+box-sizing:border-box;
+font-family:inherit;
 }
 
 
-/* =========================================================
-   HOME
-   ========================================================= */
-
-.home-container {
-    min-height: 100vh;
-
-    background: var(--bg-dark);
-    color: var(--text-main);
-
-    padding: 48px 40px;
-
-    font-family: 'Inter', sans-serif;
-
-    box-sizing: border-box;
+.dashboard-grid{
+width:100%;
+display:grid;
+grid-template-columns:repeat(12,1fr);
+gap:24px;
+align-items:start;
 }
 
 
-/* =========================================================
-   DASHBOARD GRID
-   ========================================================= */
-
-.dashboard-grid {
-    max-width: 1240px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-        "transactions networth"
-        "budget      plans";
-
-    gap: 24px;
-    align-items: stretch;
+.card{
+background:#16191d;
+border:1px solid #2d3748;
+border-radius:16px;
+padding:24px;
+box-sizing:border-box;
+overflow:hidden;
+min-width:0;
 }
 
 
-/* =========================================================
-   CARDS
-   ========================================================= */
-
-.card {
-
-    background: var(--card-bg);
-
-    border: 1px solid var(--border);
-
-    border-radius: 16px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.18);
-
-    box-sizing: border-box;
+.card-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:16px;
+margin-bottom:20px;
 }
 
 
-.transactions-card {
-    grid-area: transactions;
-}
-
-.budget-card {
-    grid-area: budget;
-}
-
-.net-worth-card {
-    grid-area: networth;
-}
-
-.plans-card {
-    grid-area: plans;
+.header-left{
+display:flex;
+align-items:center;
+gap:12px;
 }
 
 
-/* =========================================================
-   CARD HEADER
-   ========================================================= */
-
-.card-header {
-
-    min-height: 68px;
-
-    padding: 0 28px;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    border-bottom: 1px solid var(--border);
-
-    box-sizing: border-box;
+.header-left h2{
+color:white;
+font-size:18px;
+margin:0;
+font-weight:700;
 }
 
 
-.header-left {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    color: var(--text-muted);
+.see-more{
+color:#3182ce;
+text-decoration:none;
+font-size:14px;
+white-space:nowrap;
 }
 
 
-.header-left svg {
-
-    flex-shrink: 0;
-
+.see-more:hover{
+text-decoration:underline;
 }
 
 
-.header-left h2 {
-
-    margin: 0;
-
-    color: var(--text-main);
-
-    font-size: 18px;
-
-    font-weight: 700;
-
-    letter-spacing: -0.2px;
+.transactions-card{
+grid-column:span 7;
 }
 
 
-.see-more {
-
-    color: var(--text-muted);
-
-    text-decoration: none;
-
-    font-size: 14px;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
+.budget-card{
+grid-column:span 5;
 }
 
 
-.see-more:hover {
-
-    color: var(--primary);
-
+.net-worth-card{
+grid-column:span 5;
 }
 
 
-/* =========================================================
-   TRANSACTIONS
-   ========================================================= */
-
-.transaction-list {
-
-    display: flex;
-
-    flex-direction: column;
-
-    padding: 0 28px;
+.plans-card{
+grid-column:span 7;
 }
 
 
-.tr-item {
-    min-height: 82px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    border-bottom: 1px solid #222127;
-    box-sizing: border-box;
+/* Transactions */
+
+.transaction-list{
+display:flex;
+flex-direction:column;
+gap:14px;
 }
 
 
-.tr-item:last-child {
-    border-bottom: none;
+.tr-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+padding:14px;
+border-radius:12px;
+background:rgba(255,255,255,.03);
 }
 
 
-.tr-details {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.tr-title{
+color:white;
+font-size:15px;
+margin:0 0 6px;
 }
 
 
-.tr-title {
-    margin: 0;
-    color: var(--text-main);
-    font-size: 15px;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.tr-subtitle{
+color:#718096;
+font-size:12px;
+margin:0;
 }
 
 
-.tr-subtitle {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 12px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.tr-amount{
+font-weight:700;
+white-space:nowrap;
+direction:inherit;
 }
 
 
-.tr-amount {
-    flex-shrink: 0;
-    font-size: 15px;
-    font-weight: 700;
-    white-space: nowrap;
+.tr-amount.expense{
+color:#ef4444;
 }
 
 
-.tr-amount.income {
-    color: var(--success);
-}
-
-.tr-amount.expense {
-    color: var(--danger);
+.tr-amount.income{
+color:#22c55e;
 }
 
 
-/* =========================================================
-   VIEW ALL TRANSACTIONS
-   ========================================================= */
-
-.view-all-transactions {
-    display: flex;
-    justify-content: flex-end;
-    padding: 24px 0 20px;
+.empty-state{
+text-align:center;
+color:#718096;
+padding:30px;
 }
 
 
-.view-all-transactions a {
-    color: var(--primary);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
+
+/* Budget */
+
+.budget-content{
+display:flex;
+flex-direction:column;
+gap:15px;
 }
 
 
-.view-all-transactions a:hover {
-    text-decoration: underline;
+.budget-row,
+.budget-bottom-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+color:#a0aec0;
 }
 
 
-.empty-state {
-    padding: 50px 20px;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 14px;
+.budget-spent{
+color:white;
+font-weight:700;
 }
 
 
-/* =========================================================
-   BUDGET PROGRESS
-   ========================================================= */
-
-.budget-content {
-    padding: 28px;
+.budget-progress-bar{
+width:100%;
+height:10px;
+background:#0b0e11;
+border-radius:20px;
+overflow:hidden;
 }
 
 
-.budget-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
-    color: var(--text-muted);
-    font-size: 15px;
+.budget-progress-fill{
+height:100%;
+border-radius:20px;
+background:#3182ce;
 }
 
 
-.budget-spent {
-    color: var(--text-main);
-    font-size: 17px;
-    font-weight: 700;
+.budget-empty{
+text-align:center;
+color:#718096;
+padding:25px;
 }
 
 
-/* Progress bar */
 
-.budget-progress-bar {
-    width: 100%;
-    height: 14px;
-    background: #29292f;
-    border-radius: 999px;
-    overflow: hidden;
-    margin-bottom: 22px;
+/* Net Worth */
+
+.net-worth-content{
+display:flex;
+flex-direction:column;
 }
 
 
-.budget-progress-fill {
-    height: 100%;
-    min-width: 0;
-    background: var(--primary);
-    border-radius: 999px;
-    transition: width 0.4s ease;
+.net-worth-label{
+color:#718096;
+font-size:14px;
 }
 
 
-/* Bottom row */
-
-.budget-bottom-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--text-muted);
-    font-size: 14px;
+.net-worth-value{
+color:white;
+font-size:32px;
+font-weight:800;
+margin:10px 0 20px;
+direction:inherit;
 }
 
 
-.budget-empty {
-    padding: 30px;
-    color: var(--text-muted);
-    text-align: center;
+.net-worth-details{
+display:flex;
+flex-direction:column;
+gap:12px;
 }
 
 
-/* =========================================================
-   NET WORTH
-   ========================================================= */
-
-.net-worth-content {
-    padding: 30px 28px;
+.detail-row{
+display:flex;
+justify-content:space-between;
+color:#a0aec0;
 }
 
 
-.net-worth-label {
-    margin: 0 0 8px;
-    color: var(--text-muted);
-    font-size: 15px;
+.detail-value{
+font-weight:700;
+direction:inherit;
 }
 
 
-.net-worth-value {
-    margin: 0 0 24px;
-    color: var(--success);
-    font-size: 42px;
-    line-height: 1.1;
-    font-weight: 800;
-    letter-spacing: -1px;
+.assets{
+color:#22c55e;
 }
 
 
-/* Net worth progress */
-
-.net-worth-bar {
-    width: 100%;
-    height: 42px;
-    background: #29292f;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 26px;
+.liabilities{
+color:#ef4444;
 }
 
 
-.net-worth-fill {
-    height: 100%;
-    background: #176b43;
-    border-radius: 8px;
-    transition: width 0.4s ease;
+
+/* Plans */
+
+.plans-content{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+gap:20px;
+color:#a0aec0;
 }
 
 
-/* Assets / liabilities */
-
-.net-worth-details {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+.plans-button{
+background:#3182ce;
+color:white;
+padding:12px 24px;
+border-radius:10px;
+text-decoration:none;
 }
 
 
-.detail-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 15px;
+.plans-button:hover{
+background:#2b6cb0;
 }
 
 
-.detail-value {
-    font-weight: 700;
+
+/* Direction */
+
+html[dir="rtl"] .home-container{
+direction:rtl;
+text-align:right;
 }
 
 
-.detail-value.assets {
-    color: var(--success);
+html[dir="ltr"] .home-container{
+direction:ltr;
+text-align:left;
 }
 
 
-.detail-value.liabilities {
-    color: var(--danger);
+html[dir="rtl"] .tr-amount,
+html[dir="rtl"] .net-worth-value,
+html[dir="rtl"] .detail-value{
+direction:ltr;
 }
 
 
-/* =========================================================
-   PLANS
-   ========================================================= */
-
-.plans-content {
-    min-height: 300px;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    box-sizing: border-box;
+html[dir="ltr"] .tr-amount,
+html[dir="ltr"] .net-worth-value,
+html[dir="ltr"] .detail-value{
+direction:ltr;
 }
 
 
-.plans-content > p {
-    margin: 18px 0 26px;
-    color: var(--text-muted);
-    font-size: 16px;
+
+/* Responsive */
+
+@media(max-width:1000px){
+
+.dashboard-grid{
+grid-template-columns:repeat(6,1fr);
 }
 
 
-/* =========================================================
-   PLANS ILLUSTRATION
-   ========================================================= */
-
-.plans-illustration {
-    position: relative;
-    width: 150px;
-    height: 130px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 8px;
+.transactions-card,
+.budget-card,
+.net-worth-card,
+.plans-card{
+grid-column:span 6;
 }
-
-
-/* Background circle */
-
-.plans-illustration::before {
-    content: '';
-    position: absolute;
-    width: 128px;
-    height: 128px;
-    border-radius: 50%;
-    background: #202632;
-}
-
-
-/* Clipboard */
-
-.clipboard {
-    position: absolute;
-    left: 30px;
-    top: 20px;
-    width: 68px;
-    height: 86px;
-    border-radius: 8px;
-    background: #1d2a3d;
-    border: 1px solid #27364b;
-    box-shadow:
-        0 8px 18px rgba(0, 0, 0, 0.25);
-}
-
-
-.clip {
-    position: absolute;
-    top: -7px;
-    left: 23px;
-    width: 22px;
-    height: 12px;
-    border-radius: 5px;
-    background: var(--primary);
-}
-
-
-.line {
-    position: relative;
-    width: 42px;
-    height: 4px;
-    margin: 24px auto 0;
-    border-radius: 3px;
-    background: #8da6c5;
-}
-
-
-.line + .line {
-    margin-top: 10px;
-}
-
-
-.line.short {
-    width: 30px;
-}
-
-
-/* Target */
-
-.target {
-
-    position: absolute;
-    right: 10px;
-    bottom: 8px;
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
-    background: #2d72e8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.35);
-}
-
-
-.target-ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 5px solid #8bb5ff;
 
 }
 
 
-.ring-1 {
-    width: 46px;
-    height: 46px;
+@media(max-width:600px){
+
+.home-container{
+padding:12px;
 }
 
 
-.ring-2 {
-    width: 26px;
-    height: 26px;
-    border-color: #d2e2ff;
+.dashboard-grid{
+display:flex;
+flex-direction:column;
+gap:16px;
 }
 
 
-.target-center {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: white;
+.card{
+width:100%;
+padding:18px;
 }
 
 
-/* Arrow */
-
-.arrow {
-    position: absolute;
-    width: 46px;
-    height: 4px;
-    background: var(--success);
-    transform: rotate(-42deg);
-    right: -3px;
-    top: 27px;
-    border-radius: 4px;
+.card-header{
+flex-direction:column;
+align-items:flex-start;
 }
 
 
-.arrow::after {
-    content: '';
-    position: absolute;
-    right: -1px;
-    top: -5px;
-    width: 12px;
-    height: 12px;
-    border-top: 4px solid var(--success);
-    border-right: 4px solid var(--success);
-    transform: rotate(0deg);
+.tr-item{
+flex-direction:column;
+align-items:flex-start;
 }
 
 
-/* =========================================================
-   PLANS BUTTON
-   ========================================================= */
-
-.plans-button {
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 120px;
-    height: 44px;
-    padding: 0 20px;
-    border-radius: 7px;
-    background: var(--primary);
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 700;
-    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.25);
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+.tr-amount{
+width:100%;
 }
-
-
-.plans-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.35);
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-    .home-container {
-      padding: 30px 20px;
-    }
-
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-    }
-
-    .transactions-card,
-    .budget-card,
-    .net-worth-card,
-    .plans-card {
-        grid-column: 1;
-        grid-row: auto;
-    }
-}
-
-
-@media (max-width: 600px) {
-
-    .home-container {
-
-        padding: 20px 12px;
-
-    }
-
-    .card-header {
-
-        padding: 0 18px;
-
-    }
-
-    .transaction-list {
-
-        padding: 0 18px;
-
-    }
-
-    .budget-content,
-    .net-worth-content {
-
-        padding: 22px 18px;
-
-    }
-
-    .net-worth-value {
-
-        font-size: 34px;
-
-    }
-
-    .tr-title {
-
-        font-size: 14px;
-
-    }
-
-    .tr-subtitle {
-
-        font-size: 11px;
-
-    }
 
 }

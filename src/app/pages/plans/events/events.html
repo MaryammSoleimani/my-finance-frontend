@@ -1,98 +1,318 @@
-<div class="assets-card">
+<div class="events-card">
+
+  <!-- Header -->
   <div class="card-header">
+
     <div class="header-content">
-      <div class="icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+
+      <div class="icon-wrapper">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          width="20"
+          height="20"
+        >
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
           <line x1="16" y1="2" x2="16" y2="6"></line>
           <line x1="8" y1="2" x2="8" y2="6"></line>
           <line x1="3" y1="10" x2="21" y2="10"></line>
         </svg>
       </div>
+
       <div class="text-group">
-        <h3>Events</h3>
-        <p>Future changes and milestones</p>
+        <h3>رویدادها</h3>
+        <p>تغییرات و اتفاق‌های مالی آینده</p>
       </div>
+
     </div>
+
   </div>
 
-  <div class="assets-list">
-    <div class="asset-row" *ngFor="let event of events">
-      <div class="asset-info">
-        <span class="name">{{ event.name }}</span>
-        <span class="type">{{ getEventTypeLabel(event.event_type) }} • Month {{ event.month }}</span>
-        <div class="amount-row">
-         <span class="event-description" *ngIf="event.description">
-            {{ event.description }}
-          </span>
-        </div>
+
+  <!-- Events List -->
+  <div class="events-list">
+
+    <div
+      class="event-row"
+      *ngFor="let event of events"
+    >
+
+      <div class="event-info">
+
+        <span class="event-name">
+          {{ event.name }}
+        </span>
+
+        <span class="event-meta">
+          {{ getEventTypeLabel(event.event_type) }}
+          <span class="separator">•</span>
+          {{ event.month }} ماه دیگر
+        </span>
+
+        <p
+          class="event-description"
+          *ngIf="event.description"
+        >
+          {{ event.description }}
+        </p>
+
       </div>
+
 
       <div class="action-buttons">
-        <button class="edit-btn" (click)="onEdit(event)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+
+        <button
+          type="button"
+          class="edit-btn"
+          title="ویرایش"
+          (click)="onEdit(event)"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            width="16"
+            height="16"
+          >
+            <path
+              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+            </path>
+
+            <path
+              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+            </path>
           </svg>
         </button>
-        <button class="delete-btn" (click)="onDelete(event.id)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16">
-            <path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+
+
+        <button
+          type="button"
+          class="delete-btn"
+          title="حذف"
+          (click)="onDelete(event.id)"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            width="16"
+            height="16"
+          >
+            <path
+              d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+            </path>
           </svg>
         </button>
+
       </div>
+
     </div>
+
   </div>
 
-  <button class="add-button" (click)="openModal()">+ Add Event</button>
 
-  <!-- Modal -->
-  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <h4>{{ isEditMode ? 'Edit' : 'New' }} Event</h4>
+  <!-- Add Event -->
+  <button
+    type="button"
+    class="add-button"
+    (click)="openModal()"
+  >
+    + افزودن رویداد
+  </button>
 
-      <div class="form-group">
-        <label>Event Name</label>
-        <input [(ngModel)]="newEvent.name" placeholder="e.g. Quit my job, Get new job, Buy house" />
+
+  <!-- Create / Edit Modal -->
+  <div
+    class="modal-overlay"
+    *ngIf="showModal"
+    (click)="closeModal()"
+  >
+
+    <div
+      class="modal-content"
+      (click)="$event.stopPropagation()"
+    >
+
+      <div class="modal-header">
+
+        <h4>
+          {{ isEditMode ? 'ویرایش رویداد' : 'رویداد جدید' }}
+        </h4>
+
+        <button
+          type="button"
+          class="close-btn"
+          (click)="closeModal()"
+        >
+          ×
+        </button>
+
       </div>
 
+
+      <!-- Event Name -->
       <div class="form-group">
-        <label>Event Month</label>
-        <input type="number" [(ngModel)]="newEvent.month" placeholder="How many months from now?" />
+
+        <label for="eventName">
+          نام رویداد
+        </label>
+
+        <input
+          id="eventName"
+          type="text"
+          [(ngModel)]="newEvent.name"
+          placeholder="مثلاً تغییر شغل، خرید خانه، افزایش حقوق"
+        >
+
       </div>
 
-      <div class="form-group">
-        <label>Event Type</label>
-        <select [(ngModel)]="newEvent.event_type">
-          <option *ngFor="let t of eventTypes" [value]="t.value">{{ t.label }}</option>
-        </select>
-      </div>
 
+      <!-- Event Month -->
       <div class="form-group">
-        <label>Cash Flow to Change</label>
-        <select [(ngModel)]="newEvent.cash_flow_id">
-          <option [ngValue]="null">Select cash flow to modify</option>
-          <option *ngFor="let flow of cashFlows" [ngValue]="flow.id">{{ flow.name }}</option>
-        </select>
-      </div>
 
-      <div class="form-group">
-        <label>New Monthly Amount</label>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <input type="number" [(ngModel)]="newEvent.amount" placeholder="0" style="flex: 1;" />
-          <span style="color: #71717a;">تومان</span>
+        <label for="eventMonth">
+          زمان رویداد
+        </label>
+
+        <div class="input-with-unit">
+
+          <input
+            id="eventMonth"
+            type="number"
+            min="1"
+            [(ngModel)]="newEvent.month"
+            placeholder="۱"
+          >
+
+          <span>
+            ماه دیگر
+          </span>
+
         </div>
+
       </div>
 
+
+      <!-- Event Type -->
       <div class="form-group">
-        <label>Description</label>
-        <textarea [(ngModel)]="newEvent.description" rows="3" placeholder="e.g. Transfer 10 million toman from checking account to checking account"></textarea>
+
+        <label for="eventType">
+          نوع رویداد
+        </label>
+
+        <select
+          id="eventType"
+          [(ngModel)]="newEvent.event_type"
+        >
+          <option
+            *ngFor="let t of eventTypes"
+            [value]="t.value"
+          >
+            {{ t.label }}
+          </option>
+        </select>
+
       </div>
 
-      <div class="modal-actions">
-        <button class="btn-cancel" (click)="closeModal()">Cancel</button>
-        <button class="btn-save" (click)="onSubmit()">{{ isEditMode ? 'Update' : 'Create Event' }}</button>
+
+      <!-- Cash Flow -->
+      <div class="form-group">
+
+        <label for="cashFlow">
+          جریان نقدی مرتبط
+        </label>
+
+        <select
+          id="cashFlow"
+          [(ngModel)]="newEvent.cash_flow_id"
+        >
+
+          <option [ngValue]="null">
+            انتخاب جریان نقدی
+          </option>
+
+          <option
+            *ngFor="let flow of cashFlows"
+            [ngValue]="flow.id"
+          >
+            {{ flow.name }}
+          </option>
+
+        </select>
+
       </div>
+
+
+      <!-- Amount -->
+      <div class="form-group">
+
+        <label for="eventAmount">
+          مبلغ جدید ماهانه
+        </label>
+
+        <div class="input-with-unit">
+
+          <input
+            id="eventAmount"
+            type="number"
+            min="0"
+            [(ngModel)]="newEvent.amount"
+            placeholder="۰"
+          >
+
+          <span>
+            تومان
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- Description -->
+      <div class="form-group">
+
+        <label for="eventDescription">
+          توضیحات
+        </label>
+
+        <textarea
+          id="eventDescription"
+          [(ngModel)]="newEvent.description"
+          rows="4"
+          placeholder="توضیح کوتاهی درباره این رویداد وارد کنید"
+        ></textarea>
+
+      </div>
+
+
+      <!-- Modal Actions -->
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="closeModal()"
+        >
+          لغو
+        </button>
+
+        <button
+          type="button"
+          class="btn-save"
+          (click)="onSubmit()"
+        >
+          {{ isEditMode ? 'ذخیره تغییرات' : 'ایجاد رویداد' }}
+        </button>
+
+      </div>
+
     </div>
+
   </div>
+
 </div>

@@ -1,0 +1,495 @@
+{
+  "app":{
+    "name":"Finance Manager"
+  },
+
+  "menu":{
+    "home":"Home",
+    "transactions":"Transactions",
+    "accounts":"Accounts",
+    "plans":"Plans",
+    "budget":"Budget",
+    "analytics":"Financial Analytics",
+    "settings":"Settings"
+  },
+
+  "notifications":{
+    "title":"Notifications",
+    "read_all":"Mark all as read",
+    "empty":"No new notifications"
+  },
+
+  "common":{
+    "logout":"Logout",
+    "save":"Save",
+    "cancel":"Cancel",
+    "delete":"Delete",
+    "edit":"Edit",
+    "add":"Add",
+    "view_more":"View More",
+    "search":"Search",
+    "clear":"Clear",
+    "show_more":"Show More",
+    "show_less":"Show Less",
+    "remove_filter":"Remove Filter"
+  },
+
+  "language":{
+    "persian":"Persian",
+    "english":"English"
+  },
+
+  "currency":{
+    "symbol":"IRR",
+    "code":"IRR"
+  },
+
+  "home":{
+    "transactions":"Transactions",
+    "transaction":"Transaction",
+    "no_recent_activity":"No recent activity found",
+    "view_all_transactions":"View all transactions",
+    "budget_status":"Budget Status",
+    "this_month_expense":"This month expense",
+    "target":"Target",
+    "remaining":"Remaining",
+    "no_budget":"No budget information available",
+    "net_worth":"Net Worth",
+    "total_net_worth":"Total Net Worth",
+    "assets":"Assets",
+    "liabilities":"Liabilities",
+    "manage_financial_plans":"View and manage financial plans",
+    "go_to_plans":"Go to Plans"
+  },
+
+  "transactions":{
+    "title":"Transactions",
+    "description":"Manage and review financial transactions",
+    "add":"Add Transaction",
+    "search":"Search Transactions",
+    "filters":"Transaction Filters",
+    "saved_views":"Saved Views",
+    "current_month":"Current Month",
+    "last_month":"Last Month",
+    "today":"Today",
+    "yesterday":"Yesterday",
+    "year":"Year",
+    "categories":"Categories",
+    "all_categories":"All Categories",
+    "months":"Months",
+    "advanced_filters":"Advanced Filters",
+    "category":"Category",
+    "expense":"Expense",
+    "income":"Income",
+    "total_expense":"Total Expenses",
+    "total_income":"Total Income",
+    "description":"Description",
+    "account":"Account",
+    "date":"Date",
+    "amount":"Amount",
+    "type":"Type",
+    "total":"Total",
+    "average":"Average",
+    "empty_title":"No Transactions",
+    "empty_description":"Create a new transaction to get started",
+    "category_analysis":"Category Analysis",
+    "daily_analysis":"Daily Analysis"
+  },
+
+  "transaction_form":{
+    "title":"Add New Transaction",
+    "description":"Description",
+    "amount":"Amount",
+    "account":"Account",
+    "category":"Category",
+    "kind":"Transaction Type",
+    "expense":"Expense",
+    "income":"Income",
+    "save":"Save Transaction",
+    "cancel":"Cancel",
+    "select_account":"Select Account",
+    "select_category":"Select Category",
+    "date":"Transaction Date",
+    "amount_placeholder":"Enter amount",
+    "description_placeholder":"Transaction description",
+    "fill_required":"Please complete the following fields: ",
+    "server_error":"A server error occurred. Please try again.",
+    "daily_purchase":"Daily Purchase",
+    "travel":"Travel",
+    "fuel":"Fuel",
+    "insurance":"Insurance",
+    "other":"Other",
+    "required":"This field is required"
+  },
+
+  "import":{
+    "title":"Import Transactions",
+    "description":"Import transactions from bank CSV file",
+    "account":"Account",
+    "select_account":"Select Account",
+    "expense_category":"Expense Category",
+    "select_expense_category":"Select Expense Category",
+    "income_category":"Income Category",
+    "select_income_category":"Select Income Category",
+    "csv_file":"Bank CSV File",
+    "choose_csv":"Choose CSV File",
+    "only_csv":"Only CSV files are accepted.",
+    "how_it_works":"How it works",
+    "auto_detect":"Income and expenses are detected automatically.",
+    "currency_note":"Bank amounts are handled according to currency settings.",
+    "start":"Import Transactions",
+    "loading":"Importing...",
+    "imported":"transactions imported successfully.",
+    "skipped":"transactions skipped.",
+    "errors":"rows had errors.",
+    "error_accounts":"Failed to load accounts.",
+    "error_categories":"Failed to load categories.",
+    "csv_only":"Please select only CSV files.",
+    "select_file":"Please select a CSV file.",
+    "select_expense_category":"Please select expense category.",
+    "select_income_category":"Please select income category.",
+    "failed":"CSV import failed."
+  },
+
+  "charts":{
+    "expense":"Expense",
+    "expense_by_category":"Expenses by Category",
+    "total":"Total",
+    "no_data":"No data available"
+  },
+
+  "configuration":{
+    "title":"Settings",
+    "description":"Manage your financial and personal settings",
+
+    "categories":"Categories",
+    "add_category":"Add Category",
+    "edit_category":"Edit Category",
+    "delete_category":"Delete Category",
+
+    "category_name":"Category Name",
+    "category_placeholder":"Example: Food, Travel, Shopping",
+    "color":"Color",
+
+    "used_in":"This category is used in the following:",
+    "transactions":"Transactions",
+    "budgets":"Budgets",
+
+    "delete_warning":"Deleting this category may affect existing data.",
+    "safe_delete":"This category can be safely deleted.",
+
+    "notifications":"Notifications",
+
+    "budget_alerts":"Budget Alerts",
+    "budget_alerts_desc":"Notify when approaching budget limits.",
+
+    "budget_threshold":"Budget Threshold",
+    "budget_threshold_desc":"Notify when budget usage reaches:",
+
+    "spending_alerts":"Spending Alerts",
+    "spending_alerts_desc":"Get notified about unusual or high spending.",
+
+    "goal_reminders":"Financial Goal Reminders",
+    "goal_reminders_desc":"Remind you about your financial goals and plans.",
+
+    "errors":{
+      "load_categories":"Failed to load categories",
+      "save_category":"Failed to save category",
+      "delete_category":"Failed to delete category",
+      "load_notifications":"Failed to load notification settings",
+      "save_notifications":"Failed to save notification settings"
+    }
+  },
+
+  "budget":{
+    "title":"Budget",
+    "monthly":"Monthly",
+    "yearly":"Yearly",
+    "add":"Add Budget",
+    "create_title":"Create New Budget",
+    "name":"Budget Name",
+    "name_placeholder":"Example: Monthly Expenses",
+    "period":"Budget Period",
+    "amount":"Budget Amount",
+    "amount_placeholder":"Enter amount",
+    "category":"Category",
+    "select_category":"Select Category",
+    "save":"Save Budget",
+    "options":"Options",
+    "total_budget":"Total Budget",
+    "total_spent":"Total Spent",
+    "remaining":"Remaining",
+    "percentage":"Usage Percentage",
+    "from":"of",
+    "used":"used",
+    "over_budget":"Over Budget",
+    "view_transactions":"View Transactions",
+    "errors":{
+      "load_budgets":"Failed to load budgets",
+      "load_summary":"Failed to load budget summary",
+      "load_categories":"Failed to load categories",
+      "create_budget":"Failed to create budget"
+    }
+  },
+
+  "analytics":{
+    "health_score":{
+      "title":"Financial Health",
+      "description":"Overall evaluation of your financial status",
+      "calculate_title":"Calculate Financial Health",
+      "calculate_description":"Your financial score is calculated based on accounts, income and expenses.",
+      "calculate":"Calculate Score",
+      "loading":"Calculating financial status...",
+      "insufficient_title":"Not Enough Information"
+    },
+
+    "retry":"Try Again",
+
+    "recommendations":"Recommendations",
+
+    "alerts":{
+      "title":"Unusual Alerts",
+      "description":"Unusual spending patterns have been detected",
+      "expected":"Expected Amount",
+      "actual":"Actual Amount",
+      "empty":"No unusual activity detected ✅"
+    },
+
+    "goal":{
+      "title":"Smart Financial Goal",
+      "description":"Calculate how much you need to save monthly to reach your financial goal.",
+
+      "how_title":"How does it work?",
+
+      "step_one":"Enter your financial goal amount.",
+      "step_two":"Specify the number of months.",
+      "step_three":"Required monthly savings will be calculated.",
+      "step_four":"Goal feasibility will be checked based on your assets.",
+
+      "amount":"Goal Amount",
+      "amount_placeholder":"Example: 50000000",
+
+      "months":"Duration (Months)",
+      "months_placeholder":"Example: 12",
+
+      "target":"Goal",
+      "in":"in",
+      "months_unit":"months",
+
+      "monthly_saving":"Required Monthly Savings",
+
+      "target_amount":"Goal Amount",
+      "duration":"Duration",
+      "risk_level":"Risk Level",
+
+      "suggestion":"Suggestion"
+    },
+
+    "calculate":"Calculate",
+
+    "risk":{
+      "low":"Low Risk",
+      "medium":"Medium Risk",
+      "high":"High Risk",
+      "unknown":"Unknown Status"
+    },
+
+    "labels":{
+      "income":"Income",
+      "expenses":"Expenses",
+      "expense":"Expense",
+      "savings":"Savings",
+      "debt":"Debt",
+      "debts":"Debts",
+      "assets":"Assets",
+      "balance":"Balance",
+      "investment":"Investment",
+      "cash_flow":"Cash Flow"
+    }
+  },
+
+  "account":{
+
+    "title":"Accounts",
+
+    "add":"Add",
+
+    "new_title":"New Account",
+
+    "edit_title":"Edit Account",
+
+    "name":"Account Name",
+
+    "name_placeholder":"Example: Wallet, Bank...",
+
+
+    "initial_balance":"Initial Balance",
+
+    "balance_placeholder":"0",
+
+
+    "color":"Account Color",
+
+
+    "type":"Account Type",
+
+
+    "debt_label":"This account is a debt or financial obligation",
+
+
+    "save_changes":"Save Changes",
+
+    "create":"Create Account",
+
+
+
+    "types":{
+
+      "account":"Regular Account",
+
+      "investment":"Investment",
+
+      "card":"Credit Card"
+
+    },
+
+
+
+    "summary":{
+
+      "net_worth":"Net Worth",
+
+      "assets":"Total Assets",
+
+      "liabilities":"Total Liabilities"
+
+    },
+
+
+
+    "list":{
+
+      "assets":"Assets",
+
+      "liabilities":"Liabilities",
+
+      "name":"Account Name",
+
+      "balance":"Balance",
+
+      "type":"Type"
+
+    },
+
+
+
+    "delete":{
+
+      "title":"Delete Account",
+
+      "message":"Are you sure you want to delete this account?"
+
+    },
+
+
+
+    "periods":{
+
+      "2w":"2 Weeks",
+
+      "1m":"1 Month",
+
+      "3m":"3 Months",
+
+      "1y":"1 Year",
+
+      "all":"All"
+
+    },
+
+
+
+    "errors":{
+
+      "load":"Failed to load account data",
+
+      "delete":"Failed to delete account",
+
+      "create":"Failed to create account",
+
+      "update":"Failed to update account"
+
+    }
+
+  },
+
+  "auth":{
+
+    "title":"Finance Tracker",
+
+
+    "username":"Username",
+
+    "username_placeholder":"Enter your username",
+
+    "username_new_placeholder":"Choose a username",
+
+
+    "email":"Email",
+
+
+    "password":"Password",
+
+    "password_placeholder":"Password",
+
+    "password_create_placeholder":"Create a password",
+
+
+    "confirm_password":"Confirm Password",
+
+    "confirm_password_placeholder":"Enter password again",
+
+
+
+
+    "login":{
+
+      "description":"Enter your account information",
+
+      "button":"Login",
+
+      "no_account":"Don't have an account?"
+
+    },
+
+
+
+
+    "register":{
+
+      "description":"Create a new account",
+
+      "button":"Create Account",
+
+      "submit":"Register",
+
+      "have_account":"Already have an account?"
+
+    },
+
+
+
+
+    "errors":{
+
+      "invalid_login":"Invalid username or password",
+
+      "password_match":"Passwords do not match",
+
+      "register":"Registration failed"
+
+    }
+
+
+  }
+}

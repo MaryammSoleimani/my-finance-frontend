@@ -1,0 +1,39 @@
+.app-container{
+min-height:100vh;
+width:100%;
+box-sizing:border-box;
+}
+
+
+html[dir="rtl"]{
+direction:rtl;
+}
+
+
+html[dir="ltr"]{
+direction:ltr;
+}
+
+
+html[dir="rtl"] .app-container{
+text-align:right;
+}
+
+
+html[dir="ltr"] .app-container{
+text-align:left;
+}
+
+
+html[dir="rtl"] input,
+html[dir="rtl"] textarea,
+html[dir="rtl"] select{
+text-align:right;
+}
+
+
+html[dir="ltr"] input,
+html[dir="ltr"] textarea,
+html[dir="ltr"] select{
+text-align:left;
+}

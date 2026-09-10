@@ -1,79 +1,302 @@
+/* =====================================
+   Plans Page
+===================================== */
+
+
 .plans-wrapper {
-  padding: 40px;
-  background-color: #1c1b22;
-  min-height: 100vh;
-  color: white;
-  font-family: 'Inter', sans-serif;
+
+
+    width:100%;
+
+    min-height:100vh;
+
+
+    padding:30px;
+
+
+    box-sizing:border-box;
+
+
+    background:#1c1b22;
+
+
+    color:#ffffff;
+
+
+    direction:rtl;
+
+
+    text-align:right;
+
+
+    font-family:'Vazirmatn',Tahoma,sans-serif;
+
+
 }
+
+
+
+
+
+
+
+/* Header */
+
 
 .page-header {
-  margin-bottom: 40px;
+
+
+    margin-bottom:30px;
+
+
 }
 
-#username{
-  color: #3b82f6;
-}
+
+
+
+
+
 
 .breadcrumb {
-  color: #71717a;
-  font-size: 0.85rem;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+
+
+    color:#a1a1aa;
+
+
+    font-size:13px;
+
+
+    margin-bottom:12px;
+
+
 }
+
+
+
+
+
+
 
 .title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+
+    display:flex;
+
+
+    justify-content:space-between;
+
+
+    align-items:center;
+
+
 }
+
+
+
+
 
 .title-row h1 {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+
+
+    margin:0;
+
+
+    font-size:28px;
+
+
+    font-weight:800;
+
+
 }
 
-.header-actions .icon-btn {
-  background: #1c1b22;
-  border: 1px solid #27272a;
-  color: white;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
+
+
+
+
+
+
+#username {
+
+
+    color:#3b82f6;
+
+
 }
+
+
+
+
+
+
+
+
+/* Main Grid */
+
 
 .plans-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  align-items: start;
+
+
+    display:grid;
+
+
+    grid-template-columns:repeat(3,minmax(0,1fr));
+
+
+    gap:20px;
+
+
+    align-items:start;
+
+
 }
+
+
+
+
+
+
 
 .grid-column {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    gap:20px;
+
+
 }
+
+
+
+
+
+
+
+/* Sections */
+
+
+.plans-section {
+
+
+    margin-top:24px;
+
+
+    background:#18181b;
+
+
+    border:1px solid #27272a;
+
+
+    border-radius:16px;
+
+
+    padding:20px;
+
+
+    box-sizing:border-box;
+
+
+}
+
+
+
+
+
+
+
+/* Placeholder */
+
 
 .placeholder-card {
-  background: #15141b;
-  border: 1px dashed #27272a;
-  border-radius: 12px;
-  padding: 40px;
-  text-align: center;
-  color: #52525b;
+
+
+    background:#15141b;
+
+
+    border:1px dashed #27272a;
+
+
+    border-radius:14px;
+
+
+    padding:40px;
+
+
+    text-align:center;
+
+
+    color:#71717a;
+
+
 }
 
-@media (max-width: 1100px) {
-  .plans-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+
+
+
+
+
+
+
+
+/* Responsive */
+
+
+@media(max-width:1100px){
+
+
+    .plans-grid {
+
+
+        grid-template-columns:repeat(2,minmax(0,1fr));
+
+
+    }
+
+
 }
 
-@media (max-width: 768px) {
-  .plans-grid {
-    grid-template-columns: 1fr;
-  }
+
+
+
+
+
+
+
+@media(max-width:768px){
+
+
+    .plans-wrapper {
+
+
+        padding:16px;
+
+
+    }
+
+
+
+    .plans-grid {
+
+
+        grid-template-columns:1fr;
+
+
+    }
+
+
+
+    .title-row h1 {
+
+
+        font-size:22px;
+
+
+    }
+
+
+
 }

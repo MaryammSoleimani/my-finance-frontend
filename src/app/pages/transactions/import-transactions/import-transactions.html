@@ -1,258 +1,410 @@
 <div class="import-backdrop">
 
-  <div class="import-modal">
+<div class="import-modal">
 
-    <!-- ================= HEADER ================= -->
 
-    <div class="import-header">
+<div class="import-header">
 
-      <div>
-        <h2>Import Bank Statement</h2>
+<div>
 
-        <p>
-          Import transactions from your bank CSV file.
-        </p>
-      </div>
+<h2>
+{{'import.title' | translate}}
+</h2>
 
-      <button
-        class="close-btn"
-        (click)="closeModal()">
-        ×
-      </button>
 
-    </div>
+<p>
+{{'import.description' | translate}}
+</p>
 
+</div>
 
-    <!-- ================= BODY ================= -->
 
-    <div class="import-body">
+<button
+class="close-btn"
+(click)="closeModal()">
 
-      <!-- Account -->
+×
 
-      <div class="input-group">
+</button>
 
-        <label>Account</label>
 
-        <select
-          [(ngModel)]="selectedAccount">
+</div>
 
-          <option
-            [ngValue]="null"
-            disabled>
-            Select Account
-          </option>
 
-          <option
-            *ngFor="let account of accounts"
-            [ngValue]="account.id">
 
-            {{ account.name }}
 
-          </option>
 
-        </select>
+<div class="import-body">
 
-      </div>
 
 
-      <!-- Expense Category -->
+<div class="input-group">
 
-      <div class="input-group">
+<label>
 
-        <label>Expense Category</label>
+{{'import.account' | translate}}
 
-        <select
-          [(ngModel)]="selectedExpenseCategory">
+</label>
 
-          <option
-            [ngValue]="null"
-            disabled>
 
-            Select Expense Category
+<select
+[(ngModel)]="selectedAccount">
 
-          </option>
 
-          <option
-            *ngFor="let category of categories"
-            [ngValue]="category.id">
+<option
+[ngValue]="null"
+disabled>
 
-            {{ category.name }}
+{{'import.select_account' | translate}}
 
-          </option>
+</option>
 
-        </select>
 
-      </div>
+<option
+*ngFor="let account of accounts"
+[ngValue]="account.id">
 
+{{account.name}}
 
-      <!-- Income Category -->
+</option>
 
-      <div class="input-group">
 
-        <label>Income Category</label>
+</select>
 
-        <select
-          [(ngModel)]="selectedIncomeCategory">
+</div>
 
-          <option
-            [ngValue]="null"
-            disabled>
 
-            Select Income Category
 
-          </option>
 
-          <option
-            *ngFor="let category of categories"
-            [ngValue]="category.id">
 
-            {{ category.name }}
 
-          </option>
 
-        </select>
+<div class="input-group">
 
-      </div>
+<label>
 
+{{'import.expense_category' | translate}}
 
-      <!-- CSV -->
+</label>
 
-      <div class="file-section">
 
-        <label class="file-label">
-          Bank CSV File
-        </label>
+<select
+[(ngModel)]="selectedExpenseCategory">
 
-        <label class="file-picker">
 
-          <input
-            type="file"
-            accept=".csv,text/csv"
-            (change)="onFileSelected($event)">
+<option
+[ngValue]="null"
+disabled>
 
-          <div class="upload-icon">
-            ⇧
-          </div>
+{{'import.select_expense_category' | translate}}
 
-          <div>
+</option>
 
-            <strong>
-              Choose CSV File
-            </strong>
 
-            <span>
-              Only .csv files are supported
-            </span>
+<option
+*ngFor="let category of categories"
+[ngValue]="category.id">
 
-          </div>
+{{category.name}}
 
-        </label>
+</option>
 
 
-        <!-- Selected file -->
+</select>
 
-        <div
-          *ngIf="selectedFile"
-          class="selected-file">
+</div>
 
-          <span class="file-icon">
-            CSV
-          </span>
 
-          <div class="file-info">
 
-            <strong>
-              {{ selectedFile.name }}
-            </strong>
 
-            <span>
-              {{ (selectedFile.size / 1024) | number:'1.0-0' }} KB
-            </span>
 
-          </div>
 
-          <span class="check-icon">
-            ✓
-          </span>
 
-        </div>
+<div class="input-group">
 
-      </div>
+<label>
 
+{{'import.income_category' | translate}}
 
-      <!-- Info -->
+</label>
 
-      <div class="import-info">
 
-        <strong>How it works</strong>
+<select
+[(ngModel)]="selectedIncomeCategory">
 
-        <p>
-          Deposits and withdrawals will be imported
-          automatically. Bank amounts are converted
-          from Rial to Toman.
-        </p>
 
-      </div>
+<option
+[ngValue]="null"
+disabled>
 
+{{'import.select_income_category' | translate}}
 
-      <!-- Error -->
+</option>
 
-      <div
-        *ngIf="errorMessage"
-        class="error-message">
 
-        <span>!</span>
+<option
+*ngFor="let category of categories"
+[ngValue]="category.id">
 
-        {{ errorMessage }}
+{{category.name}}
 
-      </div>
+</option>
 
 
-      <!-- Success -->
+</select>
 
-      <div
-        *ngIf="successMessage"
-        class="success-message">
+</div>
 
-        <span>✓</span>
 
-        {{ successMessage }}
 
-      </div>
 
-    </div>
 
 
-    <!-- ================= FOOTER ================= -->
 
-    <div class="import-footer">
 
-      <button
-        class="cancel-btn"
-        [disabled]="importing"
-        (click)="closeModal()">
+<div class="file-section">
 
-        Cancel
 
-      </button>
+<label class="file-label">
 
-      <button
-        class="import-btn"
-        [disabled]="importing"
-        (click)="importTransactions()">
+{{'import.csv_file' | translate}}
 
-        <span *ngIf="!importing">
-          Import Transactions
-        </span>
+</label>
 
-        <span *ngIf="importing">
-          Importing...
-        </span>
 
-      </button>
 
-    </div>
+<label class="file-picker">
 
-  </div>
+
+<input
+
+type="file"
+
+accept=".csv,text/csv"
+
+(change)="onFileSelected($event)">
+
+
+<div class="upload-icon">
+
+↑
+
+</div>
+
+
+
+<div>
+
+
+<strong>
+
+{{'import.choose_csv' | translate}}
+
+</strong>
+
+
+<span>
+
+{{'import.only_csv' | translate}}
+
+</span>
+
+
+</div>
+
+
+</label>
+
+
+
+
+
+
+
+<div
+*ngIf="selectedFile"
+class="selected-file">
+
+
+<span class="file-icon">
+
+CSV
+
+</span>
+
+
+
+<div class="file-info">
+
+
+<strong>
+
+{{selectedFile.name}}
+
+</strong>
+
+
+<span>
+
+{{(selectedFile.size / 1024) | number:'1.0-0'}}
+KB
+
+</span>
+
+
+</div>
+
+
+
+<span class="check-icon">
+
+✓
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="import-info">
+
+<strong>
+
+{{'import.how_it_works' | translate}}
+
+</strong>
+
+
+<p>
+
+{{'import.auto_detect' | translate}}
+
+<br>
+
+{{'import.currency_note' | translate}}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div
+*ngIf="errorMessage"
+class="error-message">
+
+
+<span>
+
+!
+
+</span>
+
+
+{{errorMessage}}
+
+
+</div>
+
+
+
+
+
+
+<div
+*ngIf="successMessage"
+class="success-message">
+
+
+<span>
+
+✓
+
+</span>
+
+
+{{successMessage}}
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="import-footer">
+
+
+<button
+
+class="cancel-btn"
+
+[disabled]="importing"
+
+(click)="closeModal()">
+
+{{'common.cancel' | translate}}
+
+</button>
+
+
+
+
+
+<button
+
+class="import-btn"
+
+[disabled]="importing"
+
+(click)="importTransactions()">
+
+
+
+<span *ngIf="!importing">
+
+{{'import.start' | translate}}
+
+</span>
+
+
+
+<span *ngIf="importing">
+
+{{'import.loading' | translate}}
+
+</span>
+
+
+
+</button>
+
+
+</div>
+
+
+
+</div>
 
 </div>

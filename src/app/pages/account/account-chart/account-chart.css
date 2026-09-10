@@ -1,0 +1,190 @@
+/* =====================================
+   Account Chart
+===================================== */
+
+
+:host {
+
+
+    display:block;
+
+
+    width:100%;
+
+
+}
+
+
+
+
+
+
+
+.chart-card {
+
+
+    width:100%;
+
+
+    background:#18181b;
+
+
+    border:1px solid rgb(39,39,42);
+
+
+    border-radius:16px;
+
+
+    padding:20px;
+
+
+    box-sizing:border-box;
+
+
+    direction:inherit;
+
+
+    font-family:inherit;
+
+
+}
+
+
+
+
+
+
+
+.chart-header {
+
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+
+
+
+
+.chart-header h3 {
+
+
+    margin:0;
+
+
+    color:white;
+
+
+    font-size:18px;
+
+
+    font-weight:700;
+
+
+}
+
+
+
+
+
+
+
+.chart-container {
+
+
+    width:100%;
+
+
+    min-height:350px;
+
+
+    overflow:hidden;
+
+
+}
+
+
+
+
+
+
+
+apx-chart {
+
+
+    width:100%;
+
+
+}
+
+
+
+
+
+
+
+
+
+html[dir="rtl"] .chart-card {
+
+
+    direction:rtl;
+
+
+    text-align:right;
+
+
+}
+
+
+
+
+
+html[dir="ltr"] .chart-card {
+
+
+    direction:ltr;
+
+
+    text-align:left;
+
+
+}
+
+
+
+
+
+
+
+
+
+@media(max-width:700px){
+
+
+    .chart-card {
+
+
+        padding:14px;
+
+
+        border-radius:12px;
+
+
+    }
+
+
+
+    .chart-container {
+
+
+        min-height:280px;
+
+
+    }
+
+
+}

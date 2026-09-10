@@ -1,198 +1,709 @@
-<!-- configuration.html -->
 <div class="configuration-wrapper">
-  <div class="section-header">
-    <h3>Configuration</h3>
-    <p>Manage your financial preferences</p>
-  </div>
 
-  <!-- Categories Section -->
-  <div class="config-section">
-    <div class="section-header">
-      <h4>🏷️ Categories</h4>
-      <button class="add-btn" (click)="onAddCategory()">
-        + Add Category
-      </button>
-    </div>
 
-    <div class="category-list">
-      <div class="category-item" *ngFor="let category of categories">
-        <div class="category-info">
-          <div>
-            <p class="category-name">{{ category.name }}</p>
-            <span class="category-color" [style.background]="category.color"></span>
-          </div>
-        </div>
-        <div class="category-actions">
-          <button class="action-btn" (click)="onEditCategory(category)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-            </svg>
-          </button>
-          <button class="action-btn" (click)="onDeleteCategory(category)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16">
-              <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="section-header main-header">
 
-<!-- Delete Category Modal -->
-<div class="modal-backdrop" *ngIf="showDeleteModal">
-  <div class="modal-box delete-modal">
-    <h3>
-      Delete "{{ categoryToDelete?.name }}"?
-    </h3>
-    <div class="delete-info">
-      <p>
-        This category is currently used by:
-      </p>
+<div>
 
-      <div class="usage-stats">
-        <div class="usage-item">
-          <span class="usage-icon">💳</span>
-          <strong>
-            {{ usageCount.transaction_count }}
-          </strong>
-          <span>
-            transactions
-          </span>
-        </div>
-        <div class="usage-item">
-          <span class="usage-icon">💰</span>
-          <strong>
-            {{ usageCount.budget_count }}
-          </strong>
-          <span>
-            budgets
-          </span>
-        </div>
+<h3>
+{{'configuration.title' | translate}}
+</h3>
 
-      </div>
 
-      <p class="warning-text" *ngIf="usageCount.total_count > 0">
-        Deleting it may affect these records.
-      </p>
-      <p class="safe-text" *ngIf="usageCount.total_count === 0">
-        This category is not currently used.
-      </p>
+<p>
+{{'configuration.description' | translate}}
+</p>
 
-    </div>
 
-    <div class="modal-actions">
-      <button
-        class="btn-cancel"
-        type="button"
-        (click)="cancelDelete()">
-        Cancel
-      </button>
-
-      <button
-        class="btn-delete"
-        type="button"
-        (click)="confirmDelete()">
-        Delete
-      </button>
-
-    </div>
-
-  </div>
 </div>
-  <!-- Notifications Section -->
-  <div class="config-section">
-    <div class="section-header">
-      <h4>🔔 Notifications</h4>
-    </div>
 
-    <div class="notification-settings">
-      <div class="notification-setting-item">
-        <div class="notification-setting-info">
-          <p class="notification-setting-title">Budget Alerts</p>
-          <span class="notification-setting-description">
-            Get notified when you are close to or over your budget
-          </span>
-        </div>
-        <label class="toggle">
-          <input type="checkbox"
-                 [checked]="notificationPrefs.budget_alerts"
-                 (change)="onTogglePreference('budget_alerts', $event.target.checked)">
-          <span class="slider"></span>
-        </label>
-      </div>
 
-      <div class="notification-setting-item">
-        <div class="notification-setting-info">
-          <p class="notification-setting-title">Budget Threshold</p>
-          <span class="notification-setting-description">
-            Notify me when I reach
-          </span>
-        </div>
-        <div class="budget-threshold">
-          <select [ngModel]="notificationPrefs.budget_threshold"
-                  (ngModelChange)="onChangeThreshold($event)">
-            <option [value]="70">70%</option>
-            <option [value]="80">80%</option>
-            <option [value]="90">90%</option>
-            <option [value]="100">100%</option>
-          </select>
-        </div>
-      </div>
+</div>
 
-      <div class="notification-setting-item">
-        <div class="notification-setting-info">
-          <p class="notification-setting-title">Spending Alerts</p>
-          <span class="notification-setting-description">
-            Get notified about unusual or unusually high spending
-          </span>
-        </div>
-        <label class="toggle">
-          <input type="checkbox"
-                 [checked]="notificationPrefs.spending_alerts"
-                 (change)="onTogglePreference('spending_alerts', $event.target.checked)">
-          <span class="slider"></span>
-        </label>
-      </div>
 
-      <div class="notification-setting-item">
-        <div class="notification-setting-info">
-          <p class="notification-setting-title">Goal Reminders</p>
-          <span class="notification-setting-description">
-            Get reminded about your financial goals
-          </span>
-        </div>
-        <label class="toggle">
-          <input type="checkbox"
-                 [checked]="notificationPrefs.goal_reminders"
-                 (change)="onTogglePreference('goal_reminders', $event.target.checked)">
-          <span class="slider"></span>
-        </label>
-      </div>
-    </div>
-  </div>
 
-  <!-- Modal Add/Edit Category -->
-  <div class="modal-backdrop" *ngIf="showAddCategory">
-    <div class="modal-box">
-      <h3>{{ editingCategory ? 'Edit Category' : 'Add Category' }}</h3>
 
-      <div class="input-group">
-        <label>Name</label>
-        <input type="text" [(ngModel)]="categoryForm.name" placeholder="e.g. Travel">
-      </div>
 
-      <div class="input-group">
-        <label>Color</label>
-        <input type="color" [(ngModel)]="categoryForm.color" style="height: 45px; padding: 5px;">
-      </div>
+<div class="config-section">
 
-      <div class="modal-actions">
-        <button class="btn-cancel" (click)="showAddCategory = false">Cancel</button>
-        <button class="btn-save" (click)="saveCategory()" [disabled]="isSubmitting">
-          {{ isSubmitting ? 'Saving...' : 'Save' }}
-        </button>
-      </div>
-    </div>
-  </div>
+
+<div class="section-header">
+
+
+<h4>
+🏷️ {{'configuration.categories' | translate}}
+</h4>
+
+
+
+<button
+
+class="add-btn"
+
+(click)="onAddCategory()">
+
++
+{{'configuration.add_category' | translate}}
+
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="category-list">
+
+
+<div
+
+class="category-item"
+
+*ngFor="let category of categories">
+
+
+<div class="category-info">
+
+
+<span
+
+class="category-color"
+
+[style.background]="category.color">
+
+</span>
+
+
+
+<p class="category-name">
+
+{{category.name}}
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+<div class="category-actions">
+
+
+<button
+
+class="action-btn"
+
+[title]="'common.edit' | translate"
+
+(click)="onEditCategory(category)">
+
+✏️
+
+</button>
+
+
+
+
+
+<button
+
+class="action-btn"
+
+[title]="'common.delete' | translate"
+
+(click)="onDeleteCategory(category)">
+
+🗑️
+
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div
+
+class="modal-backdrop"
+
+*ngIf="showDeleteModal">
+
+
+<div class="modal-box delete-modal">
+
+
+<h3>
+
+{{'configuration.delete_category' | translate}}
+
+</h3>
+
+
+
+
+<div class="delete-info">
+
+
+<p>
+
+{{'configuration.used_in' | translate}}
+
+</p>
+
+
+
+
+<div class="usage-stats">
+
+
+
+<div class="usage-item">
+
+<span class="usage-icon">
+
+💳
+
+</span>
+
+
+<strong>
+
+{{usageCount.transaction_count}}
+
+</strong>
+
+
+<span>
+
+{{'configuration.transactions' | translate}}
+
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="usage-item">
+
+
+<span class="usage-icon">
+
+💰
+
+</span>
+
+
+<strong>
+
+{{usageCount.budget_count}}
+
+</strong>
+
+
+<span>
+
+{{'configuration.budgets' | translate}}
+
+</span>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<p
+
+class="warning-text"
+
+*ngIf="usageCount.total_count > 0">
+
+{{'configuration.delete_warning' | translate}}
+
+</p>
+
+
+
+
+
+<p
+
+class="safe-text"
+
+*ngIf="usageCount.total_count === 0">
+
+{{'configuration.safe_delete' | translate}}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="modal-actions">
+
+
+<button
+
+class="btn-cancel"
+
+(click)="cancelDelete()">
+
+{{'common.cancel' | translate}}
+
+</button>
+
+
+
+<button
+
+class="btn-delete"
+
+(click)="confirmDelete()">
+
+{{'common.delete' | translate}}
+
+</button>
+
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="config-section">
+
+
+<div class="section-header">
+
+
+<h4>
+
+🔔 {{'configuration.notifications' | translate}}
+
+</h4>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="notification-settings">
+
+
+
+<div class="notification-setting-item">
+
+
+<div class="notification-setting-info">
+
+
+<p class="notification-setting-title">
+
+{{'configuration.budget_alerts' | translate}}
+
+</p>
+
+
+<span class="notification-setting-description">
+
+{{'configuration.budget_alerts_desc' | translate}}
+
+</span>
+
+
+</div>
+
+
+
+
+
+<label class="toggle">
+
+
+<input
+
+type="checkbox"
+
+[checked]="notificationPrefs.budget_alerts"
+
+(change)="onTogglePreference('budget_alerts',$any($event.target).checked)">
+
+
+<span class="slider"></span>
+
+
+</label>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="notification-setting-item">
+
+
+<div class="notification-setting-info">
+
+
+<p class="notification-setting-title">
+
+{{'configuration.budget_threshold' | translate}}
+
+</p>
+
+
+<span class="notification-setting-description">
+
+{{'configuration.budget_threshold_desc' | translate}}
+
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="budget-threshold">
+
+
+<select
+
+[ngModel]="notificationPrefs.budget_threshold"
+
+(ngModelChange)="onChangeThreshold($event)">
+
+
+<option [value]="70">
+70%
+</option>
+
+
+<option [value]="80">
+80%
+</option>
+
+
+<option [value]="90">
+90%
+</option>
+
+
+<option [value]="100">
+100%
+</option>
+
+
+</select>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="notification-setting-item">
+
+
+<div class="notification-setting-info">
+
+
+<p class="notification-setting-title">
+
+{{'configuration.spending_alerts' | translate}}
+
+</p>
+
+
+<span class="notification-setting-description">
+
+{{'configuration.spending_alerts_desc' | translate}}
+
+</span>
+
+
+</div>
+
+
+
+
+<label class="toggle">
+
+
+<input
+
+type="checkbox"
+
+[checked]="notificationPrefs.spending_alerts"
+
+(change)="onTogglePreference('spending_alerts',$any($event.target).checked)">
+
+
+<span class="slider"></span>
+
+
+</label>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="notification-setting-item">
+
+
+<div class="notification-setting-info">
+
+
+<p class="notification-setting-title">
+
+{{'configuration.goal_reminders' | translate}}
+
+</p>
+
+
+<span class="notification-setting-description">
+
+{{'configuration.goal_reminders_desc' | translate}}
+
+</span>
+
+
+</div>
+
+
+
+
+<label class="toggle">
+
+
+<input
+
+type="checkbox"
+
+[checked]="notificationPrefs.goal_reminders"
+
+(change)="onTogglePreference('goal_reminders',$any($event.target).checked)">
+
+
+<span class="slider"></span>
+
+
+</label>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div
+
+class="modal-backdrop"
+
+*ngIf="showAddCategory">
+
+
+<div class="modal-box">
+
+
+
+<h3>
+
+{{editingCategory
+?
+('configuration.edit_category' | translate)
+:
+('configuration.add_category' | translate)}}
+
+</h3>
+
+
+
+
+
+<div class="input-group">
+
+
+<label>
+
+{{'configuration.category_name' | translate}}
+
+</label>
+
+
+
+<input
+
+type="text"
+
+[(ngModel)]="categoryForm.name"
+
+[placeholder]="
+'configuration.category_placeholder' | translate
+">
+
+
+</div>
+
+
+
+
+
+<div class="input-group">
+
+
+<label>
+
+{{'configuration.color' | translate}}
+
+</label>
+
+
+
+<input
+
+type="color"
+
+[(ngModel)]="categoryForm.color">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="modal-actions">
+
+
+<button
+
+class="btn-cancel"
+
+(click)="showAddCategory=false">
+
+{{'common.cancel' | translate}}
+
+</button>
+
+
+
+
+
+<button
+
+class="btn-save"
+
+(click)="saveCategory()"
+
+[disabled]="isSubmitting">
+
+
+{{isSubmitting
+?
+('common.saving' | translate)
+:
+('common.save' | translate)}}
+
+
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
 </div>

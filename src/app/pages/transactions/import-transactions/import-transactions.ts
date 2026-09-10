@@ -8,300 +8,414 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { TransactionService } from '../../../services/transaction.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+
 @Component({
-  selector: 'app-import-transactions',
-  standalone: true,
-  imports: [
+  selector:'app-import-transactions',
+  standalone:true,
+  imports:[
     CommonModule,
-    FormsModule
+    FormsModule,
+    TranslatePipe
   ],
-  templateUrl: './import-transactions.html',
-  styleUrls: ['./import-transactions.css']
+  templateUrl:'./import-transactions.html',
+  styleUrls:[
+    './import-transactions.css'
+  ]
 })
 export class ImportTransactions implements OnInit {
 
-  @Output() close = new EventEmitter<void>();
-  @Output() imported = new EventEmitter<void>();
 
-  accounts: any[] = [];
-  categories: any[] = [];
+  @Output() close =
+  new EventEmitter<void>();
 
-  selectedAccount: number | null = null;
 
-  selectedExpenseCategory: number | null = null;
-  selectedIncomeCategory: number | null = null;
+  @Output() imported =
+  new EventEmitter<void>();
 
-  selectedFile: File | null = null;
 
-  errorMessage = '';
-  successMessage = '';
 
-  importing = false;
+  accounts:any[]=[];
+
+
+  categories:any[]=[];
+
+
+  selectedAccount:number|null=null;
+
+
+  selectedExpenseCategory:number|null=null;
+
+
+  selectedIncomeCategory:number|null=null;
+
+
+  selectedFile:File|null=null;
+
+
+  errorMessage='';
+
+
+  successMessage='';
+
+
+  importing=false;
+
+
 
   constructor(
-    private transactionService: TransactionService,
-    private http: HttpClient,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private transactionService:TransactionService,
+    private http:HttpClient,
+    private cdr:ChangeDetectorRef,
+    private translate:TranslateService
+  ){}
 
-  ngOnInit() {
+
+
+  ngOnInit(){
+
     this.loadAccounts();
+
     this.loadCategories();
+
   }
 
-  // =========================================================
-  // LOAD ACCOUNTS
-  // =========================================================
 
-  loadAccounts() {
 
-    const token = localStorage.getItem('access_token');
+  loadAccounts(){
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+    const token =
+    localStorage.getItem('access_token');
+
+
+    const headers =
+    new HttpHeaders({
+      'Authorization':`Bearer ${token}`
     });
 
-    this.http.get<any[]>(
+
+
+    this.http
+    .get<any[]>(
       'http://127.0.0.1:8000/api/accounts/',
-      { headers }
-    ).subscribe({
+      {headers}
+    )
+    .subscribe({
 
-      next: (data) => {
+      next:(data)=>{
 
-        this.accounts = data || [];
+        this.accounts=data || [];
 
-        if (this.accounts.length === 1) {
-          this.selectedAccount = this.accounts[0].id;
+
+        if(this.accounts.length===1){
+
+          this.selectedAccount =
+          this.accounts[0].id;
+
         }
+
 
         this.cdr.detectChanges();
+
       },
 
-      error: (err) => {
 
-        console.error(
-          'Error loading accounts:',
-          err
-        );
+      error:()=>{
 
         this.errorMessage =
-          'Could not load accounts.';
+        this.translate.instant(
+          'import.error_accounts'
+        );
+
       }
+
     });
+
   }
 
-  // =========================================================
-  // LOAD CATEGORIES
-  // =========================================================
 
-  loadCategories() {
+
+  loadCategories(){
 
     this.transactionService
-      .getCategories()
-      .subscribe({
+    .getCategories()
+    .subscribe({
 
-        next: (data) => {
+      next:(data)=>{
 
-          this.categories = data || [];
+        this.categories=data || [];
 
-          // Try to automatically select
-          // Income category.
 
-          const incomeCategory =
-            this.categories.find(
-              cat =>
-                cat.name.toLowerCase() === 'income'
-            );
+        const incomeCategory =
+        this.categories.find(
+          cat =>
+          cat.name.toLowerCase()==='income'
+        );
 
-          if (incomeCategory) {
-            this.selectedIncomeCategory =
-              incomeCategory.id;
-          }
 
-          // Try Misc for expenses.
+        if(incomeCategory){
 
-          const miscCategory =
-            this.categories.find(
-              cat =>
-                cat.name.toLowerCase() === 'misc'
-            );
+          this.selectedIncomeCategory =
+          incomeCategory.id;
 
-          if (miscCategory) {
-            this.selectedExpenseCategory =
-              miscCategory.id;
-          }
-
-          this.cdr.detectChanges();
-        },
-
-        error: (err) => {
-
-          console.error(
-            'Error loading categories:',
-            err
-          );
-
-          this.errorMessage =
-            'Could not load categories.';
         }
-      });
+
+
+
+        const miscCategory =
+        this.categories.find(
+          cat =>
+          cat.name.toLowerCase()==='misc'
+        );
+
+
+        if(miscCategory){
+
+          this.selectedExpenseCategory =
+          miscCategory.id;
+
+        }
+
+
+        this.cdr.detectChanges();
+
+      },
+
+
+      error:()=>{
+
+        this.errorMessage =
+        this.translate.instant(
+          'import.error_categories'
+        );
+
+      }
+
+    });
+
   }
 
-  // =========================================================
-  // FILE SELECT
-  // =========================================================
 
-  onFileSelected(event: Event) {
 
-    this.errorMessage = '';
-    this.successMessage = '';
+  onFileSelected(event:Event){
+
+    this.errorMessage='';
+
+    this.successMessage='';
+
 
     const input =
-      event.target as HTMLInputElement;
+    event.target as HTMLInputElement;
 
-    if (
-      !input.files ||
-      input.files.length === 0
-    ) {
-      this.selectedFile = null;
+
+
+    if(!input.files ||
+       input.files.length===0){
+
+      this.selectedFile=null;
+
       return;
+
     }
 
-    const file = input.files[0];
 
-    if (
-      !file.name.toLowerCase().endsWith('.csv')
-    ) {
+
+    const file =
+    input.files[0];
+
+
+    if(
+      !file.name
+      .toLowerCase()
+      .endsWith('.csv')
+    ){
 
       this.errorMessage =
-        'Please select a CSV file.';
+      this.translate.instant(
+        'import.csv_only'
+      );
 
-      this.selectedFile = null;
+
+      this.selectedFile=null;
 
       return;
+
     }
 
-    this.selectedFile = file;
+
+    this.selectedFile=file;
+
   }
 
-  // =========================================================
-  // IMPORT
-  // =========================================================
 
-  importTransactions() {
 
-    this.errorMessage = '';
-    this.successMessage = '';
+  importTransactions(){
 
-    if (!this.selectedFile) {
+    this.errorMessage='';
 
-      this.errorMessage =
-        'Please select a CSV file.';
+    this.successMessage='';
 
-      return;
-    }
 
-    if (!this.selectedAccount) {
+
+    if(!this.selectedFile){
 
       this.errorMessage =
-        'Please select an account.';
+      this.translate.instant(
+        'import.select_file'
+      );
 
       return;
+
     }
 
-    if (!this.selectedExpenseCategory) {
+
+
+    if(!this.selectedAccount){
 
       this.errorMessage =
-        'Please select an expense category.';
+      this.translate.instant(
+        'import.select_account'
+      );
 
       return;
+
     }
 
-    if (!this.selectedIncomeCategory) {
+
+
+    if(!this.selectedExpenseCategory){
 
       this.errorMessage =
-        'Please select an income category.';
+      this.translate.instant(
+        'import.select_expense_category'
+      );
 
       return;
+
     }
 
-    this.importing = true;
 
-    this.transactionService.importCsv(
+
+    if(!this.selectedIncomeCategory){
+
+      this.errorMessage =
+      this.translate.instant(
+        'import.select_income_category'
+      );
+
+      return;
+
+    }
+
+
+
+    this.importing=true;
+
+
+
+    this.transactionService
+    .importCsv(
       this.selectedFile,
       this.selectedAccount,
       this.selectedExpenseCategory,
       this.selectedIncomeCategory
-    ).subscribe({
+    )
+    .subscribe({
 
-      next: (response) => {
+      next:(response)=>{
 
-        this.importing = false;
+
+        this.importing=false;
+
 
         const imported =
-          response.imported || 0;
+        response.imported || 0;
+
 
         const skipped =
-          response.skipped || 0;
+        response.skipped || 0;
+
 
         const errors =
-          response.errors_count || 0;
+        response.errors_count || 0;
+
+
 
         this.successMessage =
-          `${imported} transactions imported successfully. ` +
-          `${skipped} skipped.`;
+        `${imported} ${
+          this.translate.instant('import.imported')
+        } ${
+          skipped
+        } ${
+          this.translate.instant('import.skipped')
+        }`;
 
-        if (errors > 0) {
+
+
+        if(errors>0){
 
           this.successMessage +=
-            ` ${errors} rows had errors.`;
+          ` ${errors} ${
+            this.translate.instant('import.errors')
+          }`;
+
         }
 
+
+
         this.cdr.detectChanges();
 
-        // Give the user a moment to see result,
-        // then close and refresh transaction page.
 
-        setTimeout(() => {
+        setTimeout(()=>{
 
           this.imported.emit();
+
           this.close.emit();
 
-        }, 1200);
+        },1200);
+
+
       },
 
-      error: (err) => {
 
-        console.error(
-          'CSV import error:',
-          err
-        );
+      error:(err)=>{
 
-        this.importing = false;
+
+        this.importing=false;
+
 
         this.errorMessage =
-          err?.error?.message ||
-          'CSV import failed. Please check the file.';
+        err?.error?.message ||
+        this.translate.instant(
+          'import.failed'
+        );
+
 
         this.cdr.detectChanges();
+
       }
+
     });
+
   }
 
-  // =========================================================
-  // CLOSE
-  // =========================================================
 
-  closeModal() {
 
-    if (this.importing) {
+  closeModal(){
+
+    if(this.importing){
+
       return;
+
     }
 
+
     this.close.emit();
+
   }
+
 }

@@ -1,198 +1,197 @@
-```html
+<div class="transactions-page">
+
 <div class="transactions-layout">
 
-  <div class="sidebar-wrapper">
-    <app-transaction-sidebar
-      (filterChanged)="onFilterUpdate($event)"
-      (categoryChanged)="onCategoryFilter($event)">
-    </app-transaction-sidebar>
-  </div>
+<aside class="transactions-sidebar">
 
-  <main class="content-wrapper">
+<app-transaction-sidebar
+(filterChanged)="onFilterUpdate($event)"
+(categoryChanged)="onCategoryFilter($event)">
+</app-transaction-sidebar>
 
-    <!-- ================= EMPTY STATE ================= -->
-
-    <div *ngIf="!hasData" class="empty-state">
-
-      <div class="empty-card">
-        <p>No transactions found for the current filter selection.</p>
-      </div>
-
-      <div class="empty-table">
-
-        <div class="table-toolbar">
-
-          <div class="search-group">
-            <input
-              type="text"
-              placeholder="Search Transactions"
-              class="search-input">
-
-            <button class="search-btn">
-              Search
-            </button>
-          </div>
-
-          <button
-            class="add-transaction-btn"
-            (click)="showAddModal = true">
-
-            <svg
-              stroke="currentColor"
-              fill="none"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              height="1em"
-              width="1em">
-
-              <path d="M5 12h14m-7-7v14"></path>
-
-            </svg>
-
-            Add Transaction
-
-          </button>
-
-        </div>
+</aside>
 
 
-        <table class="empty-table-content">
-
-          <thead>
-            <tr>
-              <th>CATEGORY</th>
-              <th class="text-right">EXPENSE</th>
-              <th class="text-right">DEPOSIT</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-
-              <td class="font-bold">
-                Totals (avg)
-              </td>
-
-              <td class="text-right">
-                $0.00 ($0.00)
-              </td>
-
-              <td class="text-right">
-                $0.00 ($0.00)
-              </td>
-
-            </tr>
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </div>
+<main class="transactions-content">
 
 
-    <!-- ================= DATA STATE ================= -->
+<div class="transactions-header">
 
-    <div *ngIf="hasData" class="data-state">
+<div class="title-section">
 
-      <!-- ================= CHARTS ================= -->
+<h1>
+{{'transactions.title' | translate}}
+</h1>
 
-      <div class="charts-main-container">
-
-
-        <!-- ================= DONUT CHART ================= -->
-
-        <div class="donut-card">
-
-          <h3 class="chart-header">
-            {{ chartMode === 'expenses'
-              ? 'Expenses by month'
-              : 'Deposits by month' }}
-          </h3>
-
-          <app-donut-chart
-            [series]="chartData"
-            [labels]="chartLabels"
-            [colors]="chartColors"
-            [centerText]="donutCenterText"
-            [centerSubText]="donutCenterSubText">
-          </app-donut-chart>
-
-        </div>
-
-
-        <!-- ================= BAR CHART ================= -->
-
-        <div class="bar-card">
-
-          <h3 class="chart-header">
-            {{ chartMode === 'expenses'
-              ? 'Expenses by category, colored by month'
-              : 'Deposits by category, colored by month' }}
-          </h3>
-
-
-          <div class="chart-controls">
-
-            <button
-              class="toggle-btn"
-              [class.active]="chartMode === 'expenses'"
-              (click)="setChartMode('expenses')">
-
-              Expenses
-
-            </button>
-
-
-            <button
-              class="toggle-btn"
-              [class.active]="chartMode === 'deposits'"
-              (click)="setChartMode('deposits')">
-
-              Deposits
-
-            </button>
-
-          </div>
-
-
-          <app-bar-chart
-            [data]="barData"
-            [categories]="barLabels"
-            [colors]="chartColors"
-            [tooltipFormatter]="barTooltipFormatter">
-          </app-bar-chart>
-
-        </div>
-
-      </div>
-
-
-      <!-- ================= TRANSACTION TABLE ================= -->
-
-      <div class="table-section">
-
-        <app-transaction-table
-          [groups]="groupedTransactions"
-          [grandTotalExpense]="totalExpense"
-          [grandTotalDeposit]="totalDeposit"
-          (refreshData)="onFilterUpdate(activeView)">
-        </app-transaction-table>
-
-      </div>
-
-    </div>
-
-  </main>
+<p>
+{{'transactions.description' | translate}}
+</p>
 
 </div>
 
 
-<!-- ================= ADD TRANSACTION MODAL ================= -->
+<button
+class="add-button"
+(click)="showAddModal=true">
+
++ {{'transactions.add' | translate}}
+
+</button>
+
+
+</div>
+
+
+
+<div
+class="summary-cards"
+*ngIf="hasData">
+
+
+<div class="summary-card expense">
+
+<span>
+{{'transactions.total_expense' | translate}}
+</span>
+
+<strong>
+
+{{totalExpense | number:'1.0-0'}}
+{{'currency.symbol' | translate}}
+
+</strong>
+
+</div>
+
+
+
+<div class="summary-card income">
+
+<span>
+{{'transactions.total_income' | translate}}
+</span>
+
+<strong>
+
+{{totalDeposit | number:'1.0-0'}}
+{{'currency.symbol' | translate}}
+
+</strong>
+
+</div>
+
+
+</div>
+
+
+
+<div
+class="empty-state"
+*ngIf="!hasData">
+
+
+<div class="empty-icon">
+💳
+</div>
+
+
+<h3>
+{{'transactions.empty_title' | translate}}
+</h3>
+
+
+<p>
+{{'transactions.empty_description' | translate}}
+</p>
+
+
+</div>
+<section
+class="charts-section"
+*ngIf="hasData">
+
+
+<div class="chart-box">
+
+<h3>
+{{'transactions.category_analysis' | translate}}
+</h3>
+
+
+<app-donut-chart
+[series]="chartData"
+[labels]="chartLabels"
+[colors]="chartColors"
+[centerText]="donutCenterText"
+[centerSubText]="donutCenterSubText">
+</app-donut-chart>
+
+
+</div>
+
+
+
+<div class="chart-box">
+
+<h3>
+{{'transactions.daily_analysis' | translate}}
+</h3>
+
+
+<app-bar-chart
+[data]="barData"
+[categories]="barLabels"
+[colors]="chartColors"
+[tooltipFormatter]="barTooltipFormatter">
+</app-bar-chart>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section
+class="table-section"
+*ngIf="hasData">
+
+
+<app-transaction-table
+
+[groups]="groupedTransactions"
+
+[grandTotalExpense]="totalExpense"
+
+[grandTotalDeposit]="totalDeposit">
+
+</app-transaction-table>
+
+
+</section>
+
+
+
+</main>
+
+</div>
+
+
+
+
 
 <app-add-new-transaction
-  *ngIf="showAddModal"
-  (close)="showAddModal = false"
-  (saved)="onTransactionSaved()">
+
+*ngIf="showAddModal"
+
+(close)="showAddModal=false"
+
+(saved)="onTransactionSaved()">
+
 </app-add-new-transaction>
-```
+
+
+</div>

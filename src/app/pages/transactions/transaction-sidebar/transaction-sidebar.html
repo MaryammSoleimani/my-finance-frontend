@@ -1,243 +1,280 @@
-<aside class="sidebar-root custom-scrollbar">
-  <div class="tree-container">
-    <h3 class="tree-label">Saved Views</h3>
+<div class="sidebar-root">
 
-    <div role="tree" class="tree-view">
+<div class="sidebar-title">
+{{'transactions.filters' | translate}}
+</div>
 
-      <!-- Month -->
-      <div class="tree-branch">
-        <div class="branch-control" (click)="toggleMenu('month')">
-          <svg [class.rotate]="menus.month" class="chevron" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="m9 18 6-6-6-6"></path></svg>
-          <span class="branch-text">Month</span>
-        </div>
-        <div class="branch-content" *ngIf="menus.month">
-          <div class="indent-guide"></div>
 
-          <div class="tree-item" [class.active-item]="activeView === 'current-month'" (click)="selectView('current-month')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">Current Month</span>
-          </div>
-          <div class="tree-item" [class.active-item]="activeView === 'last-month'" (click)="selectView('last-month')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">Last Month</span>
-          </div>
-          <div class="tree-item" [class.active-item]="activeView === 'per-day'" (click)="selectView('per-day')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">Per Day</span>
-          </div>
-        </div>
-      </div>
+<div class="filter-section">
 
-      <!-- Day -->
-      <div class="tree-branch">
-        <div class="branch-control" (click)="toggleMenu('day')">
-          <svg [class.rotate]="menus.day" class="chevron" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="m9 18 6-6-6-6"></path></svg>
-          <span class="branch-text">Day</span>
-        </div>
-        <div class="branch-content" *ngIf="menus.day">
-          <div class="indent-guide"></div>
-          <div class="tree-item" [class.active-item]="activeView === 'today'" (click)="selectView('today')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">Today</span>
-          </div>
-          <div class="tree-item" [class.active-item]="activeView === 'yesterday'" (click)="selectView('yesterday')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">Yesterday</span>
-          </div>
-        </div>
-      </div>
+<div class="section-title"
+(click)="toggleMenu('month')">
 
-      <!-- Year -->
-      <div class="tree-branch">
-        <div class="branch-control" (click)="toggleMenu('year')">
-          <svg [class.rotate]="menus.year" class="chevron" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="m9 18 6-6-6-6"></path></svg>
-          <span class="branch-text">Year</span>
-        </div>
-        <div class="branch-content" *ngIf="menus.year">
-          <div class="indent-guide"></div>
+<span>
+{{'transactions.saved_views' | translate}}
+</span>
 
-          <div class="tree-item" [class.active-item]="activeView === 'last-year'" (click)="selectView('last-year')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">Last Year</span>
-          </div>
+<span>
+{{ menus.month ? '−' : '+' }}
+</span>
 
-          <div class="tree-item" [class.active-item]="activeView === 'year-to-date'" (click)="selectView('year-to-date')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">Year To Date</span>
-          </div>
-        </div>
-      </div>
+</div>
 
-      <!-- Misc -->
-      <div class="tree-branch">
-        <div class="branch-control" (click)="toggleMenu('misc')">
-          <svg [class.rotate]="menus.misc" class="chevron" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="m9 18 6-6-6-6"></path></svg>
-          <span class="branch-text">Misc</span>
-        </div>
-        <div class="branch-content" *ngIf="menus.misc">
-          <div class="indent-guide"></div>
 
-          <div class="tree-item" [class.active-item]="activeView === 'all-time'" (click)="selectView('all-time')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">All Time</span>
-          </div>
-        </div>
-      </div>
+<div
+*ngIf="menus.month"
+class="section-content">
 
-      <!-- Budget -->
-      <div class="tree-branch">
-        <div class="branch-control" (click)="toggleMenu('budget')">
-          <svg [class.rotate]="menus.budget" class="chevron" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em"><path d="m9 18 6-6-6-6"></path></svg>
-          <span class="branch-text">Budget</span>
-        </div>
-        <div class="branch-content" *ngIf="menus.budget">
-          <div class="indent-guide"></div>
-          <div class="tree-item" (click)="selectView('monthly-budget')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">Monthly Budget</span>
-          </div>
-          <div class="tree-item" (click)="selectView('yearly-budget')">
-            <ng-container *ngTemplateOutlet="eyeIcon"></ng-container>
-            <span class="item-text">Yearly Budget</span>
-          </div>
-        </div>
-      </div>
 
-    </div>
-  </div>
+<button
+class="filter-item"
+[class.active]="activeView==='current-month'"
+(click)="selectView('current-month')">
 
-  <!-- Advanced Filtering Options -->
-  <div class="section-divider"></div>
+{{'transactions.current_month' | translate}}
 
-  <div class="advanced-filter-toggle" (click)="toggleAdvancedFilters()">
-    <span>Show Advanced Filtering Options</span>
-    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em">
-      <circle cx="12" cy="12" r="10"></circle>
-      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-      <line x1="12" y1="17" x2="12.01" y2="17"></line>
-    </svg>
-  </div>
+</button>
 
-  <!-- Advanced Filters Content (hidden by default) -->
-  <div class="advanced-filters-content" *ngIf="showAdvancedFilters">
-    <div class="filter-card">
-      <div class="card-header">
-        <p class="card-title">Category</p>
-        <div class="header-actions">
-          <button class="icon-btn" (click)="clearCategoryFilter()">
-            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em">
-              <path d="M18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711Z"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
 
-      <div class="badges-wrapper">
-        <span *ngFor="let cat of categories"
-              class="chakra-badge"
-              (click)="selectCategory(cat.name)"
-              [style.background]="selectedCat === cat.name ? '#2d3748' : ''"
-              [style.color]="selectedCat === cat.name ? 'white' : ''"
-              style="cursor: pointer; display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
-          <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="12px" width="12px">
-            <path d="M20 6 9 17l-5-5"></path>
-          </svg>
-          {{ cat.name }}
-        </span>
-      </div>
+<button
+class="filter-item"
+[class.active]="activeView==='last-month'"
+(click)="selectView('last-month')">
 
-      <div class="card-footer">
-        <button class="more-link" (click)="showAllCategories = !showAllCategories">
-          {{ showAllCategories ? '- less' : '+ 6 more' }}
-        </button>
-        <div class="footer-actions">
-          <button class="text-link-btn" (click)="selectAllCategories()">Select All</button>
-          <button class="text-link-btn" (click)="clearCategoryFilter()">Deselect All</button>
-        </div>
-      </div>
-    </div>
+{{'transactions.last_month' | translate}}
 
-    <!-- Month Filter -->
-    <div class="filter-card">
-      <div class="card-header">
-        <p class="card-title">Month</p>
-        <div class="header-actions">
-          <button class="icon-btn" (click)="clearMonthFilter()">
-            <svg viewBox="0 0 24 24" height="1em" width="1em">
-              <path fill="currentColor" d="M18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711Z"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
+</button>
 
-      <div class="badges-wrapper">
-        <span *ngFor="let m of visibleMonths"
-              class="chakra-badge"
-              [style.background]="selectedMonths.includes(m) ? '#2d3748' : ''"
-              [style.color]="selectedMonths.includes(m) ? 'white' : ''"
-              style="cursor: pointer;"
-              (click)="toggleMonth(m)">
-          <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="12px" width="12px">
-            <path d="M20 6 9 17l-5-5"></path>
-          </svg>
-          {{ m }}
-        </span>
-      </div>
 
-      <div class="card-footer">
-        <button class="more-link" (click)="showAllMonths = !showAllMonths">
-          {{ showAllMonths ? '- less' : '+ 6 more' }}
-        </button>
-        <div class="footer-actions">
-          <button class="text-link-btn" (click)="selectAllMonths()">Select All</button>
-          <button class="text-link-btn" (click)="clearMonthFilter()">Deselect All</button>
-        </div>
-      </div>
-    </div>
+<button
+class="filter-item"
+[class.active]="activeView==='today'"
+(click)="selectView('today')">
 
-    <!-- Year Filter -->
-    <div class="filter-card">
-      <div class="card-header">
-        <p class="card-title">Year</p>
-        <div class="header-actions">
-          <button class="icon-btn" (click)="clearYearFilter()">
-            <svg viewBox="0 0 24 24" height="1em" width="1em">
-              <path fill="currentColor" d="M18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711Z"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
+{{'transactions.today' | translate}}
 
-      <div class="badges-wrapper">
-        <span *ngFor="let y of years"
-              class="chakra-badge"
-              [style.background]="selectedYears.includes(y) ? '#2d3748' : ''"
-              [style.color]="selectedYears.includes(y) ? 'white' : ''"
-              style="cursor: pointer;"
-              (click)="toggleYear(y)">
-          <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="12px" width="12px">
-            <path d="M20 6 9 17l-5-5"></path>
-          </svg>
-          {{ y }}
-        </span>
-      </div>
+</button>
 
-      <div class="card-footer">
-        <div class="footer-actions" style="margin-left: auto;">
-          <button class="text-link-btn" (click)="selectAllYears()">Select All</button>
-          <button class="text-link-btn" (click)="clearYearFilter()">Deselect All</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <ng-template #eyeIcon>
-    <svg class="item-icon" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="1em" width="1em">
-      <path d="M21 17v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2"></path>
-      <path d="M21 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2"></path>
-      <circle cx="12" cy="12" r="1"></circle>
-      <path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"></path>
-    </svg>
-  </ng-template>
+<button
+class="filter-item"
+[class.active]="activeView==='yesterday'"
+(click)="selectView('yesterday')">
 
-</aside>
+{{'transactions.yesterday' | translate}}
+
+</button>
+
+
+</div>
+
+</div>
+
+
+
+
+<div class="filter-section">
+
+<div class="section-title"
+(click)="toggleMenu('year')">
+
+<span>
+{{'transactions.year' | translate}}
+</span>
+
+<span>
+{{ menus.year ? '−' : '+' }}
+</span>
+
+</div>
+
+
+<div
+*ngIf="menus.year"
+class="section-content">
+
+
+<button
+*ngFor="let year of years"
+class="filter-item"
+[class.active]="selectedYears.includes(year)"
+(click)="toggleYear(year)">
+
+{{year}}
+
+</button>
+
+
+<button
+class="clear-btn"
+(click)="clearYearFilter()">
+
+{{'common.clear' | translate}}
+
+</button>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="filter-section">
+
+<div class="section-title"
+(click)="toggleMenu('misc')">
+
+<span>
+{{'transactions.categories' | translate}}
+</span>
+
+<span>
+{{ menus.misc ? '−' : '+' }}
+</span>
+
+</div>
+
+
+
+<div
+*ngIf="menus.misc"
+class="section-content">
+
+
+<button
+class="filter-item"
+(click)="selectAllCategories()">
+
+{{'transactions.all_categories' | translate}}
+
+</button>
+
+
+
+<button
+*ngFor="let category of visibleCategories"
+class="filter-item"
+[class.active]="selectedCat===category"
+(click)="selectCategory(category)">
+
+{{category}}
+
+</button>
+
+
+
+<button
+*ngIf="categories.length > 6"
+class="show-more"
+(click)="showAllCategories=!showAllCategories">
+
+{{showAllCategories
+?
+('common.show_less' | translate)
+:
+('common.show_more' | translate)}}
+
+</button>
+
+
+
+<button
+class="clear-btn"
+(click)="clearCategoryFilter()">
+
+{{'common.remove_filter' | translate}}
+
+</button>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="filter-section">
+
+<div class="section-title"
+(click)="toggleMenu('day')">
+
+<span>
+{{'transactions.months' | translate}}
+</span>
+
+
+<span>
+{{ menus.day ? '−' : '+' }}
+</span>
+
+
+</div>
+
+
+
+<div
+*ngIf="menus.day"
+class="section-content">
+
+
+<button
+*ngFor="let month of visibleMonths"
+class="filter-item"
+[class.active]="selectedMonths.includes(month)"
+(click)="toggleMonth(month)">
+
+{{month}}
+
+</button>
+
+
+
+<button
+*ngIf="months.length > 6"
+class="show-more"
+(click)="showAllMonths=!showAllMonths">
+
+
+{{showAllMonths
+?
+('common.show_less' | translate)
+:
+('common.show_more' | translate)}}
+
+
+</button>
+
+
+
+<button
+class="clear-btn"
+(click)="clearMonthFilter()">
+
+{{'common.clear' | translate}}
+
+</button>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<button
+class="advanced-filter-toggle"
+(click)="toggleAdvancedFilters()">
+
+{{'transactions.advanced_filters' | translate}}
+
+</button>
+
+
+</div>

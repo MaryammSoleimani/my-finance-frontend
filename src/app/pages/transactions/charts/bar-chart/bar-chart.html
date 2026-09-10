@@ -1,1 +1,64 @@
-<p>bar-chart works!</p>
+<div class="chart-card">
+
+<div class="chart-header">
+
+<h3 class="chart-title">
+
+{{'charts.expense_by_category' | translate}}
+
+</h3>
+
+</div>
+
+
+<div class="chart-body">
+
+
+<apx-chart
+
+*ngIf="data && data.length > 0"
+
+[series]="chartOptions.series"
+
+[chart]="chartOptions.chart"
+
+[xaxis]="chartOptions.xaxis"
+
+[yaxis]="chartOptions.yaxis"
+
+[plotOptions]="chartOptions.plotOptions"
+
+[colors]="chartOptions.colors"
+
+[dataLabels]="chartOptions.dataLabels"
+
+[tooltip]="chartOptions.tooltip"
+
+[grid]="chartOptions.grid">
+
+</apx-chart>
+
+
+
+
+<div
+
+*ngIf="!data || data.length === 0"
+
+class="no-data">
+
+
+<p>
+
+{{'charts.no_data' | translate}}
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>

@@ -1,34 +1,95 @@
 <div class="steps-card">
+
   <div class="steps-header">
-    <h3>Simulation Steps</h3>
+
+    <h3>
+      مراحل شبیه‌سازی مالی
+    </h3>
+
   </div>
 
-  <table class="steps-table">
-    <thead>
-      <tr>
-        <th>Month</th>
-        <th>Liquid</th>
-        <th>Illiquid</th>
-        <th>Total Assets</th>
-        <th>Out</th>
-        <th>In</th>
-        <th>Net</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let step of displayedSteps">
-        <td>{{ step.month }}</td>
-        <td>{{ step.liquid | number:'1.0-0' }} تومان</td>
-        <td>{{ step.illiquid | number:'1.0-0' }} تومان</td>
-        <td>{{ step.total_assets | number:'1.0-0' }} تومان</td>
-        <td>{{ step.out | number:'1.0-0' }} تومان</td>
-        <td>{{ step.in | number:'1.0-0' }} تومان</td>
-        <td>{{ step.net | number:'1.0-0' }} تومان</td>
-      </tr>
-    </tbody>
-  </table>
 
-  <button class="show-more-btn" (click)="toggleShowAll()">
-    {{ showAll ? 'show less' : 'show more' }}
+  <div class="table-wrapper">
+
+    <table class="steps-table">
+
+      <thead>
+
+        <tr>
+
+          <th>ماه</th>
+
+          <th>دارایی نقدشونده</th>
+
+          <th>دارایی غیرنقدشونده</th>
+
+          <th>کل دارایی‌ها</th>
+
+          <th>هزینه</th>
+
+          <th>درآمد</th>
+
+          <th>خالص</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr *ngFor="let step of displayedSteps">
+
+          <td>
+            {{ step.month }}
+          </td>
+
+          <td>
+            {{ step.liquid | number:'1.0-0' }} تومان
+          </td>
+
+          <td>
+            {{ step.illiquid | number:'1.0-0' }} تومان
+          </td>
+
+          <td>
+            {{ step.total_assets | number:'1.0-0' }} تومان
+          </td>
+
+          <td class="expense">
+
+            {{ step.out | number:'1.0-0' }} تومان
+
+          </td>
+
+          <td class="income">
+
+            {{ step.in | number:'1.0-0' }} تومان
+
+          </td>
+
+          <td>
+
+            {{ step.net | number:'1.0-0' }} تومان
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  <button
+    class="show-more-btn"
+    (click)="toggleShowAll()">
+
+    {{ showAll ? 'نمایش کمتر' : 'نمایش بیشتر' }}
+
   </button>
+
+
 </div>

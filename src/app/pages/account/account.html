@@ -1,60 +1,407 @@
-<!-- account.html -->
 <div class="dashboard-wrapper">
+
+
+
+
+
+  <!-- خلاصه حساب‌ها -->
+
   <app-account-summary
+
+
     [netWorth]="netWorth()"
+
+
     [totalAssets]="totalAssets()"
+
+
     [totalLiabilities]="totalLiabilities()">
+
+
+
   </app-account-summary>
 
-  <div *ngIf="error()" class="error-banner">
-    {{ error() }}
-    <button (click)="loadAccountData()">Retry</button>
+
+
+
+
+
+
+
+
+  <!-- خطا -->
+
+
+  <div
+
+    *ngIf="error()"
+
+    class="error-banner">
+
+
+
+    <span>
+
+
+      {{error()}}
+
+
+    </span>
+
+
+
+
+
+
+    <button
+
+      type="button"
+
+      (click)="loadAccountData()">
+
+
+
+      {{'common.retry' | translate}}
+
+
+
+    </button>
+
+
+
   </div>
+
+
+
+
+
+
+
+
 
   <div class="main-content">
+
+
+
+
+
+
+
+    <!-- بخش حساب‌ها -->
+
+
+
     <div class="side-panel">
+
+
+
+
+
       <div class="side-header">
-        <h3 style="color: white; padding-left: 0; font-size: 18px;">Accounts</h3>
-        <button class="add-account-btn" (click)="openAddAccount()">
-          + Add
+
+
+
+
+
+        <h3>
+
+
+
+          {{'account.title' | translate}
+
+
+
+        </h3>
+
+
+
+
+
+
+
+        <button
+
+          class="add-account-btn"
+
+          type="button"
+
+          (click)="openAddAccount()">
+
+
+
+
+
+          +
+
+          {{'account.add' | translate}}
+
+
+
+
+
         </button>
+
+
+
+
+
       </div>
 
-      <div *ngIf="loading()" class="loading-indicator">
+
+
+
+
+
+
+
+
+      <!-- Loading -->
+
+
+
+      <div
+
+        *ngIf="loading()"
+
+        class="loading-indicator">
+
+
+
+
+
+
         <div class="spinner"></div>
-        <span>Loading...</span>
+
+
+
+
+
+
+        <span>
+
+
+
+          {{'common.loading' | translate}}
+
+
+
+
+        </span>
+
+
+
+
+
+
       </div>
+
+
+
+
+
+
+
+
+
+      <!-- لیست حساب‌ها -->
+
+
 
       <app-account-list
+
+
+
         *ngIf="!loading()"
+
+
+
+
         [assets]="assets()"
+
+
+
+
         [liabilities]="liabilities()"
+
+
+
+
         (deleteAccount)="deleteAccount($event)"
+
+
+
+
         (editAccount)="onEditAccount($event)">
+
+
+
+
+
       </app-account-list>
+
+
+
+
+
+
     </div>
+
+
+
+
+
+
+
+
+
+    <!-- نمودار -->
+
+
 
     <div class="chart-panel">
+
+
+
+
+
       <div class="chart-filters">
-        <button *ngFor="let p of periods"
-                (click)="setPeriod(p.value)"
-                [class.active]="currentPeriod() === p.value">
-          {{ p.label }}
+
+
+
+
+
+        <button
+
+
+
+          type="button"
+
+
+
+          *ngFor="let p of periods"
+
+
+
+
+          (click)="setPeriod(p.value)"
+
+
+
+
+          [class.active]="currentPeriod() === p.value">
+
+
+
+
+
+
+          {{p.label | translate}}
+
+
+
+
+
+
         </button>
+
+
+
+
+
       </div>
 
+
+
+
+
+
+
+
+
       <app-account-chart
-        *ngIf="chartData() && chartData().series && chartData().series.length > 0"
+
+
+
+        *ngIf="
+
+        chartData() &&
+
+        chartData().series &&
+
+        chartData().series.length > 0
+
+        "
+
+
+
+
+
         [data]="chartData()">
+
+
+
+
+
       </app-account-chart>
+
+
+
+
+
+
+
     </div>
 
-    <!-- مودال افزودن/ویرایش -->
+
+
+
+
+
+
+
+
+    <!-- افزودن / ویرایش -->
+
+
+
     <app-add-account
+
+
+
       *ngIf="showAddAccount"
+
+
+
+
       [account]="editingAccount"
+
+
+
+
       (close)="onCloseAddAccount()"
+
+
+
+
       (refresh)="loadAccountData()">
+
+
+
+
+
     </app-add-account>
+
+
+
+
+
+
+
   </div>
+
+
+
+
+
+
 </div>

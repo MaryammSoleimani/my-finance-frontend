@@ -1,37 +1,142 @@
 <div class="plans-wrapper">
-  <header class="page-header">
-    <div class="breadcrumb">
-      <span>Current Plan</span>
-    </div>
-    <div class="title-row">
-      <h1><span id="username">{{username}}</span>'s Financial Plan</h1>
-      <div class="header-actions">
 
-      </div>
+
+  <!-- Header -->
+
+  <header class="page-header">
+
+
+    <div class="breadcrumb">
+
+      <span>
+        برنامه مالی فعلی
+      </span>
+
     </div>
+
+
+
+
+    <div class="title-row">
+
+
+      <h1>
+
+        برنامه مالی
+        <span id="username">
+          {{ username }}
+        </span>
+
+      </h1>
+
+
+
+    </div>
+
+
   </header>
 
+
+
+
+
+
+
+  <!-- Main Cards -->
+
+
   <main class="plans-grid">
-    <div class="grid-column">
-      <app-assets></app-assets>
-    </div>
+
 
     <div class="grid-column">
-        <app-cash-flow></app-cash-flow>
+
+
+      <app-assets></app-assets>
+
+
     </div>
+
+
+
+
+
     <div class="grid-column">
-      <app-events></app-events>
+
+
+      <app-cash-flow></app-cash-flow>
+
+
     </div>
+
+
+
+
+
+    <div class="grid-column">
+
+
+      <app-events></app-events>
+
+
+    </div>
+
+
+
   </main>
 
+
+
+
+
+
+
   <!-- Simulation Summary -->
-  <app-simulation-summary></app-simulation-summary>
+
+
+  <section class="plans-section">
+
+
+    <app-simulation-summary></app-simulation-summary>
+
+
+  </section>
+
+
+
+
+
+
+
 
   <!-- Financial Timeline -->
-  <app-financial-timeline></app-financial-timeline>
+
+
+  <section class="plans-section">
+
+
+    <app-financial-timeline></app-financial-timeline>
+
+
+  </section>
+
+
+
+
+
+
+
 
   <!-- Simulation Steps -->
-  <app-simulation-steps></app-simulation-steps>
+
+
+  <section class="plans-section">
+
+
+    <app-simulation-steps></app-simulation-steps>
+
+
+  </section>
+
 
 
 </div>

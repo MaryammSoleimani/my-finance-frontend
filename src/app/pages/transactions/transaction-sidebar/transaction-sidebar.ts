@@ -1,140 +1,291 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { TransactionService } from '../../../services/transaction.service';
 
 @Component({
-  selector: 'app-transaction-sidebar',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './transaction-sidebar.html',
-  styleUrl: './transaction-sidebar.css'
+  selector:'app-transaction-sidebar',
+  standalone:true,
+  imports:[
+    CommonModule,
+    TranslatePipe
+  ],
+  templateUrl:'./transaction-sidebar.html',
+  styleUrl:'./transaction-sidebar.css'
 })
 export class TransactionSidebar implements OnInit {
+
   @Output() filterChanged = new EventEmitter<string>();
+
   @Output() categoryChanged = new EventEmitter<string>();
 
-  menus: any = {
-    month: true,
-    day: false,
-    year: false,
-    misc: false,
-    budget: false
+  menus:any={
+    month:true,
+    day:false,
+    year:false,
+    misc:false,
+    budget:false
   };
 
-  activeView: string = 'current-month';
-  selectedCat: string = '';
+  activeView='current-month';
 
-  // Advanced filters
-  showAdvancedFilters: boolean = false;
+  selectedCat='';
 
-  // دسته‌بندی‌ها
-  categories: any[] = [];
-  showAllCategories: boolean = false;
+  showAdvancedFilters=false;
 
-  // ماه‌ها
-  months = ['January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'];
-  selectedMonths: string[] = [];
-  showAllMonths: boolean = false;
+  categories:any[]=[];
 
-  // سال‌ها
-  years: string[] = ['2023', '2024', '2025', '2026'];
-  selectedYears: string[] = [];
+  showAllCategories=false;
 
-  // ماه‌های قابل نمایش
-  get visibleMonths() {
-    return this.showAllMonths ? this.months : this.months.slice(0, 6);
-  }
+  months=[
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
 
-  // دسته‌بندی‌های قابل نمایش
-  get visibleCategories() {
-    return this.showAllCategories ? this.categories : this.categories.slice(0, 6);
-  }
+  selectedMonths:string[]=[];
 
-  constructor(private transactionService: TransactionService) {}
+  showAllMonths=false;
 
-  ngOnInit() {
+  years:string[]=[
+    '2023',
+    '2024',
+    '2025',
+    '2026'
+  ];
+
+  selectedYears:string[]=[];
+
+
+
+  constructor(
+    private transactionService:TransactionService
+  ){}
+
+
+
+  ngOnInit(){
+
     this.loadCategories();
+
     this.loadYears();
+
   }
 
-  loadCategories() {
-    this.transactionService.getCategories().subscribe({
-      next: (data) => this.categories = data,
-      error: (err) => console.error('Error fetching categories:', err)
-    });
-  }
 
-  loadYears() {
-    this.transactionService.getTransactionYears().subscribe({
-      next: (data) => {
-        this.years = data.map(year => year.toString());
+
+  loadCategories(){
+
+    this.transactionService
+    .getCategories()
+    .subscribe({
+
+      next:(data)=>{
+
+        this.categories=data;
+
       },
-      error: (err) => {
-        console.error('Error fetching years:', err);
-        this.years = ['2023', '2024', '2025', '2026'];
+
+      error:(err)=>{
+
+        console.error(
+          'Error fetching categories:',
+          err
+        );
+
       }
+
     });
+
   }
 
-  toggleMenu(menuName: string) {
-    this.menus[menuName] = !this.menus[menuName];
+
+
+  loadYears(){
+
+    this.transactionService
+    .getTransactionYears()
+    .subscribe({
+
+      next:(data)=>{
+
+        this.years =
+        data.map(
+          year=>year.toString()
+        );
+
+      },
+
+      error:(err)=>{
+
+        console.error(err);
+
+        this.years=[
+          '2023',
+          '2024',
+          '2025',
+          '2026'
+        ];
+
+      }
+
+    });
+
   }
 
-  toggleAdvancedFilters() {
-    this.showAdvancedFilters = !this.showAdvancedFilters;
+
+
+  get visibleMonths(){
+
+    return this.showAllMonths
+    ? this.months
+    : this.months.slice(0,6);
+
   }
 
-  selectView(view: string) {
-    this.activeView = view;
+
+
+  get visibleCategories(){
+
+    return this.showAllCategories
+    ? this.categories
+    : this.categories.slice(0,6);
+
+  }
+
+
+
+  toggleMenu(
+    menuName:string
+  ){
+
+    this.menus[menuName]=
+    !this.menus[menuName];
+
+  }
+
+
+
+  toggleAdvancedFilters(){
+
+    this.showAdvancedFilters =
+    !this.showAdvancedFilters;
+
+  }
+
+
+
+  selectView(
+    view:string
+  ){
+
+    this.activeView=view;
+
     this.filterChanged.emit(view);
-    this.selectedCat = '';
+
+    this.selectedCat='';
+
   }
 
-  selectCategory(category: string) {
-    this.selectedCat = category;
+
+
+  selectCategory(
+    category:string
+  ){
+
+    this.selectedCat=category;
+
     this.categoryChanged.emit(category);
+
   }
 
-  clearCategoryFilter() {
-    this.selectedCat = '';
+
+
+  clearCategoryFilter(){
+
+    this.selectedCat='';
+
     this.categoryChanged.emit('');
+
   }
 
-  selectAllCategories() {
-    this.selectedCat = 'all';
+
+
+  selectAllCategories(){
+
+    this.selectedCat='all';
+
     this.categoryChanged.emit('all');
+
   }
 
-  toggleMonth(month: string) {
-    if (this.selectedMonths.includes(month)) {
-      this.selectedMonths = this.selectedMonths.filter(m => m !== month);
-    } else {
+
+
+  toggleMonth(
+    month:string
+  ){
+
+    if(this.selectedMonths.includes(month)){
+
+      this.selectedMonths =
+      this.selectedMonths.filter(
+        m=>m!==month
+      );
+
+    }
+    else{
+
       this.selectedMonths.push(month);
+
     }
+
   }
 
-  clearMonthFilter() {
-    this.selectedMonths = [];
+
+
+  clearMonthFilter(){
+
+    this.selectedMonths=[];
+
   }
 
-  selectAllMonths() {
-    this.selectedMonths = [...this.months];
-  }
 
-  toggleYear(year: string) {
-    if (this.selectedYears.includes(year)) {
-      this.selectedYears = this.selectedYears.filter(y => y !== year);
-    } else {
+
+  toggleYear(
+    year:string
+  ){
+
+    if(this.selectedYears.includes(year)){
+
+      this.selectedYears =
+      this.selectedYears.filter(
+        y=>y!==year
+      );
+
+    }
+    else{
+
       this.selectedYears.push(year);
+
     }
+
   }
 
-  clearYearFilter() {
-    this.selectedYears = [];
+
+
+  clearYearFilter(){
+
+    this.selectedYears=[];
+
   }
 
-  selectAllYears() {
-    this.selectedYears = [...this.years];
-  }
 }

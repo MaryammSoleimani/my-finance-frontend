@@ -1,75 +1,570 @@
-.assets-card {
-  background: #15141b;
-  border: 1px solid #27272a;
-  border-radius: 12px;
-  padding: 24px;
+/* =====================================
+   Cash Flow Component
+===================================== */
+
+.cash-flow-card {
+  width: 100%;
   height: 100%;
+
+  padding: 22px;
+
+  background: #18181b;
+  color: #fafafa;
+
+  border: 1px solid #27272a;
+  border-radius: 18px;
+
+  box-sizing: border-box;
+
+  direction: rtl;
+  text-align: right;
+
+  font-family: 'Vazirmatn', Tahoma, sans-serif;
 }
 
-.card-header { display: flex; align-items: center; margin-bottom: 24px; }
-.header-content { display: flex; align-items: center; }
+
+/* =====================================
+   Header
+===================================== */
+
+.card-header {
+  margin-bottom: 22px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
 .icon-wrapper {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 45px;
+  height: 45px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 12px;
+
+  flex-shrink: 0;
+
+  background: rgba(139, 92, 246, 0.12);
+  color: #a78bfa;
+
+  border-radius: 12px;
+
+  font-size: 22px;
 }
 
-.text-group h3 { margin: 0; font-size: 1.1rem; color: white; }
-.text-group p { margin: 0; font-size: 0.8rem; color: #71717a; }
+.text-group {
+  min-width: 0;
+}
 
-.assets-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+.text-group h3 {
+  margin: 0;
 
-.asset-row {
+  color: #ffffff;
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.text-group p {
+  margin: 5px 0 0;
+
+  color: #a1a1aa;
+
+  font-size: 13px;
+}
+
+
+/* =====================================
+   Flow List
+===================================== */
+
+.cash-flow-list {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+.cash-flow-row {
+  display: flex;
   align-items: center;
-  padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.02);
+  justify-content: space-between;
+
+  gap: 16px;
+
+  padding: 15px;
+
+  background: #09090b;
+
+  border: 1px solid #27272a;
+  border-radius: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.cash-flow-row:hover {
+  background: #111113;
+  border-color: #3f3f46;
+}
+
+
+/* =====================================
+   Flow Info
+===================================== */
+
+.flow-info {
+  min-width: 0;
+
+  flex: 1;
+}
+
+.flow-name {
+  display: block;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flow-type {
+  display: inline-block;
+
+  margin-top: 5px;
+
+  color: #71717a;
+
+  font-size: 12px;
+}
+
+.amount-row {
+  margin-top: 10px;
+}
+
+.price {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 8px;
+
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  font-size: 14px;
+  font-weight: 800;
+
+  direction: rtl;
 }
 
-.asset-info .name { display: block; color: white; font-weight: 500; }
-.asset-info .type { font-size: 0.75rem; color: #71717a; }
-.amount-row { margin-top: 4px; }
-.price { font-weight: 600; }
+.price.income {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
 
+.price.expense {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+
+/* =====================================
+   Actions
+===================================== */
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  flex-shrink: 0;
+}
+
+.edit-btn,
 .delete-btn {
-  background: none; border: none; color: #52525b; cursor: pointer; padding: 4px;
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  background: #27272a;
+  color: #a1a1aa;
+
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
-.delete-btn:hover { color: #ef4444; }
+
+.edit-btn:hover {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+
+  transform: translateY(-1px);
+}
+
+.delete-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+
+  transform: translateY(-1px);
+}
+
+
+/* =====================================
+   Add Button
+===================================== */
 
 .add-button {
-  width: 100%; padding: 12px; background: transparent; border: 1px dashed #27272a;
-  color: #a1a1aa; border-radius: 8px; cursor: pointer;
-}
-.add-button:hover { background: rgba(255, 255, 255, 0.03); color: white; }
+  width: 100%;
 
-/* Modal Styles */
+  padding: 11px 16px;
+
+  background: transparent;
+  color: #d4d4d8;
+
+  border: 1px dashed #3f3f46;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.add-button:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffffff;
+
+  border-color: #71717a;
+}
+
+
+/* =====================================
+   Modal Overlay
+===================================== */
+
 .modal-overlay {
-  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7);
-  display: flex; align-items: center; justify-content: center; z-index: 1000;
+  position: fixed;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.75);
+
+  backdrop-filter: blur(4px);
+
+  box-sizing: border-box;
+
+  z-index: 1000;
+
+  direction: rtl;
 }
+
+
+/* =====================================
+   Modal
+===================================== */
+
 .modal-content {
-  background: #1c1b22; padding: 24px; border-radius: 12px; width: 100%; max-width: 400px;
+  width: 100%;
+  max-width: 440px;
+
+  padding: 24px;
+
+  background: #18181b;
+
+  border: 1px solid #27272a;
+  border-radius: 16px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.45);
 }
-.form-group { margin-bottom: 16px; }
-.form-group label { display: block; margin-bottom: 8px; color: #a1a1aa; }
-.form-group input, .form-group select {
-  width: 100%; padding: 10px; background: #15141b; border: 1px solid #27272a;
-  color: white; border-radius: 6px;
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-bottom: 24px;
 }
-.modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
-.btn-cancel { background: none; border: none; color: #a1a1aa; cursor: pointer; }
-.btn-save { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+
+.modal-header h4 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.close-btn {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  color: #71717a;
+
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-size: 24px;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #27272a;
+  color: #ffffff;
+}
 
 
-.edit-btn {
-  background: none; border: none; color: #52525b; cursor: pointer; padding: 4px;
+/* =====================================
+   Form
+===================================== */
+
+.form-group {
+  margin-bottom: 17px;
 }
-.edit-btn:hover { color: #3b82f6; }
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #d4d4d8;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 44px;
+
+  padding: 9px 12px;
+
+  background: #09090b;
+  color: #ffffff;
+
+  border: 1px solid #27272a;
+  border-radius: 9px;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  direction: rtl;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input::placeholder {
+  color: #52525b;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #3b82f6;
+
+  box-shadow:
+    0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+
+/* =====================================
+   Amount Input
+===================================== */
+
+.input-with-unit {
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  background: #09090b;
+
+  border: 1px solid #27272a;
+  border-radius: 9px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input-with-unit:focus-within {
+  border-color: #3b82f6;
+
+  box-shadow:
+    0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-with-unit input {
+  flex: 1;
+
+  min-width: 0;
+
+  border: none;
+  border-radius: 0;
+
+  box-shadow: none;
+}
+
+.input-with-unit input:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.input-with-unit span {
+  flex-shrink: 0;
+
+  padding: 0 12px;
+
+  color: #a1a1aa;
+
+  font-size: 12px;
+}
+
+
+/* =====================================
+   Modal Actions
+===================================== */
+
+.modal-actions {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 24px;
+}
+
+.btn-cancel,
+.btn-save {
+  flex: 1;
+
+  padding: 11px 18px;
+
+  border-radius: 9px;
+
+  cursor: pointer;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.btn-cancel {
+  background: transparent;
+  color: #a1a1aa;
+
+  border: 1px solid #3f3f46;
+}
+
+.btn-cancel:hover {
+  background: #27272a;
+  color: #ffffff;
+}
+
+.btn-save {
+  background: #ffffff;
+  color: #09090b;
+
+  border: none;
+}
+
+.btn-save:hover {
+  opacity: 0.9;
+}
+
+
+/* =====================================
+   Responsive
+===================================== */
+
+@media (max-width: 600px) {
+
+  .cash-flow-card {
+    padding: 16px;
+
+    border-radius: 14px;
+  }
+
+  .cash-flow-row {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .action-buttons {
+    width: 100%;
+
+    justify-content: flex-end;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .modal-content {
+    padding: 18px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+}

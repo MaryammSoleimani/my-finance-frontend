@@ -1,0 +1,495 @@
+{
+  "app":{
+    "name":"مدیریت مالی"
+  },
+
+  "menu":{
+    "home":"خانه",
+    "transactions":"تراکنش‌ها",
+    "accounts":"حساب‌ها",
+    "plans":"برنامه‌ها",
+    "budget":"بودجه",
+    "analytics":"تحلیل مالی",
+    "settings":"تنظیمات"
+  },
+
+  "notifications":{
+    "title":"اعلان‌ها",
+    "read_all":"خواندن همه",
+    "empty":"اعلان جدیدی وجود ندارد"
+  },
+
+  "common":{
+    "logout":"خروج",
+    "save":"ذخیره",
+    "cancel":"لغو",
+    "delete":"حذف",
+    "edit":"ویرایش",
+    "add":"افزودن",
+    "view_more":"مشاهده بیشتر",
+    "search":"جستجو",
+    "clear":"پاک کردن",
+    "show_more":"نمایش بیشتر",
+    "show_less":"نمایش کمتر",
+    "remove_filter":"حذف فیلتر"
+  },
+
+  "language":{
+    "persian":"فارسی",
+    "english":"انگلیسی"
+  },
+
+  "currency":{
+    "symbol":"ریال",
+    "code":"IRR"
+  },
+
+  "home":{
+    "transactions":"تراکنش‌ها",
+    "transaction":"تراکنش",
+    "no_recent_activity":"هیچ فعالیت اخیری یافت نشد",
+    "view_all_transactions":"مشاهده همه تراکنش‌ها",
+    "budget_status":"وضعیت بودجه",
+    "this_month_expense":"هزینه این ماه",
+    "target":"هدف",
+    "remaining":"باقی‌مانده",
+    "no_budget":"اطلاعات بودجه‌ای موجود نیست",
+    "net_worth":"ارزش خالص",
+    "total_net_worth":"مجموع ارزش خالص",
+    "assets":"دارایی‌ها",
+    "liabilities":"بدهی‌ها",
+    "manage_financial_plans":"مشاهده و مدیریت برنامه‌های مالی",
+    "go_to_plans":"رفتن به برنامه‌ها"
+  },
+
+  "transactions":{
+    "title":"تراکنش‌ها",
+    "description":"مدیریت و بررسی تراکنش‌های مالی",
+    "add":"افزودن تراکنش",
+    "search":"جستجوی تراکنش",
+    "filters":"فیلتر تراکنش‌ها",
+    "saved_views":"نماهای ذخیره‌شده",
+    "current_month":"ماه جاری",
+    "last_month":"ماه قبل",
+    "today":"امروز",
+    "yesterday":"دیروز",
+    "year":"سال",
+    "categories":"دسته‌بندی‌ها",
+    "all_categories":"همه دسته‌ها",
+    "months":"ماه‌ها",
+    "advanced_filters":"فیلترهای پیشرفته",
+    "category":"دسته‌بندی",
+    "expense":"هزینه",
+    "income":"درآمد",
+    "total_expense":"مجموع هزینه‌ها",
+    "total_income":"مجموع درآمدها",
+    "description":"توضیحات",
+    "account":"حساب",
+    "date":"تاریخ",
+    "amount":"مبلغ",
+    "type":"نوع",
+    "total":"مجموع",
+    "average":"میانگین",
+    "empty_title":"تراکنشی وجود ندارد",
+    "empty_description":"برای شروع یک تراکنش جدید ثبت کنید",
+    "category_analysis":"تحلیل دسته‌بندی",
+    "daily_analysis":"تحلیل روزانه"
+  },
+
+  "transaction_form":{
+    "title":"افزودن تراکنش جدید",
+    "description":"توضیحات",
+    "amount":"مبلغ",
+    "account":"حساب",
+    "category":"دسته‌بندی",
+    "kind":"نوع تراکنش",
+    "expense":"هزینه",
+    "income":"درآمد",
+    "save":"ثبت تراکنش",
+    "cancel":"لغو",
+    "select_account":"انتخاب حساب",
+    "select_category":"انتخاب دسته‌بندی",
+    "date":"تاریخ تراکنش",
+    "amount_placeholder":"مبلغ را وارد کنید",
+    "description_placeholder":"توضیحات تراکنش",
+    "fill_required":"لطفاً موارد زیر را تکمیل کنید: ",
+    "server_error":"خطایی در ارتباط با سرور رخ داد. دوباره تلاش کنید.",
+    "daily_purchase":"خرید روزانه",
+    "travel":"سفر",
+    "fuel":"سوخت",
+    "insurance":"بیمه",
+    "other":"سایر",
+    "required":"این فیلد الزامی است"
+  },
+
+  "import":{
+    "title":"وارد کردن تراکنش‌ها",
+    "description":"تراکنش‌ها را از فایل CSV بانکی وارد کنید",
+    "account":"حساب",
+    "select_account":"انتخاب حساب",
+    "expense_category":"دسته هزینه",
+    "select_expense_category":"انتخاب دسته هزینه",
+    "income_category":"دسته درآمد",
+    "select_income_category":"انتخاب دسته درآمد",
+    "csv_file":"فایل CSV بانک",
+    "choose_csv":"انتخاب فایل CSV",
+    "only_csv":"فقط فایل‌های CSV قابل قبول هستند",
+    "how_it_works":"نحوه عملکرد",
+    "auto_detect":"درآمدها و هزینه‌ها به صورت خودکار تشخیص داده می‌شوند.",
+    "currency_note":"مبالغ بانکی بر اساس واحد پول تنظیم می‌شوند.",
+    "start":"وارد کردن تراکنش‌ها",
+    "loading":"در حال وارد کردن...",
+    "imported":"تراکنش با موفقیت وارد شد.",
+    "skipped":"تراکنش رد شد.",
+    "errors":"ردیف دارای خطا بود.",
+    "error_accounts":"دریافت حساب‌ها با خطا مواجه شد.",
+    "error_categories":"دریافت دسته‌بندی‌ها با خطا مواجه شد.",
+    "csv_only":"لطفاً فقط فایل CSV انتخاب کنید.",
+    "select_file":"لطفاً یک فایل CSV انتخاب کنید.",
+    "select_expense_category":"لطفاً دسته هزینه را انتخاب کنید.",
+    "select_income_category":"لطفاً دسته درآمد را انتخاب کنید.",
+    "failed":"وارد کردن فایل CSV ناموفق بود."
+  },
+
+  "charts":{
+    "expense":"هزینه",
+    "expense_by_category":"هزینه‌ها بر اساس دسته‌بندی",
+    "total":"مجموع",
+    "no_data":"داده‌ای برای نمایش وجود ندارد"
+  },
+
+  "configuration":{
+    "title":"تنظیمات",
+    "description":"مدیریت تنظیمات مالی و شخصی شما",
+
+    "categories":"دسته‌بندی‌ها",
+    "add_category":"افزودن دسته‌بندی",
+    "edit_category":"ویرایش دسته‌بندی",
+    "delete_category":"حذف دسته‌بندی",
+
+    "category_name":"نام دسته‌بندی",
+    "category_placeholder":"مثلاً خوراک، سفر، خرید",
+    "color":"رنگ",
+
+    "used_in":"این دسته‌بندی در موارد زیر استفاده شده است:",
+    "transactions":"تراکنش",
+    "budgets":"بودجه",
+
+    "delete_warning":"حذف این دسته‌بندی ممکن است روی اطلاعات موجود تاثیر بگذارد.",
+    "safe_delete":"این دسته‌بندی قابل حذف است.",
+
+    "notifications":"اعلان‌ها",
+
+    "budget_alerts":"هشدارهای بودجه",
+    "budget_alerts_desc":"هنگام نزدیک شدن به سقف بودجه اطلاع داده شود.",
+
+    "budget_threshold":"آستانه بودجه",
+    "budget_threshold_desc":"اطلاع‌رسانی هنگام رسیدن مصرف بودجه به:",
+
+    "spending_alerts":"هشدار هزینه‌ها",
+    "spending_alerts_desc":"اطلاع از هزینه‌های غیرعادی یا زیاد.",
+
+    "goal_reminders":"یادآوری اهداف مالی",
+    "goal_reminders_desc":"یادآوری اهداف و برنامه‌های مالی شما.",
+
+    "errors":{
+      "load_categories":"خطا در دریافت دسته‌بندی‌ها",
+      "save_category":"خطا در ذخیره دسته‌بندی",
+      "delete_category":"خطا در حذف دسته‌بندی",
+      "load_notifications":"خطا در دریافت تنظیمات اعلان‌ها",
+      "save_notifications":"خطا در ذخیره تنظیمات اعلان‌ها"
+    }
+  },
+
+  "budget":{
+    "title":"بودجه",
+    "monthly":"ماهانه",
+    "yearly":"سالانه",
+    "add":"افزودن بودجه",
+    "create_title":"ایجاد بودجه جدید",
+    "name":"نام بودجه",
+    "name_placeholder":"مثلاً هزینه‌های ماهانه",
+    "period":"دوره بودجه",
+    "amount":"مبلغ بودجه",
+    "amount_placeholder":"مبلغ را وارد کنید",
+    "category":"دسته‌بندی",
+    "select_category":"انتخاب دسته‌بندی",
+    "save":"ذخیره بودجه",
+    "options":"گزینه‌ها",
+    "total_budget":"کل بودجه",
+    "total_spent":"هزینه‌شده",
+    "remaining":"باقی‌مانده",
+    "percentage":"درصد مصرف",
+    "from":"از",
+    "used":"استفاده شده",
+    "over_budget":"بیش از بودجه",
+    "view_transactions":"مشاهده تراکنش‌ها",
+    "errors":{
+      "load_budgets":"خطا در دریافت بودجه‌ها",
+      "load_summary":"خطا در دریافت خلاصه بودجه",
+      "load_categories":"خطا در دریافت دسته‌بندی‌ها",
+      "create_budget":"خطا در ایجاد بودجه"
+    }
+  },
+
+  "analytics":{
+    "health_score":{
+      "title":"سلامت مالی",
+      "description":"ارزیابی کلی وضعیت مالی شما",
+      "calculate_title":"محاسبه سلامت مالی",
+      "calculate_description":"امتیاز مالی شما بر اساس حساب‌ها، درآمدها و هزینه‌ها محاسبه می‌شود.",
+      "calculate":"محاسبه امتیاز",
+      "loading":"در حال محاسبه وضعیت مالی...",
+      "insufficient_title":"اطلاعات کافی وجود ندارد"
+    },
+
+    "retry":"تلاش دوباره",
+
+    "recommendations":"پیشنهادها",
+
+    "alerts":{
+      "title":"هشدارهای غیرعادی",
+      "description":"الگوهای غیرمعمول هزینه در وضعیت مالی شما شناسایی شده است",
+      "expected":"مقدار مورد انتظار",
+      "actual":"مقدار واقعی",
+      "empty":"مورد غیرعادی شناسایی نشد ✅"
+    },
+
+    "goal":{
+      "title":"تعیین هدف مالی هوشمند",
+      "description":"بررسی کنید برای رسیدن به هدف مالی خود ماهانه چقدر باید پس‌انداز کنید.",
+
+      "how_title":"چگونه کار می‌کند؟",
+
+      "step_one":"مبلغ هدف مالی خود را وارد کنید.",
+      "step_two":"تعداد ماه‌های موردنظر را مشخص کنید.",
+      "step_three":"میزان پس‌انداز ماهانه موردنیاز محاسبه می‌شود.",
+      "step_four":"امکان‌پذیر بودن هدف با توجه به دارایی‌ها بررسی می‌شود.",
+
+      "amount":"مبلغ هدف",
+      "amount_placeholder":"مثلاً 50000000",
+
+      "months":"مدت زمان (ماه)",
+      "months_placeholder":"مثلاً 12",
+
+      "target":"هدف",
+      "in":"در",
+      "months_unit":"ماه",
+
+      "monthly_saving":"پس‌انداز ماهانه موردنیاز",
+
+      "target_amount":"مبلغ هدف",
+      "duration":"مدت زمان",
+      "risk_level":"سطح ریسک",
+
+      "suggestion":"پیشنهاد"
+    },
+
+    "calculate":"محاسبه",
+
+    "risk":{
+      "low":"ریسک پایین",
+      "medium":"ریسک متوسط",
+      "high":"ریسک بالا",
+      "unknown":"وضعیت نامشخص"
+    },
+
+    "labels":{
+      "income":"درآمد",
+      "expenses":"هزینه‌ها",
+      "expense":"هزینه",
+      "savings":"پس‌انداز",
+      "debt":"بدهی",
+      "debts":"بدهی‌ها",
+      "assets":"دارایی‌ها",
+      "balance":"موجودی",
+      "investment":"سرمایه‌گذاری",
+      "cash_flow":"جریان نقدی"
+    }
+  },
+
+  "account":{
+
+    "title":"حساب‌ها",
+
+    "add":"افزودن",
+
+    "new_title":"حساب جدید",
+
+    "edit_title":"ویرایش حساب",
+
+    "name":"نام حساب",
+
+    "name_placeholder":"مثلاً کیف پول، بانک...",
+
+
+    "initial_balance":"موجودی اولیه",
+
+    "balance_placeholder":"۰",
+
+
+    "color":"رنگ حساب",
+
+
+    "type":"نوع حساب",
+
+
+    "debt_label":"این حساب بدهی یا تعهد مالی است",
+
+
+    "save_changes":"ذخیره تغییرات",
+
+    "create":"ایجاد حساب",
+
+
+
+    "types":{
+
+      "account":"حساب معمولی",
+
+      "investment":"سرمایه‌گذاری",
+
+      "card":"کارت اعتباری"
+
+    },
+
+
+
+    "summary":{
+
+      "net_worth":"ارزش خالص",
+
+      "assets":"مجموع دارایی‌ها",
+
+      "liabilities":"مجموع بدهی‌ها"
+
+    },
+
+
+
+    "list":{
+
+      "assets":"دارایی‌ها",
+
+      "liabilities":"بدهی‌ها",
+
+      "name":"نام حساب",
+
+      "balance":"موجودی",
+
+      "type":"نوع"
+
+    },
+
+
+
+    "delete":{
+
+      "title":"حذف حساب",
+
+      "message":"آیا مطمئن هستید که می‌خواهید این حساب را حذف کنید؟"
+
+    },
+
+
+
+    "periods":{
+
+      "2w":"۲ هفته",
+
+      "1m":"۱ ماه",
+
+      "3m":"۳ ماه",
+
+      "1y":"۱ سال",
+
+      "all":"همه"
+
+    },
+
+
+
+    "errors":{
+
+      "load":"خطا در دریافت اطلاعات حساب‌ها",
+
+      "delete":"خطا در حذف حساب",
+
+      "create":"خطا در ایجاد حساب",
+
+      "update":"خطا در ویرایش حساب"
+
+    }
+
+  },
+
+  "auth":{
+
+    "title":"ردیاب مالی",
+
+
+    "username":"نام کاربری",
+
+    "username_placeholder":"نام کاربری خود را وارد کنید",
+
+    "username_new_placeholder":"یک نام کاربری انتخاب کنید",
+
+
+    "email":"ایمیل",
+
+
+    "password":"رمز عبور",
+
+    "password_placeholder":"رمز عبور",
+
+    "password_create_placeholder":"رمز عبور ایجاد کنید",
+
+
+    "confirm_password":"تکرار رمز عبور",
+
+    "confirm_password_placeholder":"رمز عبور را دوباره وارد کنید",
+
+
+
+
+    "login":{
+
+      "description":"اطلاعات حساب خود را وارد کنید",
+
+      "button":"ورود",
+
+      "no_account":"حساب کاربری ندارید؟"
+
+    },
+
+
+
+
+    "register":{
+
+      "description":"حساب کاربری جدید ایجاد کنید",
+
+      "button":"ایجاد حساب",
+
+      "submit":"ثبت‌نام",
+
+      "have_account":"قبلاً حساب ساخته‌اید؟"
+
+    },
+
+
+
+
+    "errors":{
+
+      "invalid_login":"نام کاربری یا رمز عبور اشتباه است",
+
+      "password_match":"رمزهای عبور یکسان نیستند",
+
+      "register":"ثبت‌نام انجام نشد"
+
+    }
+
+
+  }
+}

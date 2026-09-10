@@ -1,18 +1,185 @@
 <div class="summary-container">
-  
-  <dl class="stat-box">
-    <dt class="stat-label">Net Worth</dt>
-    <dd class="stat-value">${{ netWorth >= 1000 ? (netWorth/1000 | number:'1.0-1') + 'k' : (netWorth | number) }}</dd>
-  </dl>
+
+
 
   <dl class="stat-box">
-    <dt class="stat-label">Assets</dt>
-    <dd class="stat-value">${{ totalAssets >= 1000 ? (totalAssets/1000 | number:'1.0-1') + 'k' : (totalAssets | number) }}</dd>
+
+
+    <dt class="stat-label">
+
+
+      {{'account.summary.net_worth' | translate}}
+
+
+    </dt>
+
+
+
+
+
+    <dd class="stat-value">
+
+
+
+      {{
+
+      netWorth >= 1000
+
+      ?
+
+      (netWorth / 1000 | number:'1.0-1')
+
+      +
+
+      'K'
+
+      :
+
+      (netWorth | number)
+
+      }}
+
+
+
+
+
+      <span>
+
+        {{'currency.symbol' | translate}}
+
+      </span>
+
+
+
+    </dd>
+
+
   </dl>
 
+
+
+
+
+
+
+
+
   <dl class="stat-box">
-    <dt class="stat-label">Liabilities</dt>
-    <dd class="stat-value">${{ totalLiabilities >= 1000 ? (totalLiabilities/1000 | number:'1.0-1') + 'k' : (totalLiabilities | number) }}</dd>
+
+
+    <dt class="stat-label">
+
+
+      {{'account.summary.assets' | translate}}
+
+
+    </dt>
+
+
+
+
+
+    <dd class="stat-value">
+
+
+      {{
+
+      totalAssets >= 1000
+
+      ?
+
+      (totalAssets / 1000 | number:'1.0-1')
+
+      +
+
+      'K'
+
+      :
+
+      (totalAssets | number)
+
+      }}
+
+
+
+
+
+      <span>
+
+        {{'currency.symbol' | translate}}
+
+      </span>
+
+
+
+    </dd>
+
+
   </dl>
+
+
+
+
+
+
+
+
+
+  <dl class="stat-box">
+
+
+    <dt class="stat-label">
+
+
+      {{'account.summary.liabilities' | translate}}
+
+
+    </dt>
+
+
+
+
+
+    <dd class="stat-value">
+
+
+      {{
+
+      totalLiabilities >= 1000
+
+      ?
+
+      (totalLiabilities / 1000 | number:'1.0-1')
+
+      +
+
+      'K'
+
+      :
+
+      (totalLiabilities | number)
+
+      }}
+
+
+
+
+
+      <span>
+
+        {{'currency.symbol' | translate}}
+
+      </span>
+
+
+
+    </dd>
+
+
+  </dl>
+
+
+
+
 
 </div>

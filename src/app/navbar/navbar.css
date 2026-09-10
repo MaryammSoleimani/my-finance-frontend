@@ -1,271 +1,266 @@
-.chakra-segment-group__root {
-  display: flex;
-  background-color: #17171a;
-  padding: 4px;
-  border-radius: 12px;
-  position: relative;
-  margin-bottom: 30px;
-  margin-left: 155px;
+.nav-relative-container{
+width:100%;
+display:flex;
+justify-content:center;
+padding:20px;
+box-sizing:border-box;
 }
 
-.chakra-segment-group__indicator {
-  position: absolute;
-  height: calc(100% - 8px);
-  top: 4px;
-  background-color: #27272a;
-  border-radius: 8px;
-  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+.navbar{
+width:100%;
+max-width:1200px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:20px;
+position:relative;
 }
 
-.segment-item {
-  position: relative;
-  cursor: pointer;
-  padding: 8px 16px;
-  z-index: 1;
-  transition: color 0.2s;
+.nav-menu{
+display:flex;
+align-items:center;
+gap:8px;
+background:#17171a;
+padding:6px;
+border-radius:16px;
+flex-wrap:wrap;
 }
 
-.chakra-stack {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #a0a0a0; /* رنگ متن در حالت غیرفعال */
+
+.segment-item{
+cursor:pointer;
+padding:10px 16px;
+border-radius:10px;
+transition:.2s;
+user-select:none;
 }
 
-.active-item .chakra-stack {
-  color: #ffffff; /* رنگ متن در حالت فعال */
+.segment-item:hover{
+background:#27272a;
 }
 
-.chakra-stack p {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 500;
+.chakra-stack{
+display:flex;
+align-items:center;
+gap:8px;
+color:#a1a1aa;
 }
+
+.chakra-stack p{
+margin:0;
+font-size:14px;
+font-weight:600;
+}
+
+.active-item{
+background:#27272a;
+}
+
+.active-item .chakra-stack{
+color:white;
+}
+
+
+/* Language */
+
+.language-switch{
+display:flex;
+align-items:center;
+gap:6px;
+background:#17171a;
+padding:5px;
+border-radius:12px;
+}
+
+.language-switch button{
+width:36px;
+height:32px;
+background:transparent;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:18px;
+transition:.2s;
+}
+
+.language-switch button:hover{
+background:#27272a;
+}
+
+
+
+/* Notifications */
+
+.notification-wrapper{
+position:relative;
+}
+
+.notification-btn{
+background:#17171a;
+border:none;
+color:white;
+width:42px;
+height:42px;
+border-radius:12px;
+cursor:pointer;
+font-size:18px;
+position:relative;
+}
+
+
+.badge{
+position:absolute;
+top:-5px;
+right:-5px;
+background:#ef4444;
+color:white;
+width:18px;
+height:18px;
+border-radius:50%;
+font-size:11px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+
+.notification-dropdown{
+position:absolute;
+top:55px;
+right:0;
+width:360px;
+background:#15141b;
+border:1px solid #27272a;
+border-radius:14px;
+z-index:1000;
+overflow:hidden;
+}
+
+
+.dropdown-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px;
+border-bottom:1px solid #27272a;
+}
+
+
+.dropdown-header h4{
+color:white;
+margin:0;
+}
+
+
+.dropdown-header button{
+background:#27272a;
+border:none;
+color:#fff;
+padding:6px 10px;
+border-radius:8px;
+cursor:pointer;
+font-family:inherit;
+}
+
+
+.notification-item{
+display:flex;
+gap:12px;
+padding:15px;
+direction:inherit;
+}
+
+
+.notification-title{
+color:white;
+margin:0;
+}
+
+
+.notification-message{
+color:#a1a1aa;
+margin:5px 0;
+font-size:13px;
+}
+
+
+.empty-notifications{
+padding:20px;
+color:#a1a1aa;
+text-align:center;
+}
+
+
+
+/* Logout */
 
 .logout-item{
-  background-color: #1c1b22;
-  border-color: #1c1b22;
-  /* position: absolute;
-  right: 20px; */
-  margin-left: 100px;
-  cursor: pointer;
-  margin-right: 0px;
-  border: 2px solid rgb(39, 39, 42);
-  border-radius: 12px;
-  margin-bottom: 30px;
+cursor:pointer;
+background:#17171a;
+padding:10px 16px;
+border-radius:12px;
 }
 
-.logout-item:hover{
-  background-color: #d00000;
-  border: 2px solid #d00000;
+
+.logout-item p{
+color:#ef4444;
+margin:0;
+font-weight:600;
+}
+
+
+/* Direction */
+
+html[dir="rtl"] .navbar{
+direction:rtl;
+}
+
+html[dir="ltr"] .navbar{
+direction:ltr;
+}
+
+
+html[dir="ltr"] .notification-dropdown{
+right:auto;
+left:0;
+}
+
+
+
+/* Responsive */
+
+@media(max-width:900px){
+
+.navbar{
+flex-direction:column;
+}
+
+.nav-menu{
+width:100%;
+justify-content:center;
+}
+
+.language-switch{
+order:-1;
+}
 
 }
 
-.logout-item p {
-  color: #ef4444 !important;
-  font-weight: 600;
-}
-.logout-item:hover p{
-  color: white !important;
-}
 
-.nav-relative-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 20px;
+@media(max-width:600px){
+
+.nav-menu{
+flex-direction:column;
+width:100%;
 }
 
-/* =========================================================
-   Notification Button
-   ========================================================= */
-
-.notification-btn {
-  position: relative;
-  background: none;
-  border: none;
-  color: #a1a1aa;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.2s;
+.segment-item{
+width:100%;
+text-align:center;
 }
 
-.notification-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
+.notification-dropdown{
+width:280px;
 }
 
-.notification-btn svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* Badge (عدد اعلان‌ها) */
-.notification-badge {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 18px;
-  height: 18px;
-  background: #ef4444;
-  color: white;
-  border-radius: 50%;
-  font-size: 10px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* =========================================================
-   Notification Dropdown
-   ========================================================= */
-
-.notification-dropdown {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  width: 380px;
-  max-height: 500px;
-  background: #15141b;
-  border: 1px solid #27272a;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-  z-index: 1000;
-}
-
-.dropdown-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  border-bottom: 1px solid #27272a;
-}
-
-.dropdown-header h4 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
-}
-
-.dropdown-header button {
-  background: none;
-  border: none;
-  color: #3b82f6;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.dropdown-header button:hover {
-  text-decoration: underline;
-}
-
-/* =========================================================
-   Notification List
-   ========================================================= */
-
-.notification-list {
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.notification-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 14px 16px;
-  border-bottom: 1px solid #27272a;
-  transition: background 0.2s;
-}
-
-.notification-item:hover {
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.notification-item.unread {
-  background: rgba(59, 130, 246, 0.05);
-}
-
-.notification-icon {
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-}
-
-.notification-icon.budget {
-  background: rgba(16, 185, 129, 0.1);
-}
-
-.notification-icon.spending {
-  background: rgba(239, 68, 68, 0.1);
-}
-
-.notification-icon.goal {
-  background: rgba(59, 130, 246, 0.1);
-}
-
-.notification-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.notification-title {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: white;
-}
-
-.notification-message {
-  margin: 4px 0 0;
-  font-size: 13px;
-  color: #a1a1aa;
-  line-height: 1.5;
-}
-
-.notification-time {
-  display: block;
-  margin-top: 6px;
-  font-size: 11px;
-  color: #71717a;
-}
-
-/* =========================================================
-   Empty State
-   ========================================================= */
-
-.empty-notifications {
-  padding: 40px 20px;
-  text-align: center;
-  color: #71717a;
-  font-size: 14px;
-}
-
-/* =========================================================
-   Responsive
-   ========================================================= */
-
-@media (max-width: 768px) {
-  .notification-dropdown {
-    width: 320px;
-    right: -60px;
-  }
-}
-
-@media (max-width: 480px) {
-  .notification-dropdown {
-    width: 280px;
-    right: -80px;
-  }
 }

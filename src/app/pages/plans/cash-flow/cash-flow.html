@@ -1,85 +1,297 @@
-<div class="assets-card">
+<div class="cash-flow-card">
+
+  <!-- Header -->
   <div class="card-header">
+
     <div class="header-content">
-      <div class="icon-wrapper" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-          <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-        </svg>
+
+      <div class="icon-wrapper">
+        💸
       </div>
+
       <div class="text-group">
-        <h3>Cash Flow</h3>
-        <p>Monthly in & out</p>
+        <h3>جریان نقدی</h3>
+        <p>مدیریت درآمدها و هزینه‌های دوره‌ای</p>
       </div>
+
     </div>
+
   </div>
 
-  <div class="assets-list">
-    <div class="asset-row" *ngFor="let flow of cashFlows">
-      <div class="asset-info">
-        <span class="name">{{ flow.name }}</span>
-        <span class="type">{{ flow.frequency === 'monthly' ? 'Monthly' : flow.frequency }}</span>
+
+  <!-- Cash Flow List -->
+  <div class="cash-flow-list">
+
+    <div
+      class="cash-flow-row"
+      *ngFor="let flow of cashFlows"
+    >
+
+      <div class="flow-info">
+
+        <span class="flow-name">
+          {{ flow.name }}
+        </span>
+
+        <span class="flow-type">
+
+          {{
+            flow.frequency === 'monthly'
+              ? 'ماهانه'
+              : flow.frequency === 'weekly'
+              ? 'هفتگی'
+              : flow.frequency === 'yearly'
+              ? 'سالانه'
+              : flow.frequency === 'one_time'
+              ? 'یک‌باره'
+              : flow.frequency
+          }}
+
+        </span>
+
+
         <div class="amount-row">
-          <span class="price" [style.color]="flow.flow_type === 'in' ? '#00d084' : '#ff5b5b'">
-             {{ flow.flow_type === 'in' ? '+' : '-' }}{{ flow.amount_toman | number:'1.0-0' }} تومان/ماه
+
+          <span
+            class="price"
+            [class.income]="flow.flow_type === 'in'"
+            [class.expense]="flow.flow_type === 'out'"
+          >
+
+            {{ flow.flow_type === 'in' ? '+' : '-' }}
+
+            {{ flow.amount_toman | number:'1.0-0' }}
+
+            تومان
+
           </span>
+
         </div>
+
       </div>
+
 
       <div class="action-buttons">
-        <button class="edit-btn" (click)="onEdit(flow)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+
+        <button
+          type="button"
+          class="edit-btn"
+          title="ویرایش"
+          (click)="onEdit(flow)"
+        >
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            width="16"
+            height="16"
+          >
+            <path
+              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+            </path>
+
+            <path
+              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+            </path>
           </svg>
+
         </button>
-        <button class="delete-btn" (click)="onDelete(flow.id)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16">
-            <path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+
+
+        <button
+          type="button"
+          class="delete-btn"
+          title="حذف"
+          (click)="onDelete(flow.id)"
+        >
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            width="16"
+            height="16"
+          >
+            <path
+              d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+            </path>
           </svg>
+
         </button>
+
       </div>
+
     </div>
+
   </div>
 
-  <button class="add-button" (click)="openModal()">+ Add Cash Flow</button>
 
-  <!-- Modal -->
-  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <h4>{{ isEditMode ? 'Edit' : 'New' }} Cash Flow</h4>
+  <!-- Add Cash Flow -->
+  <button
+    type="button"
+    class="add-button"
+    (click)="openModal()"
+  >
+    + افزودن جریان نقدی
+  </button>
 
-      <div class="form-group">
-        <label>Name</label>
-        <input [(ngModel)]="newFlow.name" placeholder="e.g. Salary" />
+
+  <!-- Create / Edit Modal -->
+  <div
+    class="modal-overlay"
+    *ngIf="showModal"
+    (click)="closeModal()"
+  >
+
+    <div
+      class="modal-content"
+      (click)="$event.stopPropagation()"
+    >
+
+      <div class="modal-header">
+
+        <h4>
+          {{ isEditMode ? 'ویرایش جریان نقدی' : 'جریان نقدی جدید' }}
+        </h4>
+
+        <button
+          type="button"
+          class="close-btn"
+          (click)="closeModal()"
+        >
+          ×
+        </button>
+
       </div>
 
+
+      <!-- Name -->
       <div class="form-group">
-        <label>Amount (تومان)</label>
-        <input type="number" [(ngModel)]="newFlow.amount" />
+
+        <label for="flowName">
+          نام
+        </label>
+
+        <input
+          id="flowName"
+          type="text"
+          [(ngModel)]="newFlow.name"
+          placeholder="مثلاً حقوق، اجاره، قبض اینترنت"
+        >
+
       </div>
 
+
+      <!-- Amount -->
       <div class="form-group">
-        <label>Type</label>
-        <select [(ngModel)]="newFlow.flow_type">
-          <option value="in">Inflow (Income)</option>
-          <option value="out">Outflow (Expense)</option>
+
+        <label for="flowAmount">
+          مبلغ
+        </label>
+
+        <div class="input-with-unit">
+
+          <input
+            id="flowAmount"
+            type="number"
+            min="0"
+            [(ngModel)]="newFlow.amount"
+            placeholder="۰"
+          >
+
+          <span>
+            تومان
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- Flow Type -->
+      <div class="form-group">
+
+        <label for="flowType">
+          نوع جریان
+        </label>
+
+        <select
+          id="flowType"
+          [(ngModel)]="newFlow.flow_type"
+        >
+
+          <option value="in">
+            ورودی (درآمد)
+          </option>
+
+          <option value="out">
+            خروجی (هزینه)
+          </option>
+
         </select>
+
       </div>
 
+
+      <!-- Frequency -->
       <div class="form-group">
-        <label>Frequency</label>
-        <select [(ngModel)]="newFlow.frequency">
-          <option value="monthly">Monthly</option>
-          <option value="weekly">Weekly</option>
-          <option value="yearly">Yearly</option>
-          <option value="one_time">One Time</option>
+
+        <label for="flowFrequency">
+          دوره تکرار
+        </label>
+
+        <select
+          id="flowFrequency"
+          [(ngModel)]="newFlow.frequency"
+        >
+
+          <option value="monthly">
+            ماهانه
+          </option>
+
+          <option value="weekly">
+            هفتگی
+          </option>
+
+          <option value="yearly">
+            سالانه
+          </option>
+
+          <option value="one_time">
+            یک‌باره
+          </option>
+
         </select>
+
       </div>
 
+
+      <!-- Actions -->
       <div class="modal-actions">
-        <button class="btn-cancel" (click)="closeModal()">Cancel</button>
-        <button class="btn-save" (click)="onSubmit()">{{ isEditMode ? 'Update' : 'Save' }}</button>
+
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="closeModal()"
+        >
+          لغو
+        </button>
+
+        <button
+          type="button"
+          class="btn-save"
+          (click)="onSubmit()"
+        >
+          {{ isEditMode ? 'ذخیره تغییرات' : 'ذخیره' }}
+        </button>
+
       </div>
+
     </div>
+
   </div>
+
 </div>

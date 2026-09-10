@@ -1,43 +1,129 @@
 <div class="settings-section">
+
   <div class="settings-header">
-    <h3>Simulation Settings</h3>
-    <button class="configure-btn" (click)="openSettings()">Configure</button>
+
+    <h3>
+      تنظیمات شبیه‌سازی
+    </h3>
+
+    <button
+      class="configure-btn"
+      (click)="openSettings()">
+
+      تنظیمات
+
+    </button>
+
   </div>
 
-  <!-- Modal -->
-  <div class="modal-overlay" *ngIf="showSettings()" (click)="closeSettings()">
-    <div class="modal-box" (click)="$event.stopPropagation()">
-      <h3>Configure Simulation</h3>
+
+  <div
+    class="modal-overlay"
+    *ngIf="showSettings()"
+    (click)="closeSettings()">
+
+
+    <div
+      class="modal-box"
+      (click)="$event.stopPropagation()">
+
+
+      <h3>
+        پیکربندی شبیه‌سازی
+      </h3>
+
 
       <div class="form-group">
-        <label>Start Date</label>
-        <input type="date" [(ngModel)]="settings().start_date">
+
+        <label>
+          تاریخ شروع
+        </label>
+
+        <input
+          type="date"
+          [(ngModel)]="settings().start_date">
+
       </div>
 
-      <div class="form-group">
-        <label>End Date</label>
-        <input type="date" [(ngModel)]="settings().end_date">
-      </div>
 
       <div class="form-group">
-        <label>Initial Cash ($)</label>
-        <input type="number" [(ngModel)]="settings().initial_cash">
+
+        <label>
+          تاریخ پایان
+        </label>
+
+        <input
+          type="date"
+          [(ngModel)]="settings().end_date">
+
       </div>
 
-      <div class="form-group">
-        <label>Monthly Income ($)</label>
-        <input type="number" [(ngModel)]="settings().monthly_income">
-      </div>
 
       <div class="form-group">
-        <label>Monthly Expenses ($)</label>
-        <input type="number" [(ngModel)]="settings().monthly_expenses">
+
+        <label>
+          موجودی اولیه (تومان)
+        </label>
+
+        <input
+          type="number"
+          [(ngModel)]="settings().initial_cash">
+
       </div>
+
+
+      <div class="form-group">
+
+        <label>
+          درآمد ماهانه (تومان)
+        </label>
+
+        <input
+          type="number"
+          [(ngModel)]="settings().monthly_income">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          هزینه ماهانه (تومان)
+        </label>
+
+        <input
+          type="number"
+          [(ngModel)]="settings().monthly_expenses">
+
+      </div>
+
 
       <div class="modal-actions">
-        <button class="btn-cancel" (click)="closeSettings()">Cancel</button>
-        <button class="btn-save" (click)="saveSettings()">Save</button>
+
+        <button
+          class="btn-cancel"
+          (click)="closeSettings()">
+
+          لغو
+
+        </button>
+
+
+        <button
+          class="btn-save"
+          (click)="saveSettings()">
+
+          ذخیره
+
+        </button>
+
       </div>
+
+
     </div>
+
+
   </div>
+
+
 </div>

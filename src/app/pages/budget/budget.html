@@ -1,80 +1,448 @@
-<!-- budget.html -->
 <div class="budget-wrapper">
-  <!-- Header -->
-  <div class="budget-header">
+
+
+  <div class="budget-header page-budget-header">
+
+
     <div class="period-toggle">
-      <button [class.active]="period === 'monthly'" (click)="setPeriod('monthly')">Month</button>
-      <button [class.active]="period === 'yearly'" (click)="setPeriod('yearly')">Year</button>
+
+
+      <button
+        [class.active]="period === 'monthly'"
+        (click)="setPeriod('monthly')">
+
+        {{'budget.monthly' | translate}}
+
+      </button>
+
+
+
+      <button
+        [class.active]="period === 'yearly'"
+        (click)="setPeriod('yearly')">
+
+        {{'budget.yearly' | translate}}
+
+      </button>
+
+
     </div>
-    <button class="add-budget-btn" (click)="onAddBudget()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+
+
+
+
+    <button
+      class="add-budget-btn"
+      (click)="onAddBudget()">
+
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        width="17"
+        height="17">
+
         <path d="M12 5v14M5 12h14"></path>
+
       </svg>
-      Add Budget
+
+
+      {{'budget.add' | translate}}
+
+
     </button>
+
+
   </div>
 
-  <!-- Summary Card -->
-  <div class="summary-card" *ngIf="summary">
+
+
+
+
+
+
+  <div
+    class="summary-card"
+    *ngIf="summary">
+
+
     <div class="summary-item">
-      <span class="summary-label">Budget</span>
-      <span class="summary-value">${{ summary.total_budget | number:'1.2-2' }}</span>
-    </div>
-    <div class="summary-item">
-      <span class="summary-label">Spent</span>
-      <span class="summary-value">${{ summary.total_spent | number:'1.2-2' }}</span>
-    </div>
-    <div class="summary-item">
-      <span class="summary-label">Remaining</span>
-      <span class="summary-value" [style.color]="summary.remaining >= 0 ? '#10b981' : '#ef4444'">
-        ${{ summary.remaining | number:'1.2-2' }}
+
+      <span class="summary-label">
+
+        {{'budget.total_budget' | translate}}
+
       </span>
+
+
+      <span class="summary-value">
+
+        {{summary.total_budget | number:'1.0-0'}}
+
+        <small>
+          {{'currency.symbol' | translate}}
+        </small>
+
+      </span>
+
+
     </div>
+
+
+
+
+
     <div class="summary-item">
-      <span class="summary-label">Percentage</span>
-      <span class="summary-value">{{ summary.percentage_used }}%</span>
+
+
+      <span class="summary-label">
+
+        {{'budget.total_spent' | translate}}
+
+      </span>
+
+
+
+      <span class="summary-value spent-summary">
+
+
+        {{summary.total_spent | number:'1.0-0'}}
+
+
+        <small>
+          {{'currency.symbol' | translate}}
+        </small>
+
+
+      </span>
+
+
     </div>
+
+
+
+
+
+
+
+    <div class="summary-item">
+
+
+      <span class="summary-label">
+
+        {{'budget.remaining' | translate}}
+
+      </span>
+
+
+
+      <span
+        class="summary-value"
+        [style.color]="summary.remaining >= 0 ? '#10b981' : '#ef4444'">
+
+
+        {{summary.remaining | number:'1.0-0'}}
+
+
+        <small>
+          {{'currency.symbol' | translate}}
+        </small>
+
+
+      </span>
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="summary-item">
+
+
+      <span class="summary-label">
+
+        {{'budget.percentage' | translate}}
+
+      </span>
+
+
+      <span class="summary-value">
+
+        {{summary.percentage_used | number:'1.0-1'}}٪
+
+      </span>
+
+
+    </div>
+
+
   </div>
+
+
+
+
+
+
+
 
   <div class="budget-list">
-    <div class="budget-card" *ngFor="let budget of budgets">
-      <div class="budget-header">
+
+
+
+    <div
+      class="budget-card"
+      *ngFor="let budget of budgets">
+
+
+
+
+
+      <div class="budget-header card-budget-header">
+
+
         <div class="budget-info">
-          <h4>{{ budget.name }}</h4>
-          <p>{{ budget.category_name }}</p>
+
+
+          <h4>
+
+            {{budget.name}}
+
+          </h4>
+
+
+
+          <p>
+
+            {{budget.category_name}}
+
+          </p>
+
+
         </div>
+
+
+
+
         <div class="budget-actions">
-          <button class="menu-btn">•••</button>
+
+
+          <button
+            class="menu-btn"
+            type="button"
+            [title]="'budget.options' | translate">
+
+
+            •••
+
+
+          </button>
+
+
         </div>
+
+
       </div>
 
-      <!-- Budget Progress -->
+
+
+
+
+
+
       <div class="budget-progress">
+
+
+
         <div class="progress-header">
-          <span class="spent">${{ budget.spent_amount | number:'1.2-2' }}</span>
-          <span class="limit">of ${{ budget.amount | number:'1.2-2' }}</span>
+
+
+          <span class="spent">
+
+
+            {{budget.spent_amount | number:'1.0-0'}}
+
+            {{'currency.symbol' | translate}}
+
+
+          </span>
+
+
+
+
+
+          <span class="limit">
+
+
+            {{'budget.from' | translate}}
+
+
+            {{budget.amount | number:'1.0-0'}}
+
+            {{'currency.symbol' | translate}}
+
+
+          </span>
+
+
         </div>
+
+
+
+
+
+
+
         <div class="progress-bar">
-          <div class="progress-fill"
-               [style.width]="budget.percentage_used + '%'"
-               [style.background]="getProgressColor(budget.percentage_used)">
+
+
+          <div
+            class="progress-fill"
+
+            [style.width]="
+
+            budget.percentage_used > 100
+
+            ?
+
+            '100%'
+
+            :
+
+            budget.percentage_used + '%'
+
+            "
+
+
+            [style.background]="
+
+            getProgressColor(
+              budget.percentage_used
+            )
+
+            ">
+
+
           </div>
+
+
         </div>
+
+
+
+
+
+
+
+
         <div class="progress-footer">
-          <span class="percentage">{{ budget.percentage_used }}%</span>
-          <span class="remaining">${{ budget.amount - budget.spent_amount | number:'1.2-2' }} left</span>
+
+
+          <span class="percentage">
+
+
+            {{budget.percentage_used | number:'1.0-1'}}٪
+
+
+            {{'budget.used' | translate}}
+
+
+          </span>
+
+
+
+
+
+
+
+          <span
+            class="remaining"
+            [class.negative]="
+
+            budget.amount - budget.spent_amount < 0
+
+            ">
+
+
+
+            {{budget.amount - budget.spent_amount | number:'1.0-0'}}
+
+
+            {{'currency.symbol' | translate}}
+
+
+
+            {{
+
+            budget.amount - budget.spent_amount >= 0
+
+            ?
+
+            ('budget.remaining' | translate)
+
+            :
+
+            ('budget.over_budget' | translate)
+
+            }}
+
+
+          </span>
+
+
+
         </div>
+
+
+
       </div>
 
-      <!-- View Transactions -->
-      <button class="view-transactions-btn">View Transactions</button>
-    </div>
-  </div>
-</div>
 
-<!-- Modal Add Budget -->
-<app-add-budget
-  *ngIf="showAddBudget"
-  (close)="onCloseAddBudget()"
-  (saved)="onBudgetSaved()">
-</app-add-budget>
+
+
+
+
+
+      <button
+        class="view-transactions-btn"
+        type="button">
+
+
+        {{'budget.view_transactions' | translate}}
+
+
+      </button>
+
+
+
+
+
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+  <app-add-budget
+
+    *ngIf="showAddBudget"
+
+    (close)="onCloseAddBudget()"
+
+    (saved)="onBudgetSaved()">
+
+
+  </app-add-budget>
+
+
+
+</div>

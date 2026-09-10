@@ -1,61 +1,97 @@
-.steps-card {
-  background: #15141b;
-  border: 1px solid #27272a;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
+.steps-card{
+width:100%;
+background:#18181b;
+border:1px solid #27272a;
+border-radius:16px;
+padding:22px;
+box-sizing:border-box;
+direction:rtl;
+text-align:right;
+color:#fafafa;
+font-family:'Vazirmatn',Tahoma,sans-serif;
 }
 
-.steps-header {
-  margin-bottom: 16px;
+.steps-header{
+margin-bottom:20px;
 }
 
-.steps-header h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
+.steps-header h3{
+margin:0;
+font-size:18px;
+font-weight:800;
+color:#fff;
 }
 
-.steps-table {
-  width: 100%;
-  border-collapse: collapse;
+.table-wrapper{
+width:100%;
+overflow-x:auto;
 }
 
-.steps-table th {
-  color: #71717a;
-  font-size: 13px;
-  font-weight: 600;
-  text-align: left;
-  padding: 10px;
-  border-bottom: 1px solid #27272a;
+.steps-table{
+width:100%;
+border-collapse:collapse;
+min-width:700px;
 }
 
-.steps-table td {
-  color: white;
-  font-size: 14px;
-  padding: 10px;
-  border-bottom: 1px solid #27272a;
-  font-variant-numeric: tabular-nums;
+.steps-table th{
+padding:12px;
+color:#a1a1aa;
+font-size:13px;
+font-weight:700;
+text-align:right;
+border-bottom:1px solid #27272a;
+white-space:nowrap;
 }
 
-.steps-table tr:last-child td {
-  border-bottom: none;
+.steps-table td{
+padding:12px;
+color:#fff;
+font-size:14px;
+border-bottom:1px solid #27272a;
+white-space:nowrap;
 }
 
-.show-more-btn {
-  display: block;
-  width: 100%;
-  background: transparent;
-  border: none;
-  color: #3b82f6;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 13px;
-  margin-top: 10px;
-  text-align: center;
+.steps-table tr:last-child td{
+border-bottom:none;
 }
 
-.show-more-btn:hover {
-  text-decoration: underline;
+.steps-table tr:hover{
+background:#09090b;
+}
+
+.income{
+color:#10b981 !important;
+}
+
+.expense{
+color:#ef4444 !important;
+}
+
+.show-more-btn{
+display:block;
+width:100%;
+margin-top:16px;
+padding:10px;
+background:transparent;
+border:1px solid #27272a;
+border-radius:10px;
+color:#60a5fa;
+cursor:pointer;
+font-family:inherit;
+font-size:14px;
+font-weight:600;
+transition:.2s;
+}
+
+.show-more-btn:hover{
+background:#27272a;
+color:#fff;
+}
+
+@media(max-width:700px){
+
+.steps-card{
+padding:16px;
+}
+
 }
