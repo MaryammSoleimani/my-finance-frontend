@@ -1,10 +1,6 @@
 <div class="events-card">
-
-  <!-- Header -->
   <div class="card-header">
-
     <div class="header-content">
-
       <div class="icon-wrapper">
         <svg
           viewBox="0 0 24 24"
@@ -20,53 +16,43 @@
           <line x1="3" y1="10" x2="21" y2="10"></line>
         </svg>
       </div>
-
       <div class="text-group">
-        <h3>رویدادها</h3>
-        <p>تغییرات و اتفاق‌های مالی آینده</p>
+        <h3>{{'events.title' | translate}}</h3>
+        <p>{{'events.description' | translate}}</p>
       </div>
-
     </div>
-
   </div>
 
-
-  <!-- Events List -->
   <div class="events-list">
-
     <div
       class="event-row"
       *ngFor="let event of events"
     >
-
       <div class="event-info">
-
         <span class="event-name">
-          {{ event.name }}
+          {{event.name}}
         </span>
 
         <span class="event-meta">
-          {{ getEventTypeLabel(event.event_type) }}
+          {{getEventTypeLabel(event.event_type) | translate}}
           <span class="separator">•</span>
-          {{ event.month }} ماه دیگر
+          {{event.month}}
+          {{'events.months_later' | translate}}
         </span>
 
         <p
           class="event-description"
           *ngIf="event.description"
         >
-          {{ event.description }}
+          {{event.description}}
         </p>
-
       </div>
 
-
       <div class="action-buttons">
-
         <button
           type="button"
           class="edit-btn"
-          title="ویرایش"
+          [title]="'common.edit' | translate"
           (click)="onEdit(event)"
         >
           <svg
@@ -77,21 +63,15 @@
             width="16"
             height="16"
           >
-            <path
-              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
-            </path>
-
-            <path
-              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
-            </path>
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
           </svg>
         </button>
-
 
         <button
           type="button"
           class="delete-btn"
-          title="حذف"
+          [title]="'common.delete' | translate"
           (click)="onDelete(event.id)"
         >
           <svg
@@ -102,45 +82,37 @@
             width="16"
             height="16"
           >
-            <path
-              d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-            </path>
+            <path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
           </svg>
         </button>
-
       </div>
-
     </div>
-
   </div>
 
-
-  <!-- Add Event -->
   <button
     type="button"
     class="add-button"
     (click)="openModal()"
   >
-    + افزودن رویداد
+    + {{'events.add' | translate}}
   </button>
 
-
-  <!-- Create / Edit Modal -->
   <div
     class="modal-overlay"
     *ngIf="showModal"
     (click)="closeModal()"
   >
-
     <div
       class="modal-content"
       (click)="$event.stopPropagation()"
     >
-
       <div class="modal-header">
-
         <h4>
-          {{ isEditMode ? 'ویرایش رویداد' : 'رویداد جدید' }}
+          {{
+            isEditMode
+            ? ('events.edit_title' | translate)
+            : ('events.new_title' | translate)
+          }}
         </h4>
 
         <button
@@ -150,58 +122,44 @@
         >
           ×
         </button>
-
       </div>
 
-
-      <!-- Event Name -->
       <div class="form-group">
-
         <label for="eventName">
-          نام رویداد
+          {{'events.form.name' | translate}}
         </label>
 
         <input
           id="eventName"
           type="text"
           [(ngModel)]="newEvent.name"
-          placeholder="مثلاً تغییر شغل، خرید خانه، افزایش حقوق"
+          [placeholder]="'events.form.name_placeholder' | translate"
         >
-
       </div>
 
-
-      <!-- Event Month -->
       <div class="form-group">
-
         <label for="eventMonth">
-          زمان رویداد
+          {{'events.form.time' | translate}}
         </label>
 
         <div class="input-with-unit">
-
           <input
             id="eventMonth"
             type="number"
             min="1"
             [(ngModel)]="newEvent.month"
-            placeholder="۱"
+            placeholder="1"
           >
 
           <span>
-            ماه دیگر
+            {{'events.months_later' | translate}}
           </span>
-
         </div>
-
       </div>
 
-
-      <!-- Event Type -->
       <div class="form-group">
-
         <label for="eventType">
-          نوع رویداد
+          {{'events.form.type' | translate}}
         </label>
 
         <select
@@ -212,93 +170,73 @@
             *ngFor="let t of eventTypes"
             [value]="t.value"
           >
-            {{ t.label }}
+            {{t.labelKey | translate}}
           </option>
         </select>
-
       </div>
 
-
-      <!-- Cash Flow -->
       <div class="form-group">
-
         <label for="cashFlow">
-          جریان نقدی مرتبط
+          {{'events.form.cash_flow' | translate}}
         </label>
 
         <select
           id="cashFlow"
           [(ngModel)]="newEvent.cash_flow_id"
         >
-
           <option [ngValue]="null">
-            انتخاب جریان نقدی
+            {{'events.form.select_cash_flow' | translate}}
           </option>
 
           <option
             *ngFor="let flow of cashFlows"
             [ngValue]="flow.id"
           >
-            {{ flow.name }}
+            {{flow.name}}
           </option>
-
         </select>
-
       </div>
 
-
-      <!-- Amount -->
       <div class="form-group">
-
         <label for="eventAmount">
-          مبلغ جدید ماهانه
+          {{'events.form.amount' | translate}}
         </label>
 
         <div class="input-with-unit">
-
           <input
             id="eventAmount"
             type="number"
             min="0"
             [(ngModel)]="newEvent.amount"
-            placeholder="۰"
+            placeholder="0"
           >
 
           <span>
-            تومان
+            {{'currency.symbol' | translate}}
           </span>
-
         </div>
-
       </div>
 
-
-      <!-- Description -->
       <div class="form-group">
-
         <label for="eventDescription">
-          توضیحات
+          {{'events.form.description' | translate}}
         </label>
 
         <textarea
           id="eventDescription"
           [(ngModel)]="newEvent.description"
           rows="4"
-          placeholder="توضیح کوتاهی درباره این رویداد وارد کنید"
+          [placeholder]="'events.form.description_placeholder' | translate"
         ></textarea>
-
       </div>
 
-
-      <!-- Modal Actions -->
       <div class="modal-actions">
-
         <button
           type="button"
           class="btn-cancel"
           (click)="closeModal()"
         >
-          لغو
+          {{'common.cancel' | translate}}
         </button>
 
         <button
@@ -306,13 +244,13 @@
           class="btn-save"
           (click)="onSubmit()"
         >
-          {{ isEditMode ? 'ذخیره تغییرات' : 'ایجاد رویداد' }}
+          {{
+            isEditMode
+            ? ('common.save_changes' | translate)
+            : ('events.create' | translate)
+          }}
         </button>
-
       </div>
-
     </div>
-
   </div>
-
 </div>

@@ -1,292 +1,181 @@
-// src/app/pages/plans/events/events.ts
-
 import {
   ChangeDetectorRef,
   Component,
   OnInit
 } from '@angular/core';
-
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { PlansService } from '../../../services/plans.service';
-
+import {
+  CommonModule
+} from '@angular/common';
+import {
+  FormsModule
+} from '@angular/forms';
+import {
+  TranslatePipe
+} from '@ngx-translate/core';
+import {
+  PlansService
+} from '../../../services/plans.service';
 
 @Component({
-  selector: 'app-events',
-
-  standalone: true,
-
-  imports: [
+  selector:'app-events',
+  standalone:true,
+  imports:[
+    CommonModule,
     FormsModule,
-    CommonModule
+    TranslatePipe
   ],
-
-  templateUrl: './events.html',
-
-  styleUrl: './events.css'
+  templateUrl:'./events.html',
+  styleUrl:'./events.css'
 })
-export class Events implements OnInit {
+export class Events implements OnInit{
 
-  events: any[] = [];
+  events:any[]=[];
+  cashFlows:any[]=[];
+  showModal=false;
 
-  cashFlows: any[] = [];
-
-  showModal: boolean = false;
-
-
-  newEvent = {
-    name: '',
-    amount: 0,
-    event_type: 'income_change',
-    month: 1,
-    cash_flow_id: null as number | null,
-    description: ''
+  newEvent={
+    name:'',
+    amount:0,
+    event_type:'income_change',
+    month:1,
+    cash_flow_id:null as number|null,
+    description:''
   };
 
+  isEditMode=false;
+  editingId:number|null=null;
 
-  isEditMode: boolean = false;
-
-  editingId: number | null = null;
-
-
-  eventTypes = [
+  eventTypes=[
     {
-      value: 'income_change',
-      label: 'تغییر درآمد'
+      value:'income_change',
+      labelKey:'events.types.income_change'
     },
     {
-      value: 'expense_change',
-      label: 'تغییر هزینه'
+      value:'expense_change',
+      labelKey:'events.types.expense_change'
     },
     {
-      value: 'asset_transfer',
-      label: 'انتقال دارایی'
+      value:'asset_transfer',
+      labelKey:'events.types.asset_transfer'
     }
   ];
 
-
   constructor(
-    private plansService: PlansService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private plansService:PlansService,
+    private cdr:ChangeDetectorRef
+  ){}
 
-
-  ngOnInit(): void {
-
+  ngOnInit(){
     this.loadData();
-
     this.loadCashFlows();
-
   }
 
+  loadData(){
+    this.plansService.getEvents()
+    .subscribe({
+      next:(data)=>{
+        this.events=data||[];
+        this.cdr.detectChanges();
+      },
+      error:(err)=>{
+        console.error('Error loading events:',err);
+      }
+    });
+  }
 
-  loadData(): void {
+  loadCashFlows(){
+    this.plansService.getCashFlows()
+    .subscribe({
+      next:(data)=>{
+        this.cashFlows=data||[];
+        this.cdr.detectChanges();
+      },
+      error:(err)=>{
+        console.error('Error loading cash flows:',err);
+      }
+    });
+  }
 
-    this.plansService
-      .getEvents()
+  onSubmit(){
+
+    if(this.isEditMode && this.editingId){
+
+      this.plansService.updateEvent(
+        this.editingId,
+        this.newEvent
+      )
       .subscribe({
-
-        next: (data) => {
-
-          this.events = data || [];
-
-          this.cdr.detectChanges();
-
-        },
-
-        error: (err) => {
-
-          console.error(
-            'Error loading events:',
-            err
-          );
-
+        next:()=>{
+          this.loadData();
+          this.closeModal();
         }
-
       });
-
-  }
-
-
-  loadCashFlows(): void {
-
-    this.plansService
-      .getCashFlows()
-      .subscribe({
-
-        next: (data) => {
-
-          this.cashFlows = data || [];
-
-          this.cdr.detectChanges();
-
-        },
-
-        error: (err) => {
-
-          console.error(
-            'Error loading cash flows:',
-            err
-          );
-
-        }
-
-      });
-
-  }
-
-
-  onSubmit(): void {
-
-    if (
-      this.isEditMode &&
-      this.editingId
-    ) {
-
-      this.plansService
-        .updateEvent(
-          this.editingId,
-          this.newEvent
-        )
-        .subscribe({
-
-          next: () => {
-
-            this.loadData();
-
-            this.closeModal();
-
-          },
-
-          error: (err) => {
-
-            console.error(
-              'Error updating event:',
-              err
-            );
-
-          }
-
-        });
 
       return;
-
     }
 
-
-    this.plansService
-      .addEvent(this.newEvent)
-      .subscribe({
-
-        next: () => {
-
-          this.loadData();
-
-          this.closeModal();
-
-        },
-
-        error: (err) => {
-
-          console.error(
-            'Error adding event:',
-            err
-          );
-
-        }
-
-      });
+    this.plansService.addEvent(this.newEvent)
+    .subscribe({
+      next:()=>{
+        this.loadData();
+        this.closeModal();
+      }
+    });
 
   }
 
+  onDelete(id:number){
 
-  onDelete(id: number): void {
-
-    this.plansService
-      .deleteEvent(id)
-      .subscribe({
-
-        next: () => {
-
-          this.loadData();
-
-        },
-
-        error: (err) => {
-
-          console.error(
-            'Error deleting event:',
-            err
-          );
-
-        }
-
-      });
+    this.plansService.deleteEvent(id)
+    .subscribe({
+      next:()=>{
+        this.loadData();
+      }
+    });
 
   }
 
-
-  openModal(): void {
-
-    this.showModal = true;
-
+  openModal(){
+    this.showModal=true;
   }
 
+  closeModal(){
 
-  closeModal(): void {
+    this.showModal=false;
+    this.isEditMode=false;
+    this.editingId=null;
 
-    this.showModal = false;
-
-    this.isEditMode = false;
-
-    this.editingId = null;
-
-
-    this.newEvent = {
-      name: '',
-      amount: 0,
-      event_type: 'income_change',
-      month: 1,
-      cash_flow_id: null,
-      description: ''
+    this.newEvent={
+      name:'',
+      amount:0,
+      event_type:'income_change',
+      month:1,
+      cash_flow_id:null,
+      description:''
     };
 
   }
 
+  onEdit(event:any){
 
-  onEdit(event: any): void {
-
-    this.isEditMode = true;
-
-    this.editingId = event.id;
-
-    this.newEvent = {
+    this.isEditMode=true;
+    this.editingId=event.id;
+    this.newEvent={
       ...event
     };
-
-    this.showModal = true;
+    this.showModal=true;
 
   }
 
+  getEventTypeLabel(type:string){
 
-  getEventTypeLabel(type: string): string {
-
-    const types: {
-      [key: string]: string
-    } = {
-
-      income_change: 'تغییر درآمد',
-
-      expense_change: 'تغییر هزینه',
-
-      asset_transfer: 'انتقال دارایی'
-
+    const labels:any={
+      income_change:'events.types.income_change',
+      expense_change:'events.types.expense_change',
+      asset_transfer:'events.types.asset_transfer'
     };
 
-
-    return types[type] || type;
-
+    return labels[type]||type;
   }
 
 }

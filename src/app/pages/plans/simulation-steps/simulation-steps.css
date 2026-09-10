@@ -1,97 +1,119 @@
+/* =====================================
+   Simulation Steps
+===================================== */
+
 .steps-card{
-width:100%;
-background:#18181b;
-border:1px solid #27272a;
-border-radius:16px;
-padding:22px;
-box-sizing:border-box;
-direction:rtl;
-text-align:right;
-color:#fafafa;
-font-family:'Vazirmatn',Tahoma,sans-serif;
+  width:100%;
+  background:#18181b;
+  border:1px solid #27272a;
+  border-radius:16px;
+  padding:22px;
+  box-sizing:border-box;
+  color:#fafafa;
+  direction:inherit;
+  text-align:inherit;
+  font-family:inherit;
 }
 
 .steps-header{
-margin-bottom:20px;
+  margin-bottom:20px;
 }
 
 .steps-header h3{
-margin:0;
-font-size:18px;
-font-weight:800;
-color:#fff;
+  margin:0;
+  color:#fff;
+  font-size:18px;
+  font-weight:800;
 }
 
 .table-wrapper{
-width:100%;
-overflow-x:auto;
+  width:100%;
+  overflow-x:auto;
 }
 
 .steps-table{
-width:100%;
-border-collapse:collapse;
-min-width:700px;
+  width:100%;
+  border-collapse:collapse;
+  min-width:700px;
 }
 
 .steps-table th{
-padding:12px;
-color:#a1a1aa;
-font-size:13px;
-font-weight:700;
-text-align:right;
-border-bottom:1px solid #27272a;
-white-space:nowrap;
+  padding:12px;
+  color:#a1a1aa;
+  font-size:13px;
+  font-weight:700;
+  text-align:inherit;
+  border-bottom:1px solid #27272a;
+  white-space:nowrap;
 }
 
 .steps-table td{
-padding:12px;
-color:#fff;
-font-size:14px;
-border-bottom:1px solid #27272a;
-white-space:nowrap;
+  padding:12px;
+  color:#fff;
+  font-size:14px;
+  border-bottom:1px solid #27272a;
+  white-space:nowrap;
 }
 
 .steps-table tr:last-child td{
-border-bottom:none;
+  border-bottom:none;
 }
 
 .steps-table tr:hover{
-background:#09090b;
+  background:#09090b;
 }
 
 .income{
-color:#10b981 !important;
+  color:#10b981!important;
 }
 
 .expense{
-color:#ef4444 !important;
+  color:#ef4444!important;
 }
 
 .show-more-btn{
-display:block;
-width:100%;
-margin-top:16px;
-padding:10px;
-background:transparent;
-border:1px solid #27272a;
-border-radius:10px;
-color:#60a5fa;
-cursor:pointer;
-font-family:inherit;
-font-size:14px;
-font-weight:600;
-transition:.2s;
+  display:block;
+  width:100%;
+  margin-top:16px;
+  padding:10px;
+  background:transparent;
+  border:1px solid #27272a;
+  border-radius:10px;
+  color:#60a5fa;
+  cursor:pointer;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:600;
+  transition:.2s;
 }
 
 .show-more-btn:hover{
-background:#27272a;
-color:#fff;
+  background:#27272a;
+  color:#fff;
+}
+
+html[dir="rtl"] .steps-card{
+  direction:rtl;
+  text-align:right;
+}
+
+html[dir="ltr"] .steps-card{
+  direction:ltr;
+  text-align:left;
+}
+
+html[dir="rtl"] .steps-table th,
+html[dir="rtl"] .steps-table td{
+  text-align:right;
+}
+
+html[dir="ltr"] .steps-table th,
+html[dir="ltr"] .steps-table td{
+  text-align:left;
 }
 
 @media(max-width:700px){
-
-.steps-card{
-padding:16px;
-}
-
+  .steps-card{
+    padding:16px;
+  }
 }

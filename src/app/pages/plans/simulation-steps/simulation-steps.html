@@ -1,95 +1,86 @@
 <div class="steps-card">
-
   <div class="steps-header">
-
     <h3>
-      مراحل شبیه‌سازی مالی
+      {{'simulation_steps.title' | translate}}
     </h3>
-
   </div>
 
-
   <div class="table-wrapper">
-
     <table class="steps-table">
-
       <thead>
-
         <tr>
-
-          <th>ماه</th>
-
-          <th>دارایی نقدشونده</th>
-
-          <th>دارایی غیرنقدشونده</th>
-
-          <th>کل دارایی‌ها</th>
-
-          <th>هزینه</th>
-
-          <th>درآمد</th>
-
-          <th>خالص</th>
-
+          <th>
+            {{'simulation_steps.month' | translate}}
+          </th>
+          <th>
+            {{'simulation_steps.liquid_assets' | translate}}
+          </th>
+          <th>
+            {{'simulation_steps.illiquid_assets' | translate}}
+          </th>
+          <th>
+            {{'simulation_steps.total_assets' | translate}}
+          </th>
+          <th>
+            {{'simulation_steps.expense' | translate}}
+          </th>
+          <th>
+            {{'simulation_steps.income' | translate}}
+          </th>
+          <th>
+            {{'simulation_steps.net' | translate}}
+          </th>
         </tr>
-
       </thead>
 
-
       <tbody>
-
         <tr *ngFor="let step of displayedSteps">
-
           <td>
-            {{ step.month }}
+            {{step.month}}
           </td>
 
           <td>
-            {{ step.liquid | number:'1.0-0' }} تومان
+            {{step.liquid | number:'1.0-0'}}
+            {{'common.currency' | translate}}
           </td>
 
           <td>
-            {{ step.illiquid | number:'1.0-0' }} تومان
+            {{step.illiquid | number:'1.0-0'}}
+            {{'common.currency' | translate}}
           </td>
 
           <td>
-            {{ step.total_assets | number:'1.0-0' }} تومان
+            {{step.total_assets | number:'1.0-0'}}
+            {{'common.currency' | translate}}
           </td>
 
           <td class="expense">
-
-            {{ step.out | number:'1.0-0' }} تومان
-
+            {{step.out | number:'1.0-0'}}
+            {{'common.currency' | translate}}
           </td>
 
           <td class="income">
-
-            {{ step.in | number:'1.0-0' }} تومان
-
+            {{step.in | number:'1.0-0'}}
+            {{'common.currency' | translate}}
           </td>
 
           <td>
-
-            {{ step.net | number:'1.0-0' }} تومان
-
+            {{step.net | number:'1.0-0'}}
+            {{'common.currency' | translate}}
           </td>
-
         </tr>
-
       </tbody>
-
     </table>
-
   </div>
-
 
   <button
     class="show-more-btn"
-    (click)="toggleShowAll()">
-
-    {{ showAll ? 'نمایش کمتر' : 'نمایش بیشتر' }}
-
+    (click)="toggleShowAll()"
+  >
+    {{
+      showAll
+      ? ('simulation_steps.show_less' | translate)
+      : ('simulation_steps.show_more' | translate)
+    }}
   </button>
-
-
 </div>

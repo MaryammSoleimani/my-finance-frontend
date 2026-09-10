@@ -1,6 +1,7 @@
 <div class="assets-card">
 
 
+
   <!-- Header -->
 
   <div class="card-header">
@@ -11,11 +12,10 @@
 
       <div class="icon-wrapper">
 
-
         💰
 
-
       </div>
+
 
 
 
@@ -25,15 +25,16 @@
 
         <h3>
 
-          دارایی‌ها
+          {{'assets.title' | translate}}
 
         </h3>
 
 
 
+
         <p>
 
-          مدیریت دارایی‌های مالی شما
+          {{'assets.description' | translate}}
 
         </p>
 
@@ -42,10 +43,12 @@
       </div>
 
 
+
     </div>
 
 
   </div>
+
 
 
 
@@ -76,21 +79,35 @@
 
         <span class="name">
 
-          {{ asset.name }}
+          {{asset.name}}
 
         </span>
+
 
 
 
 
         <span class="type">
 
-          {{ asset.asset_type === 'liquid'
-              ? 'نقدشونده'
-              : 'غیرنقدشونده'
+
+          {{
+
+          asset.asset_type === 'liquid'
+
+          ?
+
+          ('assets.types.liquid' | translate)
+
+          :
+
+          ('assets.types.illiquid' | translate)
+
           }}
 
+
         </span>
+
+
 
 
 
@@ -100,17 +117,18 @@
         <div class="amount-row">
 
 
-
           <span class="price">
 
 
-            {{ asset.amount_toman | number:'1.0-0' }}
+            {{asset.amount_toman | number:'1.0-0'}}
 
-            تومان
+            {{'common.currency' | translate}}
 
 
 
           </span>
+
+
 
 
 
@@ -122,9 +140,9 @@
             *ngIf="asset.growth_rate > 0">
 
 
-            رشد
+            {{'assets.growth' | translate}}
 
-            {{ asset.growth_rate }}
+            {{asset.growth_rate}}
 
             ٪
 
@@ -134,11 +152,14 @@
 
 
 
+
         </div>
 
 
 
       </div>
+
+
 
 
 
@@ -156,7 +177,7 @@
 
           (click)="onEdit(asset)"
 
-          title="ویرایش">
+          [title]="'common.edit' | translate">
 
 
           ✏️
@@ -168,13 +189,16 @@
 
 
 
+
+
+
         <button
 
           class="delete-btn"
 
           (click)="onDelete(asset.id)"
 
-          title="حذف">
+          [title]="'common.delete' | translate">
 
 
           🗑️
@@ -184,8 +208,8 @@
 
 
 
-
       </div>
+
 
 
 
@@ -218,9 +242,11 @@
 
     📥
 
-    وارد کردن از حساب‌ها
 
-    ({{ assets.length }})
+    {{'assets.import_accounts' | translate}}
+
+
+    ({{assets.length}})
 
 
 
@@ -245,7 +271,9 @@
 
 
 
-    + افزودن دارایی
+    +
+
+    {{'assets.add' | translate}}
 
 
 
@@ -287,11 +315,17 @@
       <h4>
 
 
-        {{ isEditMode
+        {{
 
-          ? 'ویرایش دارایی'
+        isEditMode
 
-          : 'ایجاد دارایی جدید'
+        ?
+
+        ('assets.edit_title' | translate)
+
+        :
+
+        ('assets.create_title' | translate)
 
         }}
 
@@ -311,15 +345,13 @@
 
 
 
-        <!-- Name -->
-
-
         <div class="form-group">
 
 
           <label>
 
-            نام دارایی
+
+            {{'assets.form.name' | translate}}
 
 
           </label>
@@ -331,15 +363,11 @@
 
             [(ngModel)]="newAsset.name"
 
-            placeholder="مثلاً حساب بانکی، سرمایه‌گذاری">
+            [placeholder]="
 
+            'assets.form.name_placeholder' | translate
 
-
-          <small>
-
-            یک نام مشخص برای دارایی وارد کنید
-
-          </small>
+            ">
 
 
 
@@ -353,18 +381,17 @@
 
 
 
-        <!-- Type -->
-
-
         <div class="form-group">
 
 
           <label>
 
-            نوع دارایی
+
+            {{'assets.form.type' | translate}}
 
 
           </label>
+
 
 
 
@@ -382,10 +409,7 @@
               [value]="t.value">
 
 
-              {{ t.value === 'liquid'
-                  ? 'نقدشونده'
-                  : 'غیرنقدشونده'
-              }}
+              {{t.label | translate}}
 
 
 
@@ -397,11 +421,51 @@
 
 
 
-          <small>
+        </div>
 
-            نقدشونده یا غیرنقدشونده
 
-          </small>
+
+
+
+
+
+
+
+        <div class="form-group">
+
+
+          <label>
+
+
+            {{'assets.form.amount' | translate}}
+
+
+          </label>
+
+
+
+
+
+          <div class="input-with-label">
+
+
+            <input
+
+              type="number"
+
+              [(ngModel)]="newAsset.amount">
+
+
+
+            <span>
+
+              {{'common.currency' | translate}}
+
+            </span>
+
+
+
+          </div>
 
 
 
@@ -415,18 +479,17 @@
 
 
 
-        <!-- Amount -->
-
-
         <div class="form-group">
 
 
           <label>
 
-            ارزش فعلی
+
+            {{'assets.form.liquidity_penalty' | translate}}
 
 
           </label>
+
 
 
 
@@ -438,31 +501,19 @@
 
               type="number"
 
-              [(ngModel)]="newAsset.amount"
-
-              placeholder="۰">
+              [(ngModel)]="newAsset.liquidity_penalty">
 
 
 
             <span>
 
-              تومان
+              %
 
             </span>
 
 
 
           </div>
-
-
-
-
-
-          <small>
-
-            ارزش فعلی دارایی
-
-          </small>
 
 
 
@@ -476,18 +527,17 @@
 
 
 
-        <!-- Liquidity -->
-
-
         <div class="form-group">
 
 
           <label>
 
-            هزینه نقد کردن
+
+            {{'assets.form.growth_rate' | translate}}
 
 
           </label>
+
 
 
 
@@ -499,31 +549,19 @@
 
               type="number"
 
-              [(ngModel)]="newAsset.liquidity_penalty"
-
-              placeholder="۰">
+              [(ngModel)]="newAsset.growth_rate">
 
 
 
             <span>
 
-              ٪
+              %
 
             </span>
 
 
 
           </div>
-
-
-
-
-
-          <small>
-
-            هزینه برداشت زودهنگام
-
-          </small>
 
 
 
@@ -537,18 +575,17 @@
 
 
 
-        <!-- Growth -->
-
-
         <div class="form-group">
 
 
           <label>
 
-            نرخ رشد سالانه
+
+            {{'assets.form.income_rate' | translate}}
 
 
           </label>
+
 
 
 
@@ -560,90 +597,19 @@
 
               type="number"
 
-              [(ngModel)]="newAsset.growth_rate"
-
-              placeholder="۰">
+              [(ngModel)]="newAsset.annual_income_rate">
 
 
 
             <span>
 
-              ٪
+              %
 
             </span>
 
 
 
           </div>
-
-
-
-
-          <small>
-
-            میزان افزایش ارزش پیش‌بینی‌شده
-
-          </small>
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-        <!-- Income -->
-
-
-        <div class="form-group">
-
-
-          <label>
-
-            درآمد سالانه
-
-
-          </label>
-
-
-
-
-          <div class="input-with-label">
-
-
-            <input
-
-              type="number"
-
-              [(ngModel)]="newAsset.annual_income_rate"
-
-              placeholder="۰">
-
-
-
-            <span>
-
-              ٪
-
-            </span>
-
-
-
-          </div>
-
-
-
-
-          <small>
-
-            سود، اجاره یا درآمد دوره‌ای
-
-          </small>
 
 
 
@@ -675,7 +641,7 @@
 
 
 
-          لغو
+          {{'common.cancel' | translate}}
 
 
 
@@ -695,11 +661,17 @@
 
 
 
-          {{ isEditMode
+          {{
 
-            ? 'به‌روزرسانی'
+          isEditMode
 
-            : 'ایجاد دارایی'
+          ?
+
+          ('common.update' | translate)
+
+          :
+
+          ('common.create' | translate)
 
           }}
 
@@ -767,7 +739,7 @@
 
           <h4>
 
-            وارد کردن از حساب‌ها
+            {{'assets.import_title' | translate}}
 
           </h4>
 
@@ -775,7 +747,7 @@
 
           <p>
 
-            حساب‌های موردنظر را برای تبدیل به دارایی انتخاب کنید
+            {{'assets.import_description' | translate}}
 
           </p>
 
@@ -838,7 +810,7 @@
 
             <span class="acc-name">
 
-              {{ acc.name }}
+              {{acc.name}}
 
 
             </span>
@@ -848,7 +820,7 @@
             <span class="acc-type">
 
 
-              {{ acc.type }}
+              {{acc.type}}
 
 
             </span>
@@ -866,28 +838,10 @@
 
 
 
-            {{ acc.balance | number }}
+            {{acc.balance | number}}
 
-            تومان
+            {{'common.currency' | translate}}
 
-
-
-
-
-            <div class="custom-checkbox">
-
-
-              <div
-
-                class="inner-dot"
-
-                *ngIf="selectedAccountIds.includes(acc.id)">
-
-
-              </div>
-
-
-            </div>
 
 
 
@@ -924,7 +878,7 @@
           (click)="showImportModal=false">
 
 
-          لغو
+          {{'common.cancel' | translate}}
 
 
         </button>
@@ -938,17 +892,15 @@
 
           class="btn-confirm-import"
 
-          [disabled]="selectedAccountIds.length === 0"
+          [disabled]="selectedAccountIds.length===0"
 
           (click)="confirmImport()">
 
 
 
-          وارد کردن
+          {{'assets.import' | translate}}
 
-          {{ selectedAccountIds.length }}
-
-          حساب
+          {{selectedAccountIds.length}}
 
 
 

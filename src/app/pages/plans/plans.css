@@ -8,6 +8,7 @@
 
     width:100%;
 
+
     min-height:100vh;
 
 
@@ -23,13 +24,13 @@
     color:#ffffff;
 
 
-    direction:rtl;
+    direction:inherit;
 
 
-    text-align:right;
+    text-align:inherit;
 
 
-    font-family:'Vazirmatn',Tahoma,sans-serif;
+    font-family:inherit;
 
 
 }
@@ -40,7 +41,10 @@
 
 
 
-/* Header */
+
+/* =========================
+   Header
+========================= */
 
 
 .page-header {
@@ -77,6 +81,7 @@
 
 
 
+
 .title-row {
 
 
@@ -90,6 +95,9 @@
 
 
 }
+
+
+
 
 
 
@@ -115,6 +123,7 @@
 
 
 
+
 #username {
 
 
@@ -130,7 +139,10 @@
 
 
 
-/* Main Grid */
+
+/* =========================
+   Main Grid
+========================= */
 
 
 .plans-grid {
@@ -176,7 +188,11 @@
 
 
 
-/* Sections */
+
+
+/* =========================
+   Sections
+========================= */
 
 
 .plans-section {
@@ -208,7 +224,11 @@
 
 
 
-/* Placeholder */
+
+
+/* =========================
+   Placeholder
+========================= */
 
 
 .placeholder-card {
@@ -242,7 +262,50 @@
 
 
 
-/* Responsive */
+/* =========================
+   Direction
+========================= */
+
+
+html[dir="rtl"] .plans-wrapper {
+
+
+    direction:rtl;
+
+
+    text-align:right;
+
+
+}
+
+
+
+
+
+
+
+html[dir="ltr"] .plans-wrapper {
+
+
+    direction:ltr;
+
+
+    text-align:left;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================
+   Responsive
+========================= */
 
 
 @media(max-width:1100px){
@@ -279,6 +342,8 @@
 
 
 
+
+
     .plans-grid {
 
 
@@ -286,6 +351,8 @@
 
 
     }
+
+
 
 
 

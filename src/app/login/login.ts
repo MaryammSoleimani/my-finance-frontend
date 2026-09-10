@@ -55,6 +55,31 @@ export class Login {
 
 
 
+
+  languages = [
+
+    {
+      code: 'fa',
+      name: 'فارسی'
+    },
+
+    {
+      code: 'en',
+      name: 'English'
+    }
+
+  ];
+
+
+
+
+
+  currentLanguage: string = 'fa';
+
+
+
+
+
   credentials = {
 
     username: '',
@@ -62,6 +87,8 @@ export class Login {
     password: ''
 
   };
+
+
 
 
 
@@ -83,7 +110,12 @@ export class Login {
 
 
 
+
+
   errorMessage: string = '';
+
+
+
 
 
 
@@ -98,7 +130,128 @@ export class Login {
 
     private translate: TranslateService
 
-  ) {}
+  ) {
+
+
+
+    const savedLanguage =
+
+    localStorage.getItem('language');
+
+
+
+
+    this.currentLanguage =
+
+    savedLanguage
+
+    ?
+
+    savedLanguage
+
+    :
+
+    'fa';
+
+
+
+
+
+    this.translate.use(
+
+      this.currentLanguage
+
+    );
+
+
+
+
+
+    this.setDirection();
+
+
+
+  }
+
+
+
+
+
+
+
+
+
+  changeLanguage(lang: string) {
+
+
+
+    this.currentLanguage = lang;
+
+
+
+
+
+    this.translate.use(lang);
+
+
+
+
+
+    localStorage.setItem(
+
+      'language',
+
+      lang
+
+    );
+
+
+
+
+
+    this.setDirection();
+
+
+
+  }
+
+
+
+
+
+
+
+
+
+  private setDirection() {
+
+
+
+    document.documentElement.dir =
+
+
+
+    this.currentLanguage === 'fa'
+
+
+
+    ?
+
+
+
+    'rtl'
+
+
+
+    :
+
+
+
+    'ltr';
+
+
+
+  }
 
 
 
@@ -113,6 +266,7 @@ export class Login {
 
 
     this.errorMessage = '';
+
 
 
 
@@ -149,6 +303,8 @@ export class Login {
 
         this.errorMessage =
 
+
+
         this.translate.instant(
 
           'auth.errors.invalid_login'
@@ -157,7 +313,13 @@ export class Login {
 
 
 
-        console.error(err);
+
+
+        console.error(
+
+          err
+
+        );
 
 
 
@@ -192,9 +354,15 @@ export class Login {
 
     if (
 
+
+
       this.registerData.password !==
 
+
+
       this.registerData.confirmPassword
+
+
 
     ) {
 
@@ -202,11 +370,15 @@ export class Login {
 
       this.errorMessage =
 
+
+
       this.translate.instant(
 
         'auth.errors.password_match'
 
       );
+
+
 
 
 
@@ -282,9 +454,12 @@ export class Login {
 
         this.errorMessage =
 
+
+
         err.error?.error
 
         ||
+
 
         this.translate.instant(
 
@@ -294,7 +469,13 @@ export class Login {
 
 
 
-        console.error(err);
+
+
+        console.error(
+
+          err
+
+        );
 
 
 
@@ -321,6 +502,7 @@ export class Login {
 
 
     this.mode = mode;
+
 
 
     this.errorMessage = '';

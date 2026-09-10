@@ -3,10 +3,18 @@ import {
   OnInit,
   ChangeDetectorRef
 } from '@angular/core';
-
-import { CommonModule } from '@angular/common';
-import { NgApexchartsModule } from 'ng-apexcharts';
-
+import {
+  CommonModule
+} from '@angular/common';
+import {
+  TranslatePipe
+} from '@ngx-translate/core';
+import {
+  NgApexchartsModule
+} from 'ng-apexcharts';
+import {
+  PlansService
+} from '../../../services/plans.service';
 import {
   ApexChart,
   ApexAxisChartSeries,
@@ -21,14 +29,12 @@ import {
   ApexAnnotations
 } from 'ng-apexcharts';
 
-import { PlansService } from '../../../services/plans.service';
-
-
 @Component({
   selector:'app-financial-timeline',
   standalone:true,
   imports:[
     CommonModule,
+    TranslatePipe,
     NgApexchartsModule
   ],
   templateUrl:'./financial-timeline.html',
@@ -80,144 +86,83 @@ export class FinancialTimeline implements OnInit{
     annotations:{}
   };
 
-
   constructor(
     private plansService:PlansService,
     private cdr:ChangeDetectorRef
   ){}
 
-
-  ngOnInit():void{
-
+  ngOnInit(){
     this.loadTimeline();
-
   }
 
-
-  loadTimeline():void{
+  loadTimeline(){
 
     this.plansService
     .getFinancialTimeline()
     .subscribe({
-
       next:(data)=>{
-
         this.prepareChart(data);
-
         this.cdr.detectChanges();
-
       },
-
       error:(err)=>{
-
         console.error(
-          'خطا در دریافت نمودار مالی',
+          'Error loading financial timeline:',
           err
         );
-
       }
-
     });
 
   }
 
-
-
-  prepareChart(data:any):void{
+  prepareChart(data:any){
 
     if(!data){
       return;
     }
-
 
     const categories =
       data.months ||
       data.labels ||
       [];
 
-
-
-    this.eventList =
-      data.events || [];
-
-
+    this.eventList=data.events || [];
 
     this.chartOptions.series=[
-
       {
-        name:'دارایی نقدشونده',
-
-        data:
-          data.liquid ||
-          []
+        name:'timeline.liquid_asset',
+        data:data.liquid || []
       },
-
-
       {
-        name:'دارایی غیرنقدشونده',
-
-        data:
-          data.illiquid ||
-          []
+        name:'timeline.illiquid_asset',
+        data:data.illiquid || []
       }
-
     ];
 
-
-
     this.chartOptions.xaxis={
-
-      categories:
-        categories.map(
-          (item:any)=>
-          this.formatMonth(item)
-        )
-
+      categories:categories.map(
+        (item:any)=>
+        this.formatMonth(item)
+      )
     };
 
-
   }
 
-
-
-
-
-  runSimulation():void{
-
+  runSimulation(){
     this.loadTimeline();
-
   }
-
-
-
-
 
   getEventDate(month:number):string{
-
-    return `${month} ماه آینده`;
-
+    return `${month} ${'timeline.months_future'}`;
   }
-
-
-
-
 
   formatMonth(value:any):string{
 
-    if(typeof value === 'number'){
-
-      return `ماه ${value}`;
-
+    if(typeof value==='number'){
+      return `${value}`;
     }
 
-
     return value;
-
   }
-
-
-
-
 
   formatMoney(value:number):string{
 
@@ -225,13 +170,10 @@ export class FinancialTimeline implements OnInit{
       value===null ||
       value===undefined
     ){
-
       return '۰ تومان';
-
     }
 
-
-    return (
+    return(
       Number(value)
       .toLocaleString('fa-IR')
       +
@@ -239,6 +181,5 @@ export class FinancialTimeline implements OnInit{
     );
 
   }
-
 
 }

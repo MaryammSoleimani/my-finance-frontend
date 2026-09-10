@@ -31,7 +31,10 @@
     "clear":"پاک کردن",
     "show_more":"نمایش بیشتر",
     "show_less":"نمایش کمتر",
-    "remove_filter":"حذف فیلتر"
+    "remove_filter":"حذف فیلتر",
+    "save_changes":"ذخیره تغییرات",
+    "update":"ویرایش",
+    "create":"ایجاد"
   },
 
   "language":{
@@ -491,5 +494,124 @@
     }
 
 
+  },
+
+  "assets":{
+    "title":"دارایی‌ها",
+    "description":"مدیریت دارایی‌های مالی شما",
+    "add":"افزودن دارایی",
+    "edit_title":"ویرایش دارایی",
+    "create_title":"ایجاد دارایی",
+    "import":"وارد کردن",
+    "import_accounts":"وارد کردن از حساب‌ها",
+    "import_title":"وارد کردن حساب‌ها",
+    "import_description":"حساب‌های موردنظر را برای تبدیل به دارایی انتخاب کنید.",
+    "growth":"رشد",
+    "types":{
+      "liquid":"نقدشونده",
+      "illiquid":"غیرنقدشونده"
+    },
+    "form":{
+      "name":"نام دارایی",
+      "name_placeholder":"مثلاً خانه، طلا، سرمایه‌گذاری",
+      "type":"نوع دارایی",
+      "amount":"مبلغ",
+      "liquidity_penalty":"جریمه نقدشوندگی",
+      "growth_rate":"نرخ رشد",
+      "income_rate":"نرخ درآمد"
+    }
+  },
+
+  "cash_flow":{
+    "title":"جریان نقدی",
+    "description":"مدیریت درآمدها و هزینه‌های دوره‌ای",
+    "add":"افزودن جریان نقدی",
+    "edit_title":"ویرایش جریان نقدی",
+    "new_title":"جریان نقدی جدید",
+    "form":{
+      "name":"نام",
+      "name_placeholder":"مثلاً حقوق، اجاره",
+      "amount":"مبلغ",
+      "type":"نوع",
+      "frequency":"دوره"
+    },
+    "type":{
+      "income":"درآمد",
+      "expense":"هزینه"
+    },
+    "frequency":{
+      "monthly":"ماهانه",
+      "weekly":"هفتگی",
+      "yearly":"سالانه",
+      "one_time":"یک‌باره"
+    }
+  },
+
+
+  "events":{
+    "title":"رویدادهای مالی",
+    "description":"مدیریت تغییرات و اتفاقات مالی آینده",
+    "add":"افزودن رویداد",
+    "new_title":"رویداد جدید",
+    "edit_title":"ویرایش رویداد",
+    "create":"ایجاد رویداد",
+    "months_later":"ماه بعد",
+    "types":{
+      "income_change":"تغییر درآمد",
+      "expense_change":"تغییر هزینه",
+      "asset_transfer":"انتقال دارایی"
+    },
+    "form":{
+      "name":"نام رویداد",
+      "name_placeholder":"مثلاً افزایش حقوق",
+      "amount":"مبلغ",
+      "type":"نوع رویداد",
+      "time":"زمان اجرا",
+      "cash_flow":"جریان نقدی",
+      "select_cash_flow":"انتخاب جریان نقدی",
+      "description":"توضیحات",
+      "description_placeholder":"توضیحات رویداد"
+    }
+  },
+  "timeline":{
+    "title":"خط زمانی مالی",
+    "description":"پیش‌بینی وضعیت مالی در آینده",
+    "run_simulation":"اجرای شبیه‌سازی",
+    "future_events":"رویدادهای آینده",
+    "months_future":"ماه آینده",
+    "liquid_asset":"دارایی نقدشونده",
+    "illiquid_asset":"دارایی غیرنقدشونده"
+  },
+
+
+  "simulation_settings":{
+    "title":"تنظیمات شبیه‌سازی",
+    "settings":"تنظیمات",
+    "configure_title":"تنظیم شبیه‌سازی",
+    "start_date":"تاریخ شروع",
+    "end_date":"تاریخ پایان",
+    "initial_cash":"موجودی اولیه",
+    "monthly_income":"درآمد ماهانه",
+    "monthly_expenses":"هزینه ماهانه"
+  },
+  "simulation_steps":{
+    "title":"مراحل شبیه‌سازی",
+    "month":"ماه",
+    "liquid_assets":"دارایی نقدشونده",
+    "illiquid_assets":"دارایی غیرنقدشونده",
+    "total_assets":"مجموع دارایی‌ها",
+    "expense":"هزینه",
+    "income":"درآمد",
+    "net":"تغییر خالص",
+    "show_more":"نمایش بیشتر",
+    "show_less":"نمایش کمتر"
+  },
+  "simulation_summary":{
+    "total_assets":"مجموع دارایی‌ها",
+    "liquid_assets":"دارایی نقدشونده",
+    "plan_result":"نتیجه برنامه",
+    "success":"موفق",
+    "failed":"ناموفق",
+    "pending":"در انتظار"
   }
 }

@@ -5,11 +5,35 @@
 
 
 
+    <div class="language-switcher">
+
+
+      <button
+
+        *ngFor="let lang of languages"
+
+        type="button"
+
+        [class.active]="currentLanguage === lang.code"
+
+        (click)="changeLanguage(lang.code)">
+
+
+        {{lang.name}}
+
+
+      </button>
+
+
+    </div>
+
+
+
+
+
     <h2>
 
-
       {{'auth.title' | translate}}
-
 
     </h2>
 
@@ -18,7 +42,6 @@
 
 
     <p>
-
 
       {{
 
@@ -34,12 +57,7 @@
 
       }}
 
-
     </p>
-
-
-
-
 
 
 
@@ -63,17 +81,7 @@
 
 
 
-
-
-    <!-- Login Form -->
-
-
-    <div
-
-      *ngIf="mode === 'login'">
-
-
-
+    <div *ngIf="mode === 'login'">
 
 
       <div class="form-group">
@@ -81,24 +89,16 @@
 
         <label>
 
-
           {{'auth.username' | translate}}
-
 
         </label>
 
 
-
-
-
         <input
-
 
           type="text"
 
-
           [(ngModel)]="credentials.username"
-
 
           [placeholder]="
 
@@ -107,11 +107,7 @@
           ">
 
 
-
       </div>
-
-
-
 
 
 
@@ -122,24 +118,16 @@
 
         <label>
 
-
           {{'auth.password' | translate}}
-
 
         </label>
 
 
-
-
-
         <input
-
 
           type="password"
 
-
           [(ngModel)]="credentials.password"
-
 
           [placeholder]="
 
@@ -148,11 +136,7 @@
           ">
 
 
-
       </div>
-
-
-
 
 
 
@@ -165,9 +149,7 @@
         (click)="onLogin()">
 
 
-
         {{'auth.login.button' | translate}}
-
 
 
       </button>
@@ -176,37 +158,20 @@
 
 
 
-
-
-
-
       <p class="switch-mode">
-
 
 
         {{'auth.login.no_account' | translate}}
 
 
-
-
-
-        <a
-
-          (click)="switchMode('register')">
-
-
+        <a (click)="switchMode('register')">
 
           {{'auth.register.button' | translate}}
-
-
 
         </a>
 
 
-
       </p>
-
-
 
 
 
@@ -220,42 +185,23 @@
 
 
 
-    <!-- Register Form -->
-
-
-
-    <div
-
-      *ngIf="mode === 'register'">
-
-
-
-
+    <div *ngIf="mode === 'register'">
 
 
       <div class="form-group">
 
-
         <label>
 
-
           {{'auth.username' | translate}}
-
 
         </label>
 
 
-
-
-
         <input
-
 
           type="text"
 
-
           [(ngModel)]="registerData.username"
-
 
           [placeholder]="
 
@@ -264,12 +210,7 @@
           ">
 
 
-
       </div>
-
-
-
-
 
 
 
@@ -279,35 +220,20 @@
 
 
         <label>
-
 
           {{'auth.email' | translate}}
 
-
         </label>
-
-
-
 
 
         <input
 
-
           type="email"
 
-
-          [(ngModel)]="registerData.email"
-
-
-          placeholder="example@email.com">
-
+          [(ngModel)]="registerData.email">
 
 
       </div>
-
-
-
-
 
 
 
@@ -318,24 +244,16 @@
 
         <label>
 
-
           {{'auth.password' | translate}}
-
 
         </label>
 
 
-
-
-
         <input
-
 
           type="password"
 
-
           [(ngModel)]="registerData.password"
-
 
           [placeholder]="
 
@@ -344,12 +262,7 @@
           ">
 
 
-
       </div>
-
-
-
-
 
 
 
@@ -360,24 +273,16 @@
 
         <label>
 
-
           {{'auth.confirm_password' | translate}}
-
 
         </label>
 
 
-
-
-
         <input
-
 
           type="password"
 
-
           [(ngModel)]="registerData.confirmPassword"
-
 
           [placeholder]="
 
@@ -386,12 +291,7 @@
           ">
 
 
-
       </div>
-
-
-
-
 
 
 
@@ -404,9 +304,7 @@
         (click)="onRegister()">
 
 
-
         {{'auth.register.submit' | translate}}
-
 
 
       </button>
@@ -415,37 +313,22 @@
 
 
 
-
-
-
-
       <p class="switch-mode">
-
 
 
         {{'auth.register.have_account' | translate}}
 
 
-
-
-
-        <a
-
-          (click)="switchMode('login')">
-
+        <a (click)="switchMode('login')">
 
 
           {{'auth.login.button' | translate}}
 
 
-
         </a>
 
 
-
       </p>
-
-
 
 
 
@@ -453,10 +336,7 @@
 
 
 
-
-
   </div>
-
 
 
 </div>

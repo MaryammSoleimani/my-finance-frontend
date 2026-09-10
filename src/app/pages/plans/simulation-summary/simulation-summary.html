@@ -1,54 +1,42 @@
 <div class="summary-grid">
-
   <div class="summary-item">
-
     <label>
-      مجموع نهایی دارایی‌ها
+      {{'simulation_summary.total_assets' | translate}}
     </label>
 
     <span class="summary-value">
-
-      {{ summary.final_total_assets | number:'1.0-0' }} تومان
-
+      {{summary.final_total_assets | number:'1.0-0'}}
+      {{'common.currency' | translate}}
     </span>
-
   </div>
 
-
   <div class="summary-item">
-
     <label>
-      دارایی نقدشونده نهایی
+      {{'simulation_summary.liquid_assets' | translate}}
     </label>
 
     <span class="summary-value">
-
-      {{ summary.final_liquid_assets | number:'1.0-0' }} تومان
-
+      {{summary.final_liquid_assets | number:'1.0-0'}}
+      {{'common.currency' | translate}}
     </span>
-
   </div>
 
-
   <div class="summary-item">
-
     <label>
-      نتیجه برنامه مالی
+      {{'simulation_summary.plan_result' | translate}}
     </label>
 
     <span
       class="summary-value"
-      [ngClass]="summary.plan_outcome">
-
-      {{ summary.plan_outcome === 'success'
-          ? '✓ موفق'
-          : summary.plan_outcome === 'failed'
-          ? '✗ ناموفق'
-          : 'در انتظار'
+      [ngClass]="summary.plan_outcome"
+    >
+      {{
+        summary.plan_outcome === 'success'
+        ? ('simulation_summary.success' | translate)
+        : summary.plan_outcome === 'failed'
+        ? ('simulation_summary.failed' | translate)
+        : ('simulation_summary.pending' | translate)
       }}
-
     </span>
-
   </div>
-
 </div>

@@ -1,219 +1,165 @@
-// src/app/pages/plans/cash-flow/cash-flow.ts
-
 import {
   ChangeDetectorRef,
   Component,
   OnInit
 } from '@angular/core';
-
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { PlansService } from '../../../services/plans.service';
-
+import {
+  CommonModule
+} from '@angular/common';
+import {
+  FormsModule
+} from '@angular/forms';
+import {
+  TranslatePipe
+} from '@ngx-translate/core';
+import {
+  PlansService
+} from '../../../services/plans.service';
 
 @Component({
-  selector: 'app-cash-flow',
-
-  standalone: true,
-
-  imports: [
+  selector:'app-cash-flow',
+  standalone:true,
+  imports:[
+    CommonModule,
     FormsModule,
-    CommonModule
+    TranslatePipe
   ],
-
-  templateUrl: './cash-flow.html',
-
-  styleUrl: './cash-flow.css'
+  templateUrl:'./cash-flow.html',
+  styleUrl:'./cash-flow.css'
 })
 export class CashFlow implements OnInit {
 
-  cashFlows: any[] = [];
+  cashFlows:any[]=[];
+  showModal:boolean=false;
 
-  showModal: boolean = false;
-
-
-  newFlow = {
-    name: '',
-    amount: 0,
-    flow_type: 'in',
-    frequency: 'monthly'
+  newFlow={
+    name:'',
+    amount:0,
+    flow_type:'in',
+    frequency:'monthly'
   };
 
-
-  isEditMode: boolean = false;
-
-  editingId: number | null = null;
-
+  isEditMode:boolean=false;
+  editingId:number|null=null;
 
   constructor(
-    private plansService: PlansService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private plansService:PlansService,
+    private cdr:ChangeDetectorRef
+  ){}
 
-
-  ngOnInit(): void {
-
+  ngOnInit(){
     this.loadData();
-
   }
 
-
-  loadData(): void {
-
+  loadData(){
     this.plansService
-      .getCashFlows()
-      .subscribe({
-
-        next: (data) => {
-
-          this.cashFlows = data || [];
-
-          this.cdr.detectChanges();
-
-        },
-
-        error: (err) => {
-
-          console.error(
-            'Error loading cash flows:',
-            err
-          );
-
-        }
-
-      });
-
+    .getCashFlows()
+    .subscribe({
+      next:(data)=>{
+        this.cashFlows=data || [];
+        this.cdr.detectChanges();
+      },
+      error:(err)=>{
+        console.error(
+          'Error loading cash flows:',
+          err
+        );
+      }
+    });
   }
 
+  onSubmit(){
 
-  onSubmit(): void {
-
-    if (
+    if(
       this.isEditMode &&
       this.editingId
-    ) {
+    ){
 
       this.plansService
-        .updateCashFlow(
-          this.editingId,
-          this.newFlow
-        )
-        .subscribe({
-
-          next: () => {
-
-            this.loadData();
-
-            this.closeModal();
-
-          },
-
-          error: (err) => {
-
-            console.error(
-              'Error updating cash flow:',
-              err
-            );
-
-          }
-
-        });
+      .updateCashFlow(
+        this.editingId,
+        this.newFlow
+      )
+      .subscribe({
+        next:()=>{
+          this.loadData();
+          this.closeModal();
+        },
+        error:(err)=>{
+          console.error(
+            'Error updating cash flow:',
+            err
+          );
+        }
+      });
 
       return;
-
     }
 
+    this.plansService
+    .addCashFlow(this.newFlow)
+    .subscribe({
+      next:()=>{
+        this.loadData();
+        this.closeModal();
+      },
+      error:(err)=>{
+        console.error(
+          'Error adding cash flow:',
+          err
+        );
+      }
+    });
+
+  }
+
+  onDelete(id:number){
 
     this.plansService
-      .addCashFlow(this.newFlow)
-      .subscribe({
-
-        next: () => {
-
-          this.loadData();
-
-          this.closeModal();
-
-        },
-
-        error: (err) => {
-
-          console.error(
-            'Error adding cash flow:',
-            err
-          );
-
-        }
-
-      });
+    .deleteCashFlow(id)
+    .subscribe({
+      next:()=>{
+        this.loadData();
+      },
+      error:(err)=>{
+        console.error(
+          'Error deleting cash flow:',
+          err
+        );
+      }
+    });
 
   }
 
-
-  onDelete(id: number): void {
-
-    this.plansService
-      .deleteCashFlow(id)
-      .subscribe({
-
-        next: () => {
-
-          this.loadData();
-
-        },
-
-        error: (err) => {
-
-          console.error(
-            'Error deleting cash flow:',
-            err
-          );
-
-        }
-
-      });
-
+  openModal(){
+    this.showModal=true;
   }
 
+  closeModal(){
 
-  openModal(): void {
+    this.showModal=false;
+    this.isEditMode=false;
+    this.editingId=null;
 
-    this.showModal = true;
-
-  }
-
-
-  closeModal(): void {
-
-    this.showModal = false;
-
-    this.isEditMode = false;
-
-    this.editingId = null;
-
-
-    this.newFlow = {
-      name: '',
-      amount: 0,
-      flow_type: 'in',
-      frequency: 'monthly'
+    this.newFlow={
+      name:'',
+      amount:0,
+      flow_type:'in',
+      frequency:'monthly'
     };
 
   }
 
+  onEdit(flow:any){
 
-  onEdit(flow: any): void {
+    this.isEditMode=true;
+    this.editingId=flow.id;
 
-    this.isEditMode = true;
-
-    this.editingId = flow.id;
-
-    this.newFlow = {
+    this.newFlow={
       ...flow
     };
 
-    this.showModal = true;
+    this.showModal=true;
 
   }
 

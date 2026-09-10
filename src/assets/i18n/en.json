@@ -31,7 +31,10 @@
     "clear":"Clear",
     "show_more":"Show More",
     "show_less":"Show Less",
-    "remove_filter":"Remove Filter"
+    "remove_filter":"Remove Filter",
+    "save_changes":"Save Changes",
+    "update":"Update",
+    "create":"Create"
   },
 
   "language":{
@@ -491,5 +494,126 @@
     }
 
 
+  },
+
+  "assets":{
+    "title":"Assets",
+    "description":"Manage your financial assets",
+    "add":"Add Asset",
+    "edit_title":"Edit Asset",
+    "create_title":"Create Asset",
+    "import":"Import",
+    "import_accounts":"Import From Accounts",
+    "import_title":"Import Accounts",
+    "import_description":"Select accounts to convert into assets.",
+    "growth":"Growth",
+    "types":{
+      "liquid":"Liquid",
+      "illiquid":"Illiquid"
+    },
+    "form":{
+      "name":"Asset Name",
+      "name_placeholder":"Example: House, Gold, Investment",
+      "type":"Asset Type",
+      "amount":"Amount",
+      "liquidity_penalty":"Liquidity Penalty",
+      "growth_rate":"Growth Rate",
+      "income_rate":"Income Rate"
+    }
+  },
+
+  "cash_flow":{
+    "title":"Cash Flow",
+    "description":"Manage recurring income and expenses",
+    "add":"Add Cash Flow",
+    "edit_title":"Edit Cash Flow",
+    "new_title":"New Cash Flow",
+    "form":{
+      "name":"Name",
+      "name_placeholder":"Example: Salary, Rent",
+      "amount":"Amount",
+      "type":"Type",
+      "frequency":"Frequency"
+    },
+    "type":{
+      "income":"Income",
+      "expense":"Expense"
+    },
+    "frequency":{
+      "monthly":"Monthly",
+      "weekly":"Weekly",
+      "yearly":"Yearly",
+      "one_time":"One Time"
+    }
+  },
+
+
+  "events":{
+    "title":"Financial Events",
+    "description":"Manage future financial changes and events",
+    "add":"Add Event",
+    "new_title":"New Event",
+    "edit_title":"Edit Event",
+    "create":"Create Event",
+    "months_later":"months later",
+    "types":{
+      "income_change":"Income Change",
+      "expense_change":"Expense Change",
+      "asset_transfer":"Asset Transfer"
+    },
+    "form":{
+      "name":"Event Name",
+      "name_placeholder":"Example: Salary Increase",
+      "amount":"Amount",
+      "type":"Event Type",
+      "time":"Execution Time",
+      "cash_flow":"Cash Flow",
+      "select_cash_flow":"Select Cash Flow",
+      "description":"Description",
+      "description_placeholder":"Event description"
+    }
+  },
+
+  "timeline":{
+    "title":"Financial Timeline",
+    "description":"Forecast your future financial status",
+    "run_simulation":"Run Simulation",
+    "future_events":"Future Events",
+    "months_future":"months from now",
+    "liquid_asset":"Liquid Assets",
+    "illiquid_asset":"Illiquid Assets"
+  },
+
+  "simulation_settings":{
+    "title":"Simulation Settings",
+    "settings":"Settings",
+    "configure_title":"Configure Simulation",
+    "start_date":"Start Date",
+    "end_date":"End Date",
+    "initial_cash":"Initial Cash",
+    "monthly_income":"Monthly Income",
+    "monthly_expenses":"Monthly Expenses"
+  },
+  "simulation_steps":{
+    "title":"Simulation Steps",
+    "month":"Month",
+    "liquid_assets":"Liquid Assets",
+    "illiquid_assets":"Illiquid Assets",
+    "total_assets":"Total Assets",
+    "expense":"Expenses",
+    "income":"Income",
+    "net":"Net Change",
+    "show_more":"Show More",
+    "show_less":"Show Less"
+  },
+  "simulation_summary":{
+    "total_assets":"Total Assets",
+    "liquid_assets":"Liquid Assets",
+    "plan_result":"Plan Result",
+    "success":"Successful",
+    "failed":"Failed",
+    "pending":"Pending"
   }
-}
+
+
+  }
