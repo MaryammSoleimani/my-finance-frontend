@@ -1,6 +1,6 @@
 {
   "app":{
-    "name":"Finance Manager"
+    "name":"Dara"
   },
 
   "menu":{
@@ -34,7 +34,10 @@
     "remove_filter":"Remove Filter",
     "save_changes":"Save Changes",
     "update":"Update",
-    "create":"Create"
+    "create":"Create",
+    "currency":"IRR",
+    "loading":"Loading...",
+    "retry":"Retry"
   },
 
   "language":{
@@ -422,13 +425,16 @@
 
       "update":"Failed to update account"
 
+    },
+    "chart":{
+      "title":"Account History"
     }
 
   },
 
   "auth":{
 
-    "title":"Finance Tracker",
+    "title":"Dara",
 
 
     "username":"Username",
@@ -613,7 +619,10 @@
     "success":"Successful",
     "failed":"Failed",
     "pending":"Pending"
-  }
+  },
 
-
+  "plans":{
+    "current_plan":"Current Plan",
+    "title":"Financial Plans"
   }
+}
