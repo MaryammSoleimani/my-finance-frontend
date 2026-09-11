@@ -1,322 +1,267 @@
 <div
-class="nav-relative-container"
-*ngIf="isUserLoggedIn">
+  class="nav-relative-container"
+  *ngIf="isUserLoggedIn">
 
+  <nav class="navbar">
 
-<nav class="navbar">
+    <div class="nav-menu">
 
+      <label
+        class="segment-item"
+        routerLink="/home"
+        routerLinkActive="active-item"
+        (click)="moveIndicator($event)">
 
-<div class="nav-menu">
+        <div class="chakra-stack">
+          <span>⌂</span>
 
+          <p>
+            {{'menu.home' | translate}}
+          </p>
+        </div>
 
-<label class="segment-item"
-routerLink="/home"
-routerLinkActive="active-item"
-(click)="moveIndicator($event)">
+      </label>
 
-<div class="chakra-stack">
 
-<span>⌂</span>
+      <label
+        class="segment-item"
+        routerLink="/transactions"
+        routerLinkActive="active-item"
+        (click)="moveIndicator($event)">
 
-<p>
-{{'menu.home' | translate}}
-</p>
+        <div class="chakra-stack">
+          <span>☷</span>
 
-</div>
+          <p>
+            {{'menu.transactions' | translate}}
+          </p>
+        </div>
 
-</label>
+      </label>
 
 
+      <label
+        class="segment-item"
+        routerLink="/accounts"
+        routerLinkActive="active-item"
+        (click)="moveIndicator($event)">
 
+        <div class="chakra-stack">
+          <span>▣</span>
 
-<label class="segment-item"
-routerLink="/transactions"
-routerLinkActive="active-item"
-(click)="moveIndicator($event)">
+          <p>
+            {{'menu.accounts' | translate}}
+          </p>
+        </div>
 
-<div class="chakra-stack">
+      </label>
 
-<span>☷</span>
 
-<p>
-{{'menu.transactions' | translate}}
-</p>
+      <label
+        class="segment-item"
+        routerLink="/plans"
+        routerLinkActive="active-item"
+        (click)="moveIndicator($event)">
 
-</div>
+        <div class="chakra-stack">
+          <span>◫</span>
 
-</label>
+          <p>
+            {{'menu.plans' | translate}}
+          </p>
+        </div>
 
+      </label>
 
 
+      <label
+        class="segment-item"
+        routerLink="/budget"
+        routerLinkActive="active-item"
+        (click)="moveIndicator($event)">
 
-<label class="segment-item"
-routerLink="/accounts"
-routerLinkActive="active-item"
-(click)="moveIndicator($event)">
+        <div class="chakra-stack">
+          <span>▤</span>
 
-<div class="chakra-stack">
+          <p>
+            {{'menu.budget' | translate}}
+          </p>
+        </div>
 
-<span>▣</span>
+      </label>
 
-<p>
-{{'menu.accounts' | translate}}
-</p>
 
-</div>
+      <label
+        class="segment-item"
+        routerLink="/analytics"
+        routerLinkActive="active-item"
+        (click)="moveIndicator($event)">
 
-</label>
+        <div class="chakra-stack">
+          <span>◔</span>
 
+          <p>
+            {{'menu.analytics' | translate}}
+          </p>
+        </div>
 
+      </label>
 
 
-<label class="segment-item"
-routerLink="/plans"
-routerLinkActive="active-item"
-(click)="moveIndicator($event)">
+      <label
+        class="segment-item"
+        routerLink="/configuration"
+        routerLinkActive="active-item"
+        (click)="moveIndicator($event)">
 
-<div class="chakra-stack">
+        <div class="chakra-stack">
+          <span>⚙</span>
 
-<span>◫</span>
+          <p>
+            {{'menu.settings' | translate}}
+          </p>
+        </div>
 
-<p>
-{{'menu.plans' | translate}}
-</p>
+      </label>
 
-</div>
+    </div>
 
-</label>
 
+    <div class="language-switch">
 
+      <button
+        (click)="changeLanguage('fa')">
+        🇮🇷
+      </button>
 
+      <button
+        (click)="changeLanguage('en')">
+        🇬🇧
+      </button>
 
-<label class="segment-item"
-routerLink="/budget"
-routerLinkActive="active-item"
-(click)="moveIndicator($event)">
+    </div>
 
-<div class="chakra-stack">
 
-<span>▤</span>
+    <div class="notification-wrapper">
 
-<p>
-{{'menu.budget' | translate}}
-</p>
+      <button
+        class="notification-btn"
+        (click)="toggleNotifications()">
 
-</div>
+        🔔
 
-</label>
+        <span
+          *ngIf="unreadCount > 0"
+          class="badge">
 
+          {{unreadCount}}
 
+        </span>
 
+      </button>
 
-<label class="segment-item"
-routerLink="/analytics"
-routerLinkActive="active-item"
-(click)="moveIndicator($event)">
 
-<div class="chakra-stack">
+      <div
+        class="notification-dropdown"
+        *ngIf="showNotifications">
 
-<span>◔</span>
 
-<p>
-{{'menu.analytics' | translate}}
-</p>
+        <div class="dropdown-header">
 
-</div>
+          <h4>
+            {{'notifications.title' | translate}}
+          </h4>
 
-</label>
 
+          <button
+            (click)="markAllAsRead()">
 
+            {{'notifications.read_all' | translate}}
 
+          </button>
 
-<label class="segment-item"
-routerLink="/configuration"
-routerLinkActive="active-item"
-(click)="moveIndicator($event)">
+        </div>
 
-<div class="chakra-stack">
 
-<span>⚙</span>
 
-<p>
-{{'menu.settings' | translate}}
-</p>
+        <div class="notification-list">
 
-</div>
 
-</label>
+          <div
+            *ngFor="let n of notifications"
+            class="notification-item">
 
 
-</div>
+            <div class="notification-icon">
+              🔔
+            </div>
 
 
+            <div class="notification-content">
 
 
+              <p class="notification-title">
 
-<div class="language-switch">
+                {{n.title | translate}}
 
+              </p>
 
-<button
-(click)="changeLanguage('fa')">
 
-🇮🇷
+              <p class="notification-message">
 
-</button>
+                {{n.message | translate}}
 
+              </p>
 
-<button
-(click)="changeLanguage('en')">
 
-🇬🇧
+            </div>
 
-</button>
 
+          </div>
 
-</div>
 
 
+          <div
+            *ngIf="notifications.length === 0"
+            class="empty-notifications">
 
+            {{'notifications.empty' | translate}}
 
+          </div>
 
 
-<div class="notification-wrapper">
+        </div>
 
 
-<button
-class="notification-btn"
-(click)="toggleNotifications()">
+      </div>
 
-🔔
 
+    </div>
 
-<span
-*ngIf="unreadCount > 0"
-class="badge">
 
-{{unreadCount}}
 
-</span>
+    <label
+      class="logout-item"
+      (click)="logout()">
 
 
-</button>
+      <div class="chakra-stack">
 
+        <span>
+          ⇦
+        </span>
 
 
+        <p>
+          {{'common.logout' | translate}}
+        </p>
 
-<div
-class="notification-dropdown"
-*ngIf="showNotifications">
+      </div>
 
 
-<div class="dropdown-header">
+    </label>
 
-<h4>
-{{'notifications.title' | translate}}
-</h4>
 
-
-<button
-(click)="markAllAsRead()">
-
-{{'notifications.read_all' | translate}}
-
-</button>
-
-</div>
-
-
-
-
-<div class="notification-list">
-
-
-<div
-*ngFor="let n of notifications"
-class="notification-item">
-
-
-<div class="notification-icon">
-
-🔔
-
-</div>
-
-
-<div class="notification-content">
-
-
-<p class="notification-title">
-
-{{n.title}}
-
-</p>
-
-
-<p class="notification-message">
-
-{{n.message}}
-
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-
-<div
-*ngIf="notifications.length === 0"
-class="empty-notifications">
-
-
-{{'notifications.empty' | translate}}
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-<label
-class="logout-item"
-(click)="logout()">
-
-
-<div class="chakra-stack">
-
-
-<span>
-⇦
-</span>
-
-
-<p>
-{{'common.logout' | translate}}
-</p>
-
-
-</div>
-
-
-</label>
-
-
-
-</nav>
-
+  </nav>
 
 </div>
