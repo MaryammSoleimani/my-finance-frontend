@@ -5,16 +5,16 @@ export interface BudgetData {
   id: number;
   name: string;
   amount: number;
-  amount_toman: number;  // ← اضافه شد
+  amount_toman: number;
   reset_period: string;
   category: number;
   category_name: string;
   category_color: string;
   spent_amount: number;
-  spent_amount_toman: number;  // ← اضافه شد
+  spent_amount_toman: number;
   percentage_used: number;
-  created_at_shamsi: string;  // ← اضافه شد
-  updated_at_shamsi: string;  // ← اضافه شد
+  created_at_shamsi: string;
+  updated_at_shamsi: string;
 }
 @Injectable({
   providedIn: 'root'
